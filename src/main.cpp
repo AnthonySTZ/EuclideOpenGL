@@ -1,8 +1,12 @@
-#include <iostream>
+#include "App.h"
 
 int main() {
 
-	std::cout << "Hello Euclide!\n";
+	App app{};
+
+	app.initWindow(1200, 800);
+	app.run();
+
 	return 0;
 
 }

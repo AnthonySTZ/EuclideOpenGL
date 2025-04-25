@@ -5,8 +5,10 @@
 class App {
 
 public:
+	App() = default;
 
 	void initWindow(int width, int height);
+	void run();
 
 private:
 	int WIDTH, HEIGHT;
