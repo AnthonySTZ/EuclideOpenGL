@@ -155,11 +155,13 @@
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Engine\EuclideEngine.cpp" />
+    <ClCompile Include="src\Engine\EuclideWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Engine\EuclideEngine.h" />
+    <ClInclude Include="src\Engine\EuclideWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

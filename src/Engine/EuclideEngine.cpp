@@ -20,3 +20,10 @@ void EuclideEngine::setWindowSize(int w, int h)
 	WIDTH = w;
 	HEIGHT = h;
 }
+
+void EuclideEngine::createWindow()
+{
+
+	euclideWindow = std::make_unique<EuclideWindow>(WIDTH, HEIGHT, windowName);
+
+}

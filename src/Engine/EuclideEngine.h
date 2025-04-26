@@ -1,5 +1,6 @@
 #pragma once
 
+#include "EuclideWindow.h"
 #include <memory>
 
 class EuclideEngine {
@@ -9,10 +10,12 @@ public:
 
 	/* Window */
 	void setWindowSize(int w, int h);
-	void createWindow() {};
+	void setWindowName(const char* name) { windowName = name; };
+	void createWindow();
 
 private:
 	int WIDTH, HEIGHT;
+	const char* windowName = "AppName";
 
 	std::unique_ptr<EuclideWindow> euclideWindow;
 };
