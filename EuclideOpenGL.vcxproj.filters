@@ -60,6 +60,9 @@
     <ClCompile Include="..\CPP\libs\glad\src\glad.c">
       <Filter>Source Files\glad</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\EuclideInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\EuclideWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\EuclideInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
