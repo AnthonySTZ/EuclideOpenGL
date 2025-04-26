@@ -9,6 +9,8 @@ public:
 	EuclideWindow(int w, int h, const char* name);
 	~EuclideWindow();
 
+	bool shouldClose() { return glfwWindowShouldClose(window); };
+	void swapBuffers() { glfwSwapBuffers(window); };
 
 private:
 	GLFWwindow* window;

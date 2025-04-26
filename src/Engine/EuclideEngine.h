@@ -12,6 +12,7 @@ public:
 	void setWindowSize(int w, int h);
 	void setWindowName(const char* name) { windowName = name; };
 	void createWindow();
+	void mainLoop();
 
 private:
 	int WIDTH, HEIGHT;

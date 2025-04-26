@@ -7,6 +7,8 @@ void EuclideEngine::initEngine()
 	createWindow();
 }
 
+/* --------------------- WINDOW --------------------- */
+
 void EuclideEngine::setWindowSize(int w, int h)
 {
 	if (w <= 0) {
@@ -25,5 +27,21 @@ void EuclideEngine::createWindow()
 {
 
 	euclideWindow = std::make_unique<EuclideWindow>(WIDTH, HEIGHT, windowName);
+
+}
+
+/* --------------------- MAIN LOOP --------------------- */
+
+void EuclideEngine::mainLoop() {
+
+	while (!euclideWindow->shouldClose()) {
+
+		glfwPollEvents();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		euclideWindow->swapBuffers();
+
+	}
 
 }

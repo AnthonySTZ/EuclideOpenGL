@@ -9,16 +9,7 @@ void App::run()
 	euclideEngine.setWindowName("Euclide");
 	euclideEngine.createWindow();
 
-	/*while (!glfwWindowShouldClose(window))
-	{
-		glfwPollEvents();
-
-		glClear(GL_COLOR_BUFFER_BIT);
-		glfwSwapBuffers(window);
-
-	}
-
-	glfwTerminate();*/
+	euclideEngine.mainLoop();
 
 }
 
