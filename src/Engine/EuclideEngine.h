@@ -12,7 +12,10 @@ public:
 	void setWindowSize(int w, int h);
 	void setWindowName(const char* name) { windowName = name; };
 	void createWindow();
+
+	/* Draw frame */
 	void mainLoop();
+	void drawFrame();
 
 private:
 	int WIDTH, HEIGHT;

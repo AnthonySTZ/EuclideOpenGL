@@ -38,10 +38,16 @@ void EuclideEngine::mainLoop() {
 
 		glfwPollEvents();
 
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		euclideWindow->swapBuffers();
+		drawFrame();
 
 	}
+
+}
+
+void EuclideEngine::drawFrame() {
+
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	euclideWindow->swapBuffers();
 
 }
