@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 class EuclideEngine {
 
 public:
@@ -12,5 +14,5 @@ public:
 private:
 	int WIDTH, HEIGHT;
 
-
+	std::unique_ptr<EuclideWindow> euclideWindow;
 };
