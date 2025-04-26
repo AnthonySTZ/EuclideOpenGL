@@ -1,12 +1,19 @@
 #include "App.h"
 
+#include <iostream>
+
 int main() {
 
-	App app{};
+	App app;
 
-	app.initWindow(1200, 800);
-	app.run();
+	try {
+		app.run();
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << "\n";
+		return EXIT_FAILURE;
+	}
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
