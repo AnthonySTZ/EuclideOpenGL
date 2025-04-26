@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
 
@@ -11,6 +12,8 @@ public:
 
 	bool shouldClose() { return glfwWindowShouldClose(window); };
 	void swapBuffers() { glfwSwapBuffers(window); };
+	
+	GLFWwindow* getWindow() const { return window; };
 
 private:
 	GLFWwindow* window;

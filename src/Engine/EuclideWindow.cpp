@@ -13,6 +13,10 @@ EuclideWindow::EuclideWindow(int w, int h, const char* name)
 		throw std::runtime_error("Failed initialized GLFW!");
 	}
 		
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	window = glfwCreateWindow(w, h, name, NULL, NULL);
 	if (!window)
 	{
@@ -22,6 +26,9 @@ EuclideWindow::EuclideWindow(int w, int h, const char* name)
 		
 	glfwMakeContextCurrent(window);
 
+	if (!gladLoadGL()) {
+		throw std::runtime_error("Failed to initialize GLAD!");
+	}
 }
 
 EuclideWindow::~EuclideWindow()

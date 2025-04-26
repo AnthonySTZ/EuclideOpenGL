@@ -16,6 +16,9 @@
     <Filter Include="Source Files\imGui">
       <UniqueIdentifier>{c7c47da2-e667-41da-9ab1-cbf00e19da50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\glad">
+      <UniqueIdentifier>{df7ba73b-b281-4834-8c3c-7aefa365c7f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="src\Engine\EuclideWindow.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CPP\libs\glad\src\glad.c">
+      <Filter>Source Files\glad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
