@@ -7,11 +7,9 @@
 class EuclideEngine {
 
 public:
-	void initEngine();
+	void initEngine(int w, int h, const char* name);
 
 	/* Window */
-	void setWindowSize(int w, int h);
-	void setWindowName(const char* name) { windowName = name; };
 	void createWindow();
 
 	/* Draw frame */

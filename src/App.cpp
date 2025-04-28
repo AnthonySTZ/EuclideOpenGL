@@ -4,11 +4,7 @@
 
 void App::run()
 {
-
-	euclideEngine.setWindowSize(1600, 1000);
-	euclideEngine.setWindowName("Euclide");
-	euclideEngine.initEngine();
-
+	euclideEngine.initEngine(1600, 1000, "Euclide");
 	euclideEngine.mainLoop();
 
 }
