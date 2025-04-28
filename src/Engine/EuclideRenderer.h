@@ -15,6 +15,7 @@ public:
 	void initBuffers();
 
 	void initFramebuffer();
+	void resizeFrameBuffer(int w, int h);
 	GLuint getRenderTexture() const { return renderTexture; };
 
 	void draw() const;
@@ -25,6 +26,7 @@ private:
 	unsigned int shaderProgram;
 	unsigned int VAO, VBO;
 	GLuint renderTexture, FBO;
+	int viewportWidth, viewportHeight;
 
 	float vertices[9] = {
 		-0.5f, -0.5f, 0.0f,

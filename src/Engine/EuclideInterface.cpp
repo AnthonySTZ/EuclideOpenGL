@@ -32,8 +32,22 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 	createDockSpace();
 
 	ImGui::Begin("Viewport");
+
+	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+
 	ImTextureID textureID = renderTexture;
-	ImGui::Image(textureID, ImVec2(1600, 1000));
+	ImGui::Image(textureID, ImVec2(viewportWidth, viewportHeight));
+
+	if (viewportWidth != viewportSize.x || viewportHeight != viewportSize.y) {
+		viewportResized = true;
+	}
+	else {
+		viewportResized = false;
+	}
+
+	viewportWidth = static_cast<int>(viewportSize.x);
+	viewportHeight = static_cast<int>(viewportSize.y);
+
 	ImGui::End();
 
 	ImGui::Begin("NodeGraph");

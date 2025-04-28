@@ -82,11 +82,23 @@ void EuclideRenderer::initFramebuffer() {
 
 }
 
+void EuclideRenderer::resizeFrameBuffer(int w, int h) {
+
+	viewportWidth = w;
+	viewportHeight = h;
+
+	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+}
+
 void EuclideRenderer::draw() const {
 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
-	glViewport(0, 0, 1600, 1000);
+	glViewport(0, 0, viewportWidth, viewportHeight);
 
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

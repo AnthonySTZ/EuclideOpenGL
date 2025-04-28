@@ -13,7 +13,14 @@ public:
 	void createUI(ImTextureID renderTexture);
 	void renderUI();
 
+	bool hasViewportResized() const { return viewportResized; };
+	int getViewportWidth() const { return viewportWidth; };
+	int getViewportHeight() const { return viewportHeight; };
+
 private:
+	bool viewportResized;
+	int viewportWidth, viewportHeight;
+
 	void createDockSpace();
 
 };

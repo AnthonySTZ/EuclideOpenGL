@@ -53,6 +53,10 @@ void EuclideEngine::mainLoop() {
 		glfwPollEvents();
 
 		euclideInterface->createUI((ImTextureID)(intptr_t)euclideRenderer->getRenderTexture());
+		if (euclideInterface->hasViewportResized()) {
+			euclideRenderer->resizeFrameBuffer(euclideInterface->getViewportWidth(), euclideInterface->getViewportHeight());
+		}
+
 
 		drawFrame();
 
@@ -63,10 +67,6 @@ void EuclideEngine::mainLoop() {
 }
 
 void EuclideEngine::drawFrame() {
-
-	int display_w, display_h;
-	glfwGetFramebufferSize(euclideWindow->getWindow(), &display_w, &display_h); // Change to the viewport size maybe ?
-	//glViewport(0, 0, display_w, display_h);
 
 	euclideRenderer->draw();
 
