@@ -23,7 +23,7 @@ EuclideInterface::~EuclideInterface()
 	ImGui::DestroyContext();
 }
 
-void EuclideInterface::createUI()
+void EuclideInterface::createUI(ImTextureID renderTexture)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -32,6 +32,8 @@ void EuclideInterface::createUI()
 	createDockSpace();
 
 	ImGui::Begin("Viewport");
+	ImTextureID textureID = renderTexture;
+	ImGui::Image(textureID, ImVec2(1600, 1000));
 	ImGui::End();
 
 	ImGui::Begin("NodeGraph");

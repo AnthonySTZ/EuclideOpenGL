@@ -10,7 +10,7 @@ class EuclideInterface {
 public:
 	EuclideInterface(GLFWwindow* window);
 	~EuclideInterface();
-	void createUI();
+	void createUI(ImTextureID renderTexture);
 	void renderUI();
 
 private:

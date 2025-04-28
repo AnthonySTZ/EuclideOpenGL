@@ -14,6 +14,9 @@ public:
 
 	void initBuffers();
 
+	void initFramebuffer();
+	GLuint getRenderTexture() const { return renderTexture; };
+
 	void draw() const;
 
 	static std::string readFile(const std::string& filepath);
@@ -21,6 +24,7 @@ public:
 private:
 	unsigned int shaderProgram;
 	unsigned int VAO, VBO;
+	GLuint renderTexture, FBO;
 
 	float vertices[9] = {
 		-0.5f, -0.5f, 0.0f,
