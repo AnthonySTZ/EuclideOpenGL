@@ -12,7 +12,8 @@ public:
 	/* Window */
 	void createWindow();
 
-	/* Draw frame */
+	/* Rendering */
+	void exec();
 	void mainLoop();
 	void drawFrame();
 
