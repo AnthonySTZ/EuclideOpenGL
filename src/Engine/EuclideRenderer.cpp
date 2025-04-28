@@ -8,14 +8,17 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 	std::string vertCode = readFile(vertexFile);
 	std::string fragCode = readFile(fragmentFile);
 
-	vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
-	fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
+	unsigned int vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
+	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
 
-	createShaderProgram();
+	createShaderProgram(vertexShader, fragmentShader);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 		
 }
 
-void EuclideRenderer::createShaderProgram() {
+void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
 
 	shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
