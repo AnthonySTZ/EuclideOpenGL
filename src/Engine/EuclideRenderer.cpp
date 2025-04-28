@@ -10,6 +10,26 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 
 	vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
 	fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
+
+	createShaderProgram();
+		
+}
+
+void EuclideRenderer::createShaderProgram() {
+
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+
+	int success;
+	char infoLog[512];
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(shaderProgram, 512, 0, infoLog);
+		std::cout << infoLog << "\n";
+		throw std::runtime_error("Shader program link failed");
+	}
 }
 
 std::string EuclideRenderer::readFile(const std::string& filepath)
