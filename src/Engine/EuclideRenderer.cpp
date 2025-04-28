@@ -18,6 +18,13 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 		
 }
 
+EuclideRenderer::~EuclideRenderer()
+{
+	glDeleteProgram(shaderProgram);
+	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+
 void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
 
 	shaderProgram = glCreateProgram();
@@ -33,6 +40,31 @@ void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned in
 		std::cout << infoLog << "\n";
 		throw std::runtime_error("Shader program link failed");
 	}
+}
+
+void EuclideRenderer::initBuffers() {
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(0); // Unbind
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind
+
+}
+
+void EuclideRenderer::draw() const {
+
+	glUseProgram(shaderProgram);
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
 }
 
 std::string EuclideRenderer::readFile(const std::string& filepath)

@@ -38,6 +38,8 @@ void EuclideEngine::createRenderer()
 void EuclideEngine::exec()
 {
 
+	euclideRenderer->initBuffers();
+
 	mainLoop();
 }
 
@@ -67,5 +69,7 @@ void EuclideEngine::drawFrame() {
 
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	euclideRenderer->draw();
 
 }
