@@ -52,15 +52,8 @@ void EuclideEngine::mainLoop() {
 
 		glfwPollEvents();
 
-		euclideInterface->createUI((ImTextureID)(intptr_t)euclideRenderer->getRenderTexture());
-		if (euclideInterface->hasViewportResized()) {
-			euclideRenderer->resizeFrameBuffer(euclideInterface->getViewportWidth(), euclideInterface->getViewportHeight());
-		}
-
-
 		drawFrame();
-
-		euclideInterface->renderUI();
+		
 		euclideWindow->swapBuffers();
 	}
 
@@ -68,6 +61,13 @@ void EuclideEngine::mainLoop() {
 
 void EuclideEngine::drawFrame() {
 
+	euclideInterface->createUI((ImTextureID)(intptr_t)euclideRenderer->getRenderTexture());
+	if (euclideInterface->hasViewportResized()) {
+		euclideRenderer->resizeFrameBuffer(euclideInterface->getViewportWidth(), euclideInterface->getViewportHeight());
+	}
+
 	euclideRenderer->draw();
+
+	euclideInterface->renderUI();
 
 }
