@@ -2,6 +2,7 @@
 
 #include "EuclideWindow.h"
 #include "EuclideInterface.h"
+#include "euclideRenderer.h"
 #include <memory>
 
 class EuclideEngine {
@@ -13,6 +14,7 @@ public:
 	void createWindow();
 
 	/* Rendering */
+	void createRenderer();
 	void exec();
 	void mainLoop();
 	void drawFrame();
@@ -23,4 +25,5 @@ private:
 
 	std::unique_ptr<EuclideWindow> euclideWindow;
 	std::unique_ptr<EuclideInterface> euclideInterface;
+	std::unique_ptr<EuclideRenderer> euclideRenderer;
 };
