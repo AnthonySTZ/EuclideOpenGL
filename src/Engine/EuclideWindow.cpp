@@ -26,7 +26,8 @@ EuclideWindow::EuclideWindow(int w, int h, const char* name)
 		
 	glfwMakeContextCurrent(window);
 
-	if (!gladLoadGL()) {
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		glfwTerminate();
 		throw std::runtime_error("Failed to initialize GLAD!");
 	}
 }
