@@ -15,6 +15,9 @@ public:
     void setOrthographicProjection(float left, float right, float top, float bottom, float near, float far);
     void setPerspectiveProjection(float fovy, float aspect, float near, float far);
 
+    void updatePerpectiveProjection();
+    void updateAspectRatio(float aspect);
+
     // View controls
     void setViewTarget(glm::vec3 position, glm::vec3 target, glm::vec3 up = glm::vec3{ .0f, 1.f, .0f });
 
@@ -42,7 +45,6 @@ private:
     glm::quat orientation = glm::quat(glm::vec3(0.f)); // Camera orientation as a quaternion
 
     float distanceToTarget = 10.f;
-
-
+    float fov, near, far, aspectRatio;
 
 };

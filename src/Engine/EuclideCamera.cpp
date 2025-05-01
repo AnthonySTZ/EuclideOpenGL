@@ -12,9 +12,26 @@ void EuclideCamera::setOrthographicProjection(float left, float right, float top
     projectionMatrix[3][2] = -near / (far - near);
 }
 
-void EuclideCamera::setPerspectiveProjection(float fovy, float aspect, float near, float far) {
+void EuclideCamera::setPerspectiveProjection(float fovy, float aspect, float nearPlane, float farPlane) {
+    fov = fovy;
+    near = nearPlane;
+    far = farPlane;
+    aspectRatio = aspect;
+
     assert(glm::abs(aspect - std::numeric_limits<float>::epsilon()) > 0.0f);
-    projectionMatrix = glm::perspective(fovy, aspect, near, far);
+    projectionMatrix = glm::perspective(fovy, aspect, nearPlane, farPlane);
+}
+
+void EuclideCamera::updatePerpectiveProjection() {
+
+    assert(glm::abs(aspectRatio - std::numeric_limits<float>::epsilon()) > 0.0f);
+    projectionMatrix = glm::perspective(fov, aspectRatio, near, far);
+}
+
+void EuclideCamera::updateAspectRatio(float aspect)
+{
+    aspectRatio = aspect;
+    updatePerpectiveProjection();
 }
 
 void EuclideCamera::setViewTarget(glm::vec3 position, glm::vec3 target, glm::vec3 up) {

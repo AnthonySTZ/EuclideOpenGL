@@ -118,6 +118,8 @@ void EuclideRenderer::resizeFrameBuffer(int w, int h) {
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	camera.updateAspectRatio(getViewportAspectRatio());
+
 }
 
 void EuclideRenderer::draw()  {
