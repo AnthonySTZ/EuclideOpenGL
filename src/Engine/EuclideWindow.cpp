@@ -25,6 +25,7 @@ EuclideWindow::EuclideWindow(int w, int h, const char* name)
 	}
 		
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0); // Disable Vsync
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		glfwTerminate();

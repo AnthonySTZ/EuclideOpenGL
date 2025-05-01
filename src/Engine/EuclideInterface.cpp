@@ -1,5 +1,7 @@
 #include "EuclideInterface.h"
 
+#include <string>
+
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
 	IMGUI_CHECKVERSION();
@@ -25,6 +27,23 @@ EuclideInterface::~EuclideInterface()
 
 void EuclideInterface::createUI(ImTextureID renderTexture)
 {
+	auto currentTime = clock::now();
+	std::chrono::duration<float> delta = currentTime - lastTime;
+	lastTime = currentTime;
+	float frameCount = delta.count();
+	float currentFps = 1.0f / frameCount;
+	std::chrono::duration<float> elapsed = currentTime - restartTime;
+	if (elapsed.count() >= fpsIntervalInSeconds) {
+		fpsShow = fpsCounter / fpsDivideBy;
+		fpsDivideBy = 1;
+		restartTime = clock::now();
+		fpsCounter = currentFps;
+	}
+	else {
+		fpsCounter += currentFps;
+		fpsDivideBy++;
+	}
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -33,6 +52,8 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 
 	ImGui::Begin("Viewport");
 
+	/* RENDER IMAGE */
+	ImVec2 imagePos = ImGui::GetCursorScreenPos();
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 
 	ImTextureID textureID = renderTexture;
@@ -47,6 +68,13 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 
 	viewportWidth = static_cast<int>(viewportSize.x);
 	viewportHeight = static_cast<int>(viewportSize.y);
+	/* END RENDER IMAGE */
+
+	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	int fpsPadding = 10;
+	ImVec2 fpsPos = ImVec2(imagePos.x + fpsPadding, imagePos.y + fpsPadding);
+	std::string fpsString = "Fps: " + std::to_string(fpsShow);
+	draw_list->AddText(fpsPos, IM_COL32(255, 255, 255, 255), fpsString.c_str());
 
 	ImGui::End();
 
