@@ -9,7 +9,7 @@
 class EuclideRenderer {
 
 public:
-	EuclideRenderer(std::string vertexFile, std::string fragmentFile, std::vector<EuclideModel> inModels);
+	EuclideRenderer(std::string vertexFile, std::string fragmentFile, EuclideModel* model);
 	~EuclideRenderer();
 
 	void createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
@@ -24,7 +24,7 @@ public:
 	void startFrame() const;
 	void endFrame() const;
 	void clearFrame() const;
-	void drawModels() const;
+	void drawModel() const;
 
 
 	
@@ -34,6 +34,6 @@ private:
 	GLuint renderTexture, FBO;
 	int viewportWidth, viewportHeight;
 
-	std::vector<EuclideModel> models;
+	EuclideModel* model;
 
 };

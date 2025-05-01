@@ -17,8 +17,8 @@ void App::run()
 		2, 1, 3
 	};
 
-	euclideEngine.createModel(modelBuilder);
 	euclideEngine.initEngine(1600, 1000, "Euclide");
+	euclideEngine.updateModel(modelBuilder);
 	euclideEngine.exec();
 
 }

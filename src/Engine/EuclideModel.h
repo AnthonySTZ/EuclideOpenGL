@@ -22,12 +22,17 @@ public:
 	};
 
 	EuclideModel(const EuclideModel::Builder& builder);
+	EuclideModel() = default;
 
 	void draw() const;
-	void cleanup() const;
+	void cleanup();
 	void initBuffers();
 
+	void update(const EuclideModel::Builder& builder);
+
+
 private:
+	void updateBuffers();
 
 	GLuint VAO, VBO, elementbuffer;
 

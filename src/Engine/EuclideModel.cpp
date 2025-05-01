@@ -49,7 +49,26 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind
 }
 
-void EuclideModel::cleanup() const
+void EuclideModel::update(const EuclideModel::Builder &builder) {
+
+	vertices = builder.vertices;
+	indices = builder.indices;
+
+	updateBuffers();
+
+}
+
+void EuclideModel::updateBuffers() {
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+}
+
+void EuclideModel::cleanup()
 {
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &elementbuffer);

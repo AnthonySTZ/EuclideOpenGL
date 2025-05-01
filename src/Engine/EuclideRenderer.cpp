@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile, std::vector<EuclideModel> inModels) : models{inModels}
+EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile, EuclideModel* model)
+	: model{model}
 {
 	std::string vertCode = Utils::readFile(vertexFile);
 	std::string fragCode = Utils::readFile(fragmentFile);
@@ -12,18 +13,12 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
 
 	createShaderProgram(vertexShader, fragmentShader);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-		
 }
 
 EuclideRenderer::~EuclideRenderer()
 {
 	glDeleteProgram(shaderProgram);
-	for (auto& model : models) {
-		model.cleanup();
-	}
+	model->cleanup();	
 }
 
 void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
@@ -41,13 +36,14 @@ void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned in
 		std::cout << infoLog << "\n";
 		throw std::runtime_error("Shader program link failed");
 	}
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 }
 
 void EuclideRenderer::initBuffers() {
 
-	for (auto& model : models) {
-		model.initBuffers();
-	}
+	model->initBuffers();
 }
 
 void EuclideRenderer::initFramebuffer() {
@@ -90,7 +86,7 @@ void EuclideRenderer::draw() const {
 	startFrame();
 
 	clearFrame();	
-	drawModels();
+	drawModel();
 
 	endFrame();
 
@@ -118,11 +114,9 @@ void EuclideRenderer::clearFrame() const {
 
 }
 
-void EuclideRenderer::drawModels() const {
+void EuclideRenderer::drawModel() const {
 
-	for (auto& model : models) {
-		model.draw();
-	}
+		model->draw();
 
 }
 
