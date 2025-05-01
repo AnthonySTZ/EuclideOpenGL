@@ -92,25 +92,18 @@ void EuclideInterface::createViewport() {
 
 	if (isHovered) {		
 
-		if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
-			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left);
-			renderer->orbitCamera(-dragDelta.x, dragDelta.y);
+		ImVec2 dragDelta = ImGui::GetIO().MouseDelta;
 
-			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
+		if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+			renderer->orbitCamera(-dragDelta.x, dragDelta.y);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
-			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Middle);
 			renderer->panCamera(-dragDelta.x, -dragDelta.y);
-
-			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Middle);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
-			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
 			renderer->zoomCamera(-dragDelta.y);
-
-			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Right);
 		}
 	}
 
