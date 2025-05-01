@@ -5,6 +5,13 @@
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
+	initImGui(window);
+	createRenderer();
+
+}
+
+void EuclideInterface::initImGui(GLFWwindow* window) {
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -19,6 +26,13 @@ EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
 }
 
+void EuclideInterface::createRenderer() {
+
+	renderer = std::make_unique<EuclideRenderer>(
+		"src/Engine/shaders/vertShader.vert",
+		"src/Engine/shaders/fragShader.frag");
+}
+
 EuclideInterface::~EuclideInterface()
 {
 	ImGui_ImplOpenGL3_Shutdown();
@@ -26,8 +40,20 @@ EuclideInterface::~EuclideInterface()
 	ImGui::DestroyContext();
 }
 
-void EuclideInterface::createUI(ImTextureID renderTexture)
+void EuclideInterface::drawFrame() {
+
+	createUI();
+	renderer->draw();
+	renderUI();
+
+}
+
+void EuclideInterface::createUI()
 {
+	if (hasViewportResized()) {
+		renderer->resizeFrameBuffer(viewportWidth, viewportHeight);
+	}
+
 	calcFps();
 
 	ImGui_ImplOpenGL3_NewFrame();
@@ -36,7 +62,7 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 
 	createDockSpace();
 
-	createViewport(renderTexture);
+	createViewport();
 
 	ImGui::Begin("NodeGraph");
 	ImGui::End();
@@ -51,14 +77,14 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 	
 }
 
-void EuclideInterface::createViewport(ImTextureID renderTexture) {
+void EuclideInterface::createViewport() {
 	ImGui::Begin("Viewport");
 
 	/* RENDER IMAGE */
 	ImVec2 imagePos = ImGui::GetCursorScreenPos();
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 
-	ImTextureID textureID = renderTexture;
+	ImTextureID textureID = (ImTextureID)(intptr_t)renderer->getRenderTexture();
 	ImGui::Image(textureID, ImVec2(viewportWidth, viewportHeight));
 
 	bool isHovered = ImGui::IsItemHovered();

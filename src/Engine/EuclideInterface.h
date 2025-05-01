@@ -1,10 +1,12 @@
 #pragma once
 
+#include "EuclideRenderer.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <chrono>
+#include <memory>
 
 
 class EuclideInterface {
@@ -13,10 +15,14 @@ class EuclideInterface {
 
 public:
 	EuclideInterface(GLFWwindow* window);
+	void initImGui(GLFWwindow* window);
+	void createRenderer();
 	~EuclideInterface();
-	void createUI(ImTextureID renderTexture);
-	void createViewport(ImTextureID renderTexture);
+	void drawFrame();
+	void createUI();
+	void createViewport();
 	void renderUI();
+	void updateModel(const EuclideModel::Builder& builder) { renderer->updateModel(builder); };
 
 
 	bool hasViewportResized() const { return viewportResized; };
@@ -38,5 +44,7 @@ private:
 
 	void createDockSpace();
 	void calcFps();
+
+	std::unique_ptr<EuclideRenderer> renderer;
 
 };

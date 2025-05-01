@@ -42,7 +42,7 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload index data
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
 
 	// Unbind the VAO, VBO, AND INDEX BUFFER
 	glBindVertexArray(0);
@@ -79,4 +79,8 @@ void EuclideModel::cleanup()
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &elementbuffer);
 	glDeleteVertexArrays(1, &VAO);
+
+	VBO = 0;
+	elementbuffer = 0;
+	VAO = 0;
 }

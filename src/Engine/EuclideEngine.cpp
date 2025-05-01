@@ -9,7 +9,6 @@ void EuclideEngine::initEngine(int w, int h, const char* name)
 	HEIGHT = h;
 	windowName = name;
 	createWindow();
-	createRenderer();
 }
 
 
@@ -26,30 +25,14 @@ void EuclideEngine::createWindow()
 void EuclideEngine::updateModel(const EuclideModel::Builder& builder)
 {
 
-	model.update(builder);
+	euclideInterface->updateModel(builder);
 
 }
-
 
 /* --------------------- RENDERING --------------------- */
 
-void EuclideEngine::createRenderer()
-{
-
-	euclideRenderer = std::make_unique<EuclideRenderer>(
-		"src/Engine/shaders/vertShader.vert",
-		"src/Engine/shaders/fragShader.frag",
-		&model);
-
-}
-
 void EuclideEngine::exec()
 {
-
-	euclideRenderer->initBuffers();
-	euclideRenderer->initFramebuffer();
-	euclideRenderer->createCamera();
-
 	mainLoop();
 }
 
@@ -61,22 +44,9 @@ void EuclideEngine::mainLoop() {
 
 		glfwPollEvents();
 
-		drawFrame();
+		euclideInterface->drawFrame();
 		
 		euclideWindow->swapBuffers();
 	}
-
-}
-
-void EuclideEngine::drawFrame() {
-
-	euclideInterface->createUI((ImTextureID)(intptr_t)euclideRenderer->getRenderTexture());
-	if (euclideInterface->hasViewportResized()) {
-		euclideRenderer->resizeFrameBuffer(euclideInterface->getViewportWidth(), euclideInterface->getViewportHeight());
-	}
-
-	euclideRenderer->draw();
-
-	euclideInterface->renderUI();
 
 }

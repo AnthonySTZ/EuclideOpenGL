@@ -16,10 +16,8 @@ public:
 	void updateModel(const EuclideModel::Builder& builder);
 
 	/* Rendering */
-	void createRenderer();
 	void exec();
 	void mainLoop();
-	void drawFrame();
 
 private:
 	int WIDTH, HEIGHT;
@@ -28,5 +26,4 @@ private:
 	std::unique_ptr<EuclideWindow> euclideWindow;
 	std::unique_ptr<EuclideInterface> euclideInterface;
 	std::unique_ptr<EuclideRenderer> euclideRenderer;
-	EuclideModel model{};
 };

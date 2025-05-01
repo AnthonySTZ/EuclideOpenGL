@@ -10,7 +10,8 @@
 class EuclideRenderer {
 
 public:
-	EuclideRenderer(std::string vertexFile, std::string fragmentFile, EuclideModel* model);
+	EuclideRenderer(std::string vertexFile, std::string fragmentFile);
+	EuclideRenderer() = default;
 	~EuclideRenderer();
 
 	void createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
@@ -28,6 +29,7 @@ public:
 	void clearFrame() ;
 	void bindUniforms() ;
 	void drawModel() ;
+	void updateModel(const EuclideModel::Builder& builder) { model.update(builder); };
 
 	float getViewportAspectRatio() const {
 		if (viewportHeight == 0) {
@@ -40,10 +42,10 @@ public:
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
 	unsigned int shaderProgram;
-	GLuint renderTexture, FBO, depthBuffer;;
+	GLuint renderTexture, FBO, depthBuffer;
 	int viewportWidth, viewportHeight;
 
-	EuclideModel* model;
+	EuclideModel model;
 	EuclideCamera camera;
 
 };

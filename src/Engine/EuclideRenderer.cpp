@@ -6,8 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile, EuclideModel* model)
-	: model{model}
+EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile)
 {
 	std::string vertCode = Utils::readFile(vertexFile);
 	std::string fragCode = Utils::readFile(fragmentFile);
@@ -16,6 +15,9 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
 
 	createShaderProgram(vertexShader, fragmentShader);
+	initBuffers();
+	initFramebuffer();
+	createCamera();
 }
 
 EuclideRenderer::~EuclideRenderer()
@@ -24,7 +26,7 @@ EuclideRenderer::~EuclideRenderer()
 	glDeleteTextures(1, &depthBuffer);
 	glDeleteFramebuffers(1, &FBO);
 	glDeleteProgram(shaderProgram);
-	model->cleanup();	
+	model.cleanup();	
 }
 
 void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
@@ -61,7 +63,7 @@ void EuclideRenderer::createCamera()
 
 void EuclideRenderer::initBuffers() {
 
-	model->initBuffers();
+	model.initBuffers();
 }
 
 void EuclideRenderer::initFramebuffer() {
@@ -166,7 +168,7 @@ void EuclideRenderer::bindUniforms() {
 
 void EuclideRenderer::drawModel() {
 
-		model->draw();
+		model.draw();
 
 }
 
