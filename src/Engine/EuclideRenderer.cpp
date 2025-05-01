@@ -46,15 +46,24 @@ void EuclideRenderer::initBuffers() {
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &elementbuffer);
 
 	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
+	// Bind and upload vertex data
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glBindVertexArray(0); // Unbind
+	// Bind and upload index data
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+	// Unbind the VAO
+	glBindVertexArray(0);
+
+	// Unbind the ARRAY BUFFER
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind
 
 }
@@ -105,7 +114,13 @@ void EuclideRenderer::draw() const {
 
 	glUseProgram(shaderProgram);
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		indices.size(),    // count
+		GL_UNSIGNED_INT,   // type
+		(void*)0           // element array buffer offset
+	);
 
 	glBindVertexArray(0);
 	glUseProgram(0);

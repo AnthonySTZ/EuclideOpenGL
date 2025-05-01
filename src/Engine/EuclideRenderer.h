@@ -27,10 +27,19 @@ private:
 	unsigned int VAO, VBO;
 	GLuint renderTexture, FBO;
 	int viewportWidth, viewportHeight;
+	GLuint elementbuffer;
 
-	float vertices[9] = {
+	float vertices[12] = {
+		-0.5f, 0.5f, 0.0f,
 		-0.5f, -0.5f, 0.0f,
-		0.0f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+
+		0.5f, -0.5f, 0.0f
 	};
+
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		2, 1, 3
+	};
+
 };
