@@ -21,8 +21,9 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 EuclideRenderer::~EuclideRenderer()
 {
 	glDeleteProgram(shaderProgram);
-	glDeleteBuffers(1, &VBO);
-	glDeleteVertexArrays(1, &VAO);
+	for (auto& model : models) {
+		model.cleanup();
+	}
 }
 
 void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {

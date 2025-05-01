@@ -26,24 +26,9 @@ public:
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
 	unsigned int shaderProgram;
-	unsigned int VAO, VBO;
 	GLuint renderTexture, FBO;
 	int viewportWidth, viewportHeight;
-	GLuint elementbuffer;
 
 	std::vector<EuclideModel> models;
-
-	float vertices[12] = {
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-
-		0.5f, -0.5f, 0.0f
-	};
-
-	std::vector<unsigned int> indices = {
-		0, 1, 2,
-		2, 1, 3
-	};
 
 };

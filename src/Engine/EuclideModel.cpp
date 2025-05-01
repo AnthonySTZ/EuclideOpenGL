@@ -48,3 +48,9 @@ void EuclideModel::initBuffers()
 	// Unbind the ARRAY BUFFER
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind
 }
+
+void EuclideModel::cleanup() const
+{
+	glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
+}

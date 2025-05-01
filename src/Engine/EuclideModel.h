@@ -24,6 +24,7 @@ public:
 	EuclideModel(const EuclideModel::Builder& builder);
 
 	void draw() const;
+	void cleanup() const;
 	void initBuffers();
 
 private:
