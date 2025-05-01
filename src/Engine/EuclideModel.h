@@ -34,7 +34,9 @@ public:
 private:
 	void updateBuffers();
 
-	GLuint VAO, VBO, elementbuffer;
+	GLuint VAO = 0; 
+	GLuint VBO = 0;
+	GLuint elementbuffer = 0;
 
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
