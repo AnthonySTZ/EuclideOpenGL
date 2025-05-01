@@ -17,21 +17,25 @@ public:
 	void createUI(ImTextureID renderTexture);
 	void renderUI();
 
+
 	bool hasViewportResized() const { return viewportResized; };
 	int getViewportWidth() const { return viewportWidth; };
 	int getViewportHeight() const { return viewportHeight; };
 
 private:
+	/* VIEWPORT */
 	bool viewportResized=false;
 	int viewportWidth = 1200;
 	int viewportHeight = 800;
+
+	/* FPS */
 	std::chrono::steady_clock::time_point lastTime = clock::now();
-	std::chrono::steady_clock::time_point restartTime = clock::now();
 	float fpsIntervalInSeconds = 0.5f;
-	float fpsCounter = 0;
-	int fpsDivideBy = 1;
+	int frameCount = 0;
+	float elapsedTime = 0.0f;
 	int fpsShow = 0;
 
 	void createDockSpace();
+	void calcFps();
 
 };
