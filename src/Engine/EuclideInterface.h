@@ -15,6 +15,7 @@ public:
 	EuclideInterface(GLFWwindow* window);
 	~EuclideInterface();
 	void createUI(ImTextureID renderTexture);
+	void createViewport(ImTextureID renderTexture);
 	void renderUI();
 
 

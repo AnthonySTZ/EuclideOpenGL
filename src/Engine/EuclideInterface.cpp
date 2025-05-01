@@ -1,6 +1,7 @@
 #include "EuclideInterface.h"
 
 #include <string>
+#include <iostream>
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
@@ -35,6 +36,22 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 
 	createDockSpace();
 
+	createViewport(renderTexture);
+
+	ImGui::Begin("NodeGraph");
+	ImGui::End();
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui::Render();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
+	
+}
+
+void EuclideInterface::createViewport(ImTextureID renderTexture) {
 	ImGui::Begin("Viewport");
 
 	/* RENDER IMAGE */
@@ -43,6 +60,16 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 
 	ImTextureID textureID = renderTexture;
 	ImGui::Image(textureID, ImVec2(viewportWidth, viewportHeight));
+
+	bool isHovered = ImGui::IsItemHovered();
+	bool isActive = ImGui::IsItemActive();
+
+	if (isHovered && ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+		ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left);
+
+		std::cout << "Dragging: dx = " << (float)dragDelta.x << ", dy = " << (float)dragDelta.y << "\n";
+		ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
+	}
 
 	if (viewportWidth != viewportSize.x || viewportHeight != viewportSize.y) {
 		viewportResized = true;
@@ -64,18 +91,6 @@ void EuclideInterface::createUI(ImTextureID renderTexture)
 	/* END FPS TEXT */
 
 	ImGui::End();
-
-	ImGui::Begin("NodeGraph");
-	ImGui::End();
-
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui::Render();
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-	{
-		ImGui::UpdatePlatformWindows();
-		ImGui::RenderPlatformWindowsDefault();
-	}
-	
 }
 
 void EuclideInterface::renderUI() {
