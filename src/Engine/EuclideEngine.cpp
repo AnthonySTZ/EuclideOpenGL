@@ -58,7 +58,6 @@ void EuclideEngine::mainLoop() {
 
 	while (!euclideWindow->shouldClose()) {
 
-
 		glfwPollEvents();
 
 		drawFrame();
