@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
@@ -88,13 +89,29 @@ void EuclideInterface::createViewport() {
 	ImGui::Image(textureID, ImVec2(viewportWidth, viewportHeight));
 
 	bool isHovered = ImGui::IsItemHovered();
-	bool isActive = ImGui::IsItemActive();
 
-	if (isHovered && ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
-		ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left);
+	if (isHovered) {		
 
-		std::cout << "Dragging: dx = " << (float)dragDelta.x << ", dy = " << (float)dragDelta.y << "\n";
-		ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
+		if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left);
+			renderer->orbitCamera(-dragDelta.x, dragDelta.y);
+
+			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
+		}
+
+		if (ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
+			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Middle);
+			renderer->panCamera(-dragDelta.x, -dragDelta.y);
+
+			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Middle);
+		}
+
+		if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
+			ImVec2 dragDelta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
+			renderer->zoomCamera(-dragDelta.y);
+
+			ImGui::ResetMouseDragDelta(ImGuiMouseButton_Right);
+		}
 	}
 
 	if (viewportWidth != viewportSize.x || viewportHeight != viewportSize.y) {

@@ -31,6 +31,10 @@ public:
 	void drawModel() ;
 	void updateModel(const EuclideModel::Builder& builder) { model.update(builder); };
 
+	void orbitCamera(float yaw, float pitch) { camera.orbit(yaw * viewSpeed, pitch * viewSpeed); };
+	void panCamera(float dx, float dy) { camera.pan(glm::vec2(dx * translateSpeed, dy * translateSpeed)); };
+	void zoomCamera(float delta) { camera.dolly(delta * zoomSpeed); };
+
 	float getViewportAspectRatio() const {
 		if (viewportHeight == 0) {
 			return 1.0f;
@@ -48,4 +52,7 @@ private:
 	EuclideModel model;
 	EuclideCamera camera;
 
+	float translateSpeed = 0.003f;
+	float viewSpeed = 0.005f;
+	float zoomSpeed = 0.01f;
 };
