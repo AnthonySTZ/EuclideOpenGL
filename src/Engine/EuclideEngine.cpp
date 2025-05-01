@@ -23,6 +23,14 @@ void EuclideEngine::createWindow()
 
 }
 
+void EuclideEngine::createModel(const EuclideModel::Builder& builder)
+{
+
+	EuclideModel model = EuclideModel(builder);
+	models.push_back(model);
+
+}
+
 
 /* --------------------- RENDERING --------------------- */
 
@@ -31,7 +39,8 @@ void EuclideEngine::createRenderer()
 
 	euclideRenderer = std::make_unique<EuclideRenderer>(
 		"src/Engine/shaders/vertShader.vert",
-		"src/Engine/shaders/fragShader.frag");
+		"src/Engine/shaders/fragShader.frag",
+		models);
 
 }
 

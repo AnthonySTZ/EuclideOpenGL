@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EuclideModel.h"
+
 #include <glad/glad.h>
 #include <string>
 #include <vector>
@@ -7,7 +9,7 @@
 class EuclideRenderer {
 
 public:
-	EuclideRenderer(std::string vertexFile, std::string fragmentFile);
+	EuclideRenderer(std::string vertexFile, std::string fragmentFile, std::vector<EuclideModel> inModels);
 	~EuclideRenderer();
 
 	void createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
@@ -28,6 +30,8 @@ private:
 	GLuint renderTexture, FBO;
 	int viewportWidth, viewportHeight;
 	GLuint elementbuffer;
+
+	std::vector<EuclideModel> models;
 
 	float vertices[12] = {
 		-0.5f, 0.5f, 0.0f,

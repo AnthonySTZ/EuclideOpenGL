@@ -76,7 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;$(GLM);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;$(GLM);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;$(GLM);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW)\include;$(IMGUI)/backends;$(IMGUI);$(GLAD)\include;$(GLM);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -159,6 +159,7 @@
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Engine\EuclideEngine.cpp" />
     <ClCompile Include="src\Engine\EuclideInterface.cpp" />
+    <ClCompile Include="src\Engine\EuclideModel.cpp" />
     <ClCompile Include="src\Engine\EuclideRenderer.cpp" />
     <ClCompile Include="src\Engine\EuclideWindow.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Engine\EuclideEngine.h" />
     <ClInclude Include="src\Engine\EuclideInterface.h" />
+    <ClInclude Include="src\Engine\EuclideModel.h" />
     <ClInclude Include="src\Engine\EuclideRenderer.h" />
     <ClInclude Include="src\Engine\EuclideWindow.h" />
   </ItemGroup>
