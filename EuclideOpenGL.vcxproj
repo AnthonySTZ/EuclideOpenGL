@@ -162,6 +162,7 @@
     <ClCompile Include="src\Engine\EuclideModel.cpp" />
     <ClCompile Include="src\Engine\EuclideRenderer.cpp" />
     <ClCompile Include="src\Engine\EuclideWindow.cpp" />
+    <ClCompile Include="src\Engine\Utils.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="src\Engine\EuclideModel.h" />
     <ClInclude Include="src\Engine\EuclideRenderer.h" />
     <ClInclude Include="src\Engine\EuclideWindow.h" />
+    <ClInclude Include="src\Engine\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

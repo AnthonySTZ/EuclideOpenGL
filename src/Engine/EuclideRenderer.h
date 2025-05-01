@@ -21,8 +21,13 @@ public:
 	GLuint getRenderTexture() const { return renderTexture; };
 
 	void draw() const;
+	void startFrame() const;
+	void endFrame() const;
+	void clearFrame() const;
+	void drawModels() const;
 
-	static std::string readFile(const std::string& filepath);
+
+	
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
 	unsigned int shaderProgram;

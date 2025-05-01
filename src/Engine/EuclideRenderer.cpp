@@ -1,12 +1,12 @@
 #include "EuclideRenderer.h"
+#include "Utils.h"
 
-#include <fstream>
 #include <iostream>
 
 EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile, std::vector<EuclideModel> inModels) : models{inModels}
 {
-	std::string vertCode = readFile(vertexFile);
-	std::string fragCode = readFile(fragmentFile);
+	std::string vertCode = Utils::readFile(vertexFile);
+	std::string fragCode = Utils::readFile(fragmentFile);
 
 	unsigned int vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
 	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
@@ -87,43 +87,43 @@ void EuclideRenderer::resizeFrameBuffer(int w, int h) {
 
 void EuclideRenderer::draw() const {
 
+	startFrame();
+
+	clearFrame();	
+	drawModels();
+
+	endFrame();
+
+}
+
+void EuclideRenderer::startFrame() const {
+
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-
 	glViewport(0, 0, viewportWidth, viewportHeight);
-
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	glUseProgram(shaderProgram);
-	
-	for (auto& model : models) {
-		model.draw();
-	}
+
+}
+
+void EuclideRenderer::endFrame() const {
 
 	glUseProgram(0);
-
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
 
-std::string EuclideRenderer::readFile(const std::string& filepath)
-{
-	std::ifstream file{ filepath, std::ios::ate | std::ios::binary };
-	if (!file.is_open()) {
-		std::cout << "Failed to open file: " + filepath + "\n";
-		throw std::runtime_error("Failed to open file: " + filepath);
+void EuclideRenderer::clearFrame() const {
+
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+}
+
+void EuclideRenderer::drawModels() const {
+
+	for (auto& model : models) {
+		model.draw();
 	}
 
-	size_t fileSize = static_cast<size_t>(file.tellg());
-	std::vector<char> buffer(fileSize);
-
-	std::cout << "file size: " << fileSize << "\n";
-
-	file.seekg(0);
-	file.read(buffer.data(), fileSize);
-	file.close();
-
-	return std::string(begin(buffer), end(buffer));;
 }
 
 unsigned int EuclideRenderer::createShader(const char* shaderSrc, GLenum type)
