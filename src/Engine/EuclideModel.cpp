@@ -52,5 +52,6 @@ void EuclideModel::initBuffers()
 void EuclideModel::cleanup() const
 {
 	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &elementbuffer);
 	glDeleteVertexArrays(1, &VAO);
 }

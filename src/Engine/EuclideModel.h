@@ -29,8 +29,7 @@ public:
 
 private:
 
-	unsigned int VAO, VBO;
-	GLuint elementbuffer;
+	GLuint VAO, VBO, elementbuffer;
 
 	std::vector<Vertex> vertices;
 	std::vector<uint32_t> indices;
