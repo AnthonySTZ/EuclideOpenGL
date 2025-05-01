@@ -48,6 +48,7 @@ void EuclideEngine::exec()
 
 	euclideRenderer->initBuffers();
 	euclideRenderer->initFramebuffer();
+	euclideRenderer->createCamera();
 
 	mainLoop();
 }

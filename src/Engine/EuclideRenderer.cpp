@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile, EuclideModel* model)
 	: model{model}
 {
@@ -39,6 +42,18 @@ void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned in
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+}
+
+void EuclideRenderer::createCamera()
+{
+	float aspect = getViewportAspectRatio();
+
+	glm::vec3 position = glm::vec3(2.f, -2.f, 2.f);
+	glm::vec3 target = glm::vec3(0.f, 0.f, 0.f);
+
+	camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 1000.f);
+	camera.setViewTarget(position, target);
+
 }
 
 void EuclideRenderer::initBuffers() {
@@ -81,18 +96,19 @@ void EuclideRenderer::resizeFrameBuffer(int w, int h) {
 
 }
 
-void EuclideRenderer::draw() const {
+void EuclideRenderer::draw()  {
 
 	startFrame();
 
-	clearFrame();	
+	clearFrame();
+	bindUniforms();
 	drawModel();
 
 	endFrame();
 
 }
 
-void EuclideRenderer::startFrame() const {
+void EuclideRenderer::startFrame()  {
 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 	glViewport(0, 0, viewportWidth, viewportHeight);
@@ -100,21 +116,33 @@ void EuclideRenderer::startFrame() const {
 
 }
 
-void EuclideRenderer::endFrame() const {
+void EuclideRenderer::endFrame()  {
 
 	glUseProgram(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }
 
-void EuclideRenderer::clearFrame() const {
+void EuclideRenderer::clearFrame()  {
 
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
 
-void EuclideRenderer::drawModel() const {
+void EuclideRenderer::bindUniforms() {
+
+	GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
+	glm::mat4 projection = camera.getProjection();
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+	GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
+	glm::mat4 view = camera.getView();
+	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+}
+
+void EuclideRenderer::drawModel() {
 
 		model->draw();
 
