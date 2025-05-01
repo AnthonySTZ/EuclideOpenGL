@@ -20,6 +20,9 @@ EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFil
 
 EuclideRenderer::~EuclideRenderer()
 {
+	glDeleteTextures(1, &renderTexture);
+	glDeleteTextures(1, &depthBuffer);
+	glDeleteFramebuffers(1, &FBO);
 	glDeleteProgram(shaderProgram);
 	model->cleanup();	
 }
@@ -48,7 +51,7 @@ void EuclideRenderer::createCamera()
 {
 	float aspect = getViewportAspectRatio();
 
-	glm::vec3 position = glm::vec3(2.f, -2.f, 2.f);
+	glm::vec3 position = glm::vec3(3.f, -2.f, 2.f);
 	glm::vec3 target = glm::vec3(0.f, 0.f, 0.f);
 
 	camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 1000.f);
@@ -63,6 +66,9 @@ void EuclideRenderer::initBuffers() {
 
 void EuclideRenderer::initFramebuffer() {
 
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
+
 	glGenFramebuffers(1, &FBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
@@ -72,6 +78,17 @@ void EuclideRenderer::initFramebuffer() {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1600, 1000, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glGenTextures(1, &depthBuffer);
+	glBindTexture(GL_TEXTURE_2D, depthBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1600, 1000, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	// Attach the depth buffer to the framebuffer
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthBuffer, 0);
 
 	// Attach texture to framebuffer
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, renderTexture, 0);
@@ -90,8 +107,13 @@ void EuclideRenderer::resizeFrameBuffer(int w, int h) {
 	viewportHeight = h;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+	glBindTexture(GL_TEXTURE_2D, depthBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, w, h, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 }

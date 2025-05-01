@@ -40,7 +40,7 @@ public:
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
 	unsigned int shaderProgram;
-	GLuint renderTexture, FBO;
+	GLuint renderTexture, FBO, depthBuffer;;
 	int viewportWidth, viewportHeight;
 
 	EuclideModel* model;
