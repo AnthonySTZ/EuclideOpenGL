@@ -6,15 +6,15 @@ void App::run()
 {
 	EuclideModel::Builder modelBuilder{};
     modelBuilder.vertices = {
-    { {-0.5f,  0.5f,  0.5f}, {1.0f, 0.0f, 0.0f} }, // Front-top-left
-    { {-0.5f, -0.5f,  0.5f}, {1.0f, 1.0f, 0.0f} }, // Front-bottom-left
-    { { 0.5f,  0.5f,  0.5f}, {0.0f, 1.0f, 0.0f} }, // Front-top-right
-    { { 0.5f, -0.5f,  0.5f}, {0.0f, 0.0f, 1.0f} }, // Front-bottom-right
-
-    { {-0.5f,  0.5f, -0.5f}, {1.0f, 0.0f, 1.0f} }, // Back-top-left
-    { {-0.5f, -0.5f, -0.5f}, {0.5f, 0.5f, 0.0f} }, // Back-bottom-left
-    { { 0.5f,  0.5f, -0.5f}, {0.5f, 0.0f, 0.5f} }, // Back-top-right
-    { { 0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 1.0f} }  // Back-bottom-right
+    { {-0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f} }, // Front-top-left
+    { {-0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f} }, // Front-bottom-left
+    { { 0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f} }, // Front-top-right
+    { { 0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f} }, // Front-bottom-right
+                              
+    { {-0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f} }, // Back-top-left
+    { {-0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f} }, // Back-bottom-left
+    { { 0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f} }, // Back-top-right
+    { { 0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f} }  // Back-bottom-right
     };
 
     modelBuilder.indices = {
