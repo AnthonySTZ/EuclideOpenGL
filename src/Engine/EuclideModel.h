@@ -26,7 +26,6 @@ public:
 	EuclideModel() = default;
 
 	void draw() const;
-	void drawWireframe() const;
 	void cleanup();
 	void initBuffers();
 

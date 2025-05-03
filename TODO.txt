@@ -1,1 +1,0 @@
-Interface should store the renderer, for multi viewport
