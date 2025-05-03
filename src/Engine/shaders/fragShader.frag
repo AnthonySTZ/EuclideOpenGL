@@ -5,7 +5,7 @@ in vec3 vertexColor;
 
 out vec4 outColor;
 
-uniform vec3 lightDir = vec3(0.8f, -1.0f, 0.5f); // Better as a uniform
+uniform vec3 lightDir = vec3(0.8f, -1.0f, 0.5f);
 
 void main() {
     vec3 norm = normalize(vertexNormal);
@@ -13,8 +13,8 @@ void main() {
 
     vec3 ambient = vec3(0.3);
 
-    float intensity = max(dot(light, norm), 0.0);
-    vec3 diffuse = vertexColor * intensity * 0.5;
+    float intensity = (dot(light, norm) + 1) * 0.5;
+    vec3 diffuse = vertexColor * intensity * .5;
 
     vec3 result = ambient + diffuse;
     outColor = vec4(result, 1.0);
