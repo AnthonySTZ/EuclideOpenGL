@@ -5,19 +5,17 @@
 
 void EuclideEngine::initEngine(int w, int h, const char* name)
 {
-	WIDTH = w;
-	HEIGHT = h;
 	windowName = name;
-	createWindow();
+	createWindow(w, h);
 }
 
 
 /* --------------------- WINDOW --------------------- */
 
-void EuclideEngine::createWindow()
+void EuclideEngine::createWindow(int w, int h)
 {
 
-	euclideWindow = std::make_unique<EuclideWindow>(WIDTH, HEIGHT, windowName);
+	euclideWindow = std::make_unique<EuclideWindow>(w, h, windowName);
 	euclideInterface = std::make_unique<EuclideInterface>(euclideWindow->getWindow());
 
 }

@@ -10,7 +10,7 @@ public:
 	void initEngine(int w, int h, const char* name);
 
 	/* Window */
-	void createWindow();
+	void createWindow(int w, int h);
 
 	void updateModel(const EuclideModel::Builder& builder);
 
@@ -19,7 +19,6 @@ public:
 	void mainLoop();
 
 private:
-	int WIDTH, HEIGHT;
 	const char* windowName = "AppName";
 
 	std::unique_ptr<EuclideWindow> euclideWindow;
