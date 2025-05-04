@@ -90,19 +90,22 @@ void EuclideInterface::createViewport() {
 
 	bool isHovered = ImGui::IsItemHovered();
 
-	if (isHovered) {		
+	if (isHovered) {
 
 		ImVec2 dragDelta = ImGui::GetIO().MouseDelta;
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+			ImGui::SetMouseCursor(ImGuiMouseSource_Pen);
 			renderer->orbitCamera(-dragDelta.x, dragDelta.y);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
+			ImGui::SetMouseCursor(ImGuiMouseSource_Pen);
 			renderer->panCamera(-dragDelta.x, -dragDelta.y);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
+			ImGui::SetMouseCursor(ImGuiMouseSource_Pen);
 			renderer->zoomCamera(-dragDelta.y);
 		}
 	}
