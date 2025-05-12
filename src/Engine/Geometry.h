@@ -58,10 +58,13 @@ public:
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
 	void updateMesh(const Mesh::Builder& builder);
-	void update() { recomputeMeshData(); triangulateFaces(); };
+	void update() {
+		recomputeMeshData(); triangulateFaces(); createWireframeIndices();
+	};
 
 	void recomputeMeshData();
 	void triangulateFaces();
+	void createWireframeIndices();
 
 	std::vector<Vertex> vertices;
 	std::vector<Edge> edges;
@@ -69,5 +72,7 @@ public:
 
 	std::vector<Halfedge> halfedges;
 	std::vector<uint32_t> triangulateIndices;
+	std::vector<uint32_t> wireframeIndices;
+	
 
 };

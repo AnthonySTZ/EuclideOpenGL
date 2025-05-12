@@ -124,13 +124,25 @@ void Mesh::triangulateFaces()
 
 }
 
+void Mesh::createWireframeIndices()
+{
+
+    wireframeIndices.clear();
+    wireframeIndices.reserve(edges.size() * 2);
+    for (const auto& edge : edges) {
+
+        wireframeIndices.push_back(edge.u);
+        wireframeIndices.push_back(edge.v);
+    }
+
+}
+
 void Mesh::updateMesh(const Mesh::Builder& builder)
 {
     vertices = builder.vertices;
     faces = builder.faces;
         
-    recomputeMeshData(); // Compute halfedges and edges
-    triangulateFaces(); // Compute the triangulate indices for rendering purpose
+    update();
 
     std::cout << "Compute triangulation : " << triangulateIndices.size() << "\n";
 
