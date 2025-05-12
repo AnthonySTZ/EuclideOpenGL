@@ -6,8 +6,29 @@
 
 #include <vector>
 
+struct HalfEdge {
+
+	HalfEdge* twin;
+	HalfEdge* next;
+	Vertex* vertex;
+	Edge* edge;
+	Face* face;
+
+};
+
+struct Edge {
+
+	HalfEdge* halfEdge;
+};
+
+struct Face {
+
+	HalfEdge* halfEdge;
+
+};
+
 struct Vertex {
-	glm::vec3 position;
-	glm::vec3 color;
-	glm::vec3 normal;
+
+	HalfEdge* halfEdge;
+
 };
