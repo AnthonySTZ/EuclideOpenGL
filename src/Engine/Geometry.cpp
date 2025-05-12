@@ -9,9 +9,16 @@ struct TempHalfedge {
     uint32_t face = UINT32_MAX;
 };
 
+struct TempEdge {
+    TempHalfedge* halfedge = nullptr;
+    uint32_t u = UINT32_MAX;
+    uint32_t v = UINT32_MAX;
+};
+
 void Mesh::recomputeMeshData()
 {
     std::map<std::pair<uint32_t, uint32_t>, TempHalfedge*> halfedgesBuilder;
+    std::map<std::pair<uint32_t, uint32_t>, TempEdge*> edgesBuilder;
 
     /* Creating Halfedges map */
     for (size_t faceIndex = 0; faceIndex < faces.size(); faceIndex++) {
@@ -26,6 +33,13 @@ void Mesh::recomputeMeshData()
             halfedgesBuilder[{u, v}] = new TempHalfedge();
             halfedgesBuilder[{u, v}]->origin = u;
             halfedgesBuilder[{u, v}]->face = (uint32_t) faceIndex;
+
+            if (edgesBuilder.find({ v, u }) == edgesBuilder.end()) { // Twin edge is not stored
+                edgesBuilder[{u, v}] = new TempEdge();
+                edgesBuilder[{u, v}]->halfedge = halfedgesBuilder[{u, v}];
+                edgesBuilder[{u, v}]->u = u;
+                edgesBuilder[{u, v}]->v = v;
+            }
 
         }
 
@@ -70,6 +84,17 @@ void Mesh::recomputeMeshData()
             halfedges[idx].next = pointerToIndex[tempHalfedge->next];
     }
 
+    /* Flatten Edges to Vector */
+    for (auto& [key, tempEdge] : edgesBuilder) {
+        uint32_t idx = pointerToIndex[tempEdge->halfedge];
+
+        Edge edge;
+        edge.halfedge = idx;
+        edge.u = tempEdge->u;
+        edge.v = tempEdge->v;
+        edges.push_back(edge);
+    }
+
 }
 
 Mesh::Mesh(const Mesh::Builder& builder)
@@ -83,4 +108,6 @@ Mesh::Mesh(const Mesh::Builder& builder)
 
         std::cout << "Pair : " << he.origin << " -> " << halfedges[he.next].origin << "\n";
     }
+
+    std::cout << "Edges number : " << edges.size() << "\n";
 }
