@@ -1,18 +1,9 @@
 #pragma once
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/glm.hpp>
+#include "Geometry.h"
 
 #include <glad/glad.h>
 
-#include <vector>
-
-struct Vertex {
-	glm::vec3 position;
-	glm::vec3 color;
-	glm::vec3 normal;
-};
 
 class EuclideModel {
 
@@ -26,6 +17,8 @@ public:
 	EuclideModel() = default;
 
 	void draw() const;
+	//void drawEdges() const;
+	//void drawVertices() const;
 	void cleanup();
 	void initBuffers();
 
