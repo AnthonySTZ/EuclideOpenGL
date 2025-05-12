@@ -61,6 +61,7 @@ void Mesh::recomputeMeshData()
 
     /* Flatten Halfedges to Vector */
     halfedges.clear();
+    halfedges.reserve(halfedgesBuilder.size());
     std::map<TempHalfedge*, uint32_t> pointerToIndex;
 
     for (auto& [key, tempHalfedge] : halfedgesBuilder) {
@@ -85,6 +86,8 @@ void Mesh::recomputeMeshData()
     }
 
     /* Flatten Edges to Vector */
+    edges.clear();
+    edges.reserve(edgesBuilder.size());
     for (auto& [key, tempEdge] : edgesBuilder) {
         uint32_t idx = pointerToIndex[tempEdge->halfedge];
 
@@ -102,7 +105,7 @@ Mesh::Mesh(const Mesh::Builder& builder)
     vertices = builder.vertices;
     faces = builder.faces;
         
-    recomputeMeshData();
+    recomputeMeshData(); // Compute halfedges and edges
 
     for (auto& he : halfedges) {
 
