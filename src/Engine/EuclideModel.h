@@ -23,10 +23,11 @@ public:
 private:
 	void updateBuffers();
 
-	GLuint VAO = 0; 
+	GLuint vaoFaces = 0; 
+	GLuint vaoWireframe = 0;
 	GLuint VBO = 0;
 	GLuint faceIndicesBuffer = 0;
-	GLuint EdgeIndicesBuffer = 0;
+	GLuint wireframeIndicesBuffer = 0;
 
 	Mesh mesh;
 };
