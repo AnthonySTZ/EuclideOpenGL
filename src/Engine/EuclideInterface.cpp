@@ -79,7 +79,10 @@ void EuclideInterface::createUI()
 }
 
 void EuclideInterface::createViewport() {
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Viewport");
+	
 
 	/* RENDER IMAGE */
 	ImVec2 imagePos = ImGui::GetCursorScreenPos();
@@ -130,6 +133,7 @@ void EuclideInterface::createViewport() {
 	/* END FPS TEXT */
 
 	ImGui::End();
+	ImGui::PopStyleVar(1);
 }
 
 void EuclideInterface::renderUI() {
