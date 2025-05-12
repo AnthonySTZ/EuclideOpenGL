@@ -2,14 +2,7 @@
 
 #include <iostream>
 
-EuclideModel::EuclideModel(const EuclideModel::Builder& builder)
-{
-
-	vertices = builder.vertices;
-	indices = builder.indices;
-}
-
-void EuclideModel::draw() const
+void EuclideModel::drawFaces() const
 {
 	glBindVertexArray(VAO);
 
@@ -52,10 +45,9 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void EuclideModel::update(const EuclideModel::Builder &builder) {
+void EuclideModel::update(Mesh& updatedMesh) {
 
-	vertices = builder.vertices;
-	indices = builder.indices;
+	mesh = updatedMesh;
 
 	updateBuffers();
 

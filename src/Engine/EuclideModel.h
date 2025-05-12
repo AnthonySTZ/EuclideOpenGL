@@ -8,21 +8,16 @@
 class EuclideModel {
 
 public:
-	struct Builder {
-		std::vector<Vertex> vertices{};
-		std::vector<uint32_t> indices{};
-	};
-
-	EuclideModel(const EuclideModel::Builder& builder);
+	EuclideModel(Mesh& mesh) : mesh{ mesh } {};
 	EuclideModel() = default;
 
-	void draw() const;
+	void drawFaces() const;
 	//void drawEdges() const;
 	//void drawVertices() const;
 	void cleanup();
 	void initBuffers();
 
-	void update(const EuclideModel::Builder& builder);
+	void update(Mesh& updatedMesh);
 
 
 private:
@@ -32,6 +27,5 @@ private:
 	GLuint VBO = 0;
 	GLuint elementbuffer = 0;
 
-	std::vector<Vertex> vertices;
-	std::vector<uint32_t> indices;
+	Mesh mesh;
 };

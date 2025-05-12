@@ -100,12 +100,37 @@ void Mesh::recomputeMeshData()
 
 }
 
+void Mesh::triangulateFaces()
+{
+
+    for (auto const& face : faces) {
+
+        if (face.vertexIndices.size() < 3)
+            continue;
+
+        for (size_t vertexIndex = 1; vertexIndex + 1 < face.vertexIndices.size() - 2; vertexIndex++) {
+
+            uint32_t u = face.vertexIndices[0];
+            uint32_t v = face.vertexIndices[vertexIndex + 1];
+            uint32_t w = face.vertexIndices[vertexIndex + 2];
+
+            triangulateIndices.push_back(u);
+            triangulateIndices.push_back(v);
+            triangulateIndices.push_back(w);
+
+        }
+
+    }
+
+}
+
 Mesh::Mesh(const Mesh::Builder& builder)
 {
     vertices = builder.vertices;
     faces = builder.faces;
         
     recomputeMeshData(); // Compute halfedges and edges
+    triangulateFaces(); // Compute the triangulate indices for rendering purpose
 
     for (auto& he : halfedges) {
 

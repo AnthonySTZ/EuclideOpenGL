@@ -58,11 +58,13 @@ public:
 	Mesh(const Mesh::Builder& builder);
 
 	void recomputeMeshData();
+	void triangulateFaces();
 
 	std::vector<Vertex> vertices;
 	std::vector<Edge> edges;
 	std::vector<Face> faces;
 
 	std::vector<Halfedge> halfedges;
+	std::vector<uint32_t> triangulateIndices;
 
 };
