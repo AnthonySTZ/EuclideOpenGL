@@ -2,13 +2,20 @@
 
 #include <iostream>
 
+EuclideModel::EuclideModel(Mesh& defaultMesh)
+{
+
+	mesh = defaultMesh;
+
+}
+
 void EuclideModel::drawFaces() const
 {
 	glBindVertexArray(VAO);
 
 	glDrawElements(
 		GL_TRIANGLES,      // mode
-		indices.size(),    // count
+		mesh.triangulateIndices.size(),    // count
 		GL_UNSIGNED_INT,   // type
 		(void*)0           // element array buffer offset
 	);
@@ -20,13 +27,14 @@ void EuclideModel::initBuffers()
 {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &elementbuffer);
+	glGenBuffers(1, &faceIndicesBuffer);
+	glGenBuffers(1, &EdgeIndicesBuffer);
 
 	glBindVertexArray(VAO);
 
 	// Bind and upload vertex data
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
 	glEnableVertexAttribArray(0);
@@ -36,8 +44,8 @@ void EuclideModel::initBuffers()
 	glEnableVertexAttribArray(2);
 
 	// Bind and upload index data
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceIndicesBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), mesh.triangulateIndices.data(), GL_DYNAMIC_DRAW);
 
 	// Unbind the VAO, VBO, AND INDEX BUFFER
 	glBindVertexArray(0);
@@ -49,6 +57,8 @@ void EuclideModel::update(Mesh& updatedMesh) {
 
 	mesh = updatedMesh;
 
+	std::cout << "Index count : " << mesh.triangulateIndices.size() << "\n";
+
 	updateBuffers();
 
 	std::cout << "Model updated!\n";
@@ -58,10 +68,10 @@ void EuclideModel::update(Mesh& updatedMesh) {
 void EuclideModel::updateBuffers() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceIndicesBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), &mesh.triangulateIndices[0], GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -71,10 +81,10 @@ void EuclideModel::updateBuffers() {
 void EuclideModel::cleanup()
 {
 	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &elementbuffer);
+	glDeleteBuffers(1, &faceIndicesBuffer);
 	glDeleteVertexArrays(1, &VAO);
 
 	VBO = 0;
-	elementbuffer = 0;
+	faceIndicesBuffer = 0;
 	VAO = 0;
 }

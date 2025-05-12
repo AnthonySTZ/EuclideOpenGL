@@ -12,7 +12,7 @@ public:
 	/* Window */
 	void createWindow(int w, int h);
 
-	void updateModel(const EuclideModel::Builder& builder);
+	void updateModel(Mesh& builder);
 
 	/* Rendering */
 	void exec();

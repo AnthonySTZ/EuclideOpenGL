@@ -29,7 +29,7 @@ public:
 	void clearFrame() ;
 	void bindUniforms() ;
 	void drawModel() ;
-	void updateModel(const EuclideModel::Builder& builder) { model.update(builder); };
+	void updateModel(Mesh& builder) { model.update(builder); };
 
 	void orbitCamera(float yaw, float pitch) { camera.orbit(yaw * viewSpeed, pitch * viewSpeed); };
 	void panCamera(float dx, float dy) { camera.pan(glm::vec2(dx * translateSpeed, dy * translateSpeed)); };

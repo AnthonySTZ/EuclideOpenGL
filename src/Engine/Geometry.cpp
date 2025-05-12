@@ -102,17 +102,17 @@ void Mesh::recomputeMeshData()
 
 void Mesh::triangulateFaces()
 {
-
+    triangulateIndices.clear();
     for (auto const& face : faces) {
 
         if (face.vertexIndices.size() < 3)
             continue;
 
-        for (size_t vertexIndex = 1; vertexIndex + 1 < face.vertexIndices.size() - 2; vertexIndex++) {
+        for (size_t vertexIndex = 1; vertexIndex + 1 < face.vertexIndices.size(); vertexIndex++) {
 
             uint32_t u = face.vertexIndices[0];
-            uint32_t v = face.vertexIndices[vertexIndex + 1];
-            uint32_t w = face.vertexIndices[vertexIndex + 2];
+            uint32_t v = face.vertexIndices[vertexIndex];
+            uint32_t w = face.vertexIndices[vertexIndex + 1];
 
             triangulateIndices.push_back(u);
             triangulateIndices.push_back(v);
@@ -124,13 +124,15 @@ void Mesh::triangulateFaces()
 
 }
 
-Mesh::Mesh(const Mesh::Builder& builder)
+void Mesh::updateMesh(const Mesh::Builder& builder)
 {
     vertices = builder.vertices;
     faces = builder.faces;
         
     recomputeMeshData(); // Compute halfedges and edges
     triangulateFaces(); // Compute the triangulate indices for rendering purpose
+
+    std::cout << "Compute triangulation : " << triangulateIndices.size() << "\n";
 
     for (auto& he : halfedges) {
 

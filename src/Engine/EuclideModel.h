@@ -8,7 +8,7 @@
 class EuclideModel {
 
 public:
-	EuclideModel(Mesh& mesh) : mesh{ mesh } {};
+	EuclideModel(Mesh& defaultMesh);
 	EuclideModel() = default;
 
 	void drawFaces() const;
@@ -25,7 +25,8 @@ private:
 
 	GLuint VAO = 0; 
 	GLuint VBO = 0;
-	GLuint elementbuffer = 0;
+	GLuint faceIndicesBuffer = 0;
+	GLuint EdgeIndicesBuffer = 0;
 
 	Mesh mesh;
 };

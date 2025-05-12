@@ -170,7 +170,7 @@ void EuclideRenderer::bindUniforms() {
 
 void EuclideRenderer::drawModel() {
 
-		model.draw();
+		model.drawFaces();
 
 }
 

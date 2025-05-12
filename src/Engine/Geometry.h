@@ -55,7 +55,10 @@ public:
 
 	};
 
-	Mesh(const Mesh::Builder& builder);
+	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
+	Mesh() = default;
+	void updateMesh(const Mesh::Builder& builder);
+	void update() { recomputeMeshData(); triangulateFaces(); };
 
 	void recomputeMeshData();
 	void triangulateFaces();
