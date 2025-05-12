@@ -13,25 +13,25 @@ struct Face;
 
 struct Halfedge {
 
-	Halfedge* twin;
-	Halfedge* next;
-	Vertex* vertex;
-	Edge* edge;
-	Face* face;
+	uint32_t twin = UINT32_MAX;
+	uint32_t next = UINT32_MAX;
+	uint32_t origin = UINT32_MAX;
+	uint32_t edge = UINT32_MAX;
+	uint32_t face = UINT32_MAX;
 
 };
 
 struct Edge {
 
-	Halfedge* halfedge;
-	uint32_t u;
-	uint32_t v;
+	uint32_t halfedge = UINT32_MAX;
+	uint32_t u = UINT32_MAX;
+	uint32_t v = UINT32_MAX;
 
 };
 
 struct Face {
 
-	Halfedge* halfedge;
+	uint32_t halfedge = UINT32_MAX;
 	std::vector<uint32_t> vertexIndices;
 
 };
@@ -41,14 +41,28 @@ struct Vertex {
 	glm::vec3 position;
 	glm::vec3 color;
 	glm::vec3 normal;
-	//Halfedge* halfedge;
+	uint32_t halfedge = UINT32_MAX;
 
 };
 
-class Geometry {
+class Mesh {
 
 public:
+	struct Builder {
 
-	static std::map<std::pair<uint32_t, uint32_t>, Halfedge*> initHalfedgesFromFaces(std::vector<Face> &faces);
+		std::vector<Face> faces;
+		std::vector<Vertex> vertices;
+
+	};
+
+	Mesh(const Mesh::Builder& builder);
+
+	void recomputeMeshData();
+
+	std::vector<Vertex> vertices;
+	std::vector<Edge> edges;
+	std::vector<Face> faces;
+
+	std::vector<Halfedge> halfedges;
 
 };

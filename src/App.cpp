@@ -2,12 +2,39 @@
 
 #include <stdexcept>
 
+#include "Engine/Geometry.h"
+#include <iostream>
+
 void App::run()
 {
-    EuclideModel::Builder mesh = createCube();
+
+    Face face{};
+    face.vertexIndices = {0, 1, 2};
+
+    Face face2{};
+    face2.vertexIndices = { 0, 2, 3 };
+
+    std::vector<Face> faces = { face, face2 };
+    
+    Mesh::Builder builder;
+
+    std::vector<Vertex> vertices = { 
+        { {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0 },
+        { {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0 },
+        { {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0 },
+        { {0, 0, 0}, {0, 0, 0}, {0, 0, 0}, 0 },
+    };
+
+    builder.vertices = vertices;
+    builder.faces = faces;
+
+    Mesh mesh{ builder };
+
+    return;
+    EuclideModel::Builder cube = createCube();
 
 	euclideEngine.initEngine(1600, 1000, "Euclide");
-	euclideEngine.updateModel(mesh);
+	euclideEngine.updateModel(cube);
 	euclideEngine.exec();
 
 }
