@@ -5,11 +5,16 @@
 #include <glm/glm.hpp>
 
 #include <vector>
+#include <map>
 
-struct HalfEdge {
+struct Vertex;
+struct Edge;
+struct Face;
 
-	HalfEdge* twin;
-	HalfEdge* next;
+struct Halfedge {
+
+	Halfedge* twin;
+	Halfedge* next;
 	Vertex* vertex;
 	Edge* edge;
 	Face* face;
@@ -18,17 +23,32 @@ struct HalfEdge {
 
 struct Edge {
 
-	HalfEdge* halfEdge;
+	Halfedge* halfedge;
+	uint32_t u;
+	uint32_t v;
+
 };
 
 struct Face {
 
-	HalfEdge* halfEdge;
+	Halfedge* halfedge;
+	std::vector<uint32_t> vertexIndices;
 
 };
 
 struct Vertex {
 
-	HalfEdge* halfEdge;
+	glm::vec3 position;
+	glm::vec3 color;
+	glm::vec3 normal;
+	//Halfedge* halfedge;
+
+};
+
+class Geometry {
+
+public:
+
+	static std::map<std::pair<uint32_t, uint32_t>, Halfedge*> initHalfedgesFromFaces(std::vector<Face> &faces);
 
 };
