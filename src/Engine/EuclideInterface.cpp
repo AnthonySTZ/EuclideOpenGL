@@ -142,8 +142,10 @@ void EuclideInterface::createNodeGraph()
 	ImGui::InvisibleButton("nodegraph_area", ImGui::GetContentRegionAvail(), ImGuiMouseButton_Right);
 
 	if (ImGui::BeginPopupContextItem("node_menu")) {
-		ImGui::Text("Node Options");
-		ImGui::EndPopup();
+		ImGui::MenuItem("Cube");
+		ImGui::Separator();
+		//ImGui::MenuItem("Tranform");
+		//ImGui::EndPopup();
 	}
 
 	ImGui::End();
