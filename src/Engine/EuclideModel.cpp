@@ -26,6 +26,7 @@ void EuclideModel::drawFaces() const
 void EuclideModel::drawWireframe() const
 {
 	glBindVertexArray(vaoWireframe);
+	glLineWidth(1.5f);
 
 	glDrawElements(
 		GL_LINES,      // mode
