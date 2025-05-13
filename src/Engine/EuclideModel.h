@@ -12,7 +12,7 @@ public:
 	EuclideModel() = default;
 
 	void drawFaces() const;
-	//void drawEdges() const;
+	void drawWireframe() const;
 	//void drawVertices() const;
 	void cleanup();
 	void initBuffers();

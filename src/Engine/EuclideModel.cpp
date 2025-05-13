@@ -23,6 +23,20 @@ void EuclideModel::drawFaces() const
 	glBindVertexArray(0);
 }
 
+void EuclideModel::drawWireframe() const
+{
+	glBindVertexArray(vaoWireframe);
+
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		mesh.wireframeIndices.size(),    // count
+		GL_UNSIGNED_INT,   // type
+		(void*)0           // element array buffer offset
+	);
+
+	glBindVertexArray(0);
+}
+
 void EuclideModel::initBuffers()
 {
 	glGenVertexArrays(1, &vaoFaces);
@@ -47,25 +61,28 @@ void EuclideModel::initBuffers()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(uint32_t), mesh.triangulateIndices.data(), GL_DYNAMIC_DRAW);
 
 	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 
 	/* ------------ VAO WIREFRAME -------------- */
 	glGenVertexArrays(1, &vaoWireframe);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glGenBuffers(1, &wireframeIndicesBuffer);
 
 	glBindVertexArray(vaoWireframe);
 
 	// Bind and upload index data
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+	glEnableVertexAttribArray(2);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.wireframeIndices.size() * sizeof(uint32_t), mesh.wireframeIndices.data(), GL_DYNAMIC_DRAW);
 
 
 	// Unbind the VAO, VBO, AND INDEX BUFFER
 	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void EuclideModel::update(Mesh& updatedMesh) {
@@ -87,6 +104,9 @@ void EuclideModel::updateBuffers() {
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceIndicesBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), &mesh.triangulateIndices[0], GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.wireframeIndices.size() * sizeof(uint32_t), mesh.wireframeIndices.data(), GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
