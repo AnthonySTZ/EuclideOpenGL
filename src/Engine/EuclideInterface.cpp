@@ -63,8 +63,8 @@ void EuclideInterface::createUI()
 
 	createViewport();
 
-	ImGui::Begin("NodeGraph");
-	ImGui::End();
+	createNodeGraph();
+	
 
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Render();
@@ -79,8 +79,7 @@ void EuclideInterface::createUI()
 void EuclideInterface::createViewport() {
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	ImGui::Begin("Viewport");
-	
+	ImGui::Begin("Viewport");	
 
 	/* RENDER IMAGE */
 	ImVec2 imagePos = ImGui::GetCursorScreenPos();
@@ -132,6 +131,22 @@ void EuclideInterface::createViewport() {
 
 	ImGui::End();
 	ImGui::PopStyleVar(1);
+}
+
+void EuclideInterface::createNodeGraph()
+{
+	ImGui::Begin("NodeGraph");
+
+	bool isHovered = ImGui::IsItemHovered();
+
+	ImGui::InvisibleButton("nodegraph_area", ImGui::GetContentRegionAvail(), ImGuiMouseButton_Right);
+
+	if (ImGui::BeginPopupContextItem("node_menu")) {
+		ImGui::Text("Node Options");
+		ImGui::EndPopup();
+	}
+
+	ImGui::End();
 }
 
 void EuclideInterface::renderUI() {

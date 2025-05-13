@@ -21,6 +21,7 @@ public:
 	void drawFrame();
 	void createUI();
 	void createViewport();
+	void createNodeGraph();
 	void renderUI();
 	void updateModel(Mesh::Builder& builder) { renderer->updateModel(builder); };
 
