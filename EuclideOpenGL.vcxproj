@@ -168,7 +168,7 @@
     <ClCompile Include="src\Engine\EuclideRenderer.cpp" />
     <ClCompile Include="src\Engine\EuclideWindow.cpp" />
     <ClCompile Include="src\Engine\Core\Geometry.cpp" />
-    <ClCompile Include="src\Engine\Utils.cpp" />
+    <ClCompile Include="src\Engine\Core\Utils.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +183,7 @@
     <ClInclude Include="src\Engine\NodeScene.h" />
     <ClInclude Include="src\Engine\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Nodes\Node.h" />
-    <ClInclude Include="src\Engine\Utils.h" />
+    <ClInclude Include="src\Engine\Core\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

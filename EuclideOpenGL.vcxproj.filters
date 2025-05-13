@@ -75,7 +75,7 @@
     <ClCompile Include="src\Engine\EuclideModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Utils.cpp">
+    <ClCompile Include="src\Engine\Core\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\EuclideCamera.cpp">
@@ -104,7 +104,7 @@
     <ClInclude Include="src\Engine\EuclideModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Utils.h">
+    <ClInclude Include="src\Engine\Core\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\EuclideCamera.h">
