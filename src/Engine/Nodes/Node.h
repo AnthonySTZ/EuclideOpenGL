@@ -2,6 +2,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 
 class Node {
 
@@ -10,13 +11,18 @@ public:
 	Node(std::string name) : nodeName{ name } {};
 	Node() : nodeName{ "Node" } {};
 
-private:
+	virtual ~Node() = default;
+
+	uint32_t getInputsNb() const { return inputsNb; }
+	uint32_t getOutputsNb() const { return outputsNb; }
+
 	std::string nodeName;
 
+protected:
 	uint32_t inputsNb = 0;
 	uint32_t outputsNb = 0;
 
-	std::map<uint32_t, Node> inputs;
-	std::map<uint32_t, Node> outputs;
+	std::map<uint32_t, std::shared_ptr<Node>> inputs;
+	std::map<uint32_t, std::shared_ptr<Node>> outputs;
 
 };
