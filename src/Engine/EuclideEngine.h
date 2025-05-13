@@ -12,7 +12,7 @@ public:
 	/* Window */
 	void createWindow(int w, int h);
 
-	void updateModel(Mesh& builder);
+	void updateModel(Mesh::Builder& builder);
 
 	/* Rendering */
 	void exec();

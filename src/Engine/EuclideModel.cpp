@@ -14,10 +14,10 @@ void EuclideModel::drawFaces() const
 	glBindVertexArray(vaoFaces);
 
 	glDrawElements(
-		GL_TRIANGLES,      // mode
-		mesh.triangulateIndices.size(),    // count
-		GL_UNSIGNED_INT,   // type
-		(void*)0           // element array buffer offset
+		GL_TRIANGLES,
+		mesh.triangulateIndices.size(),
+		GL_UNSIGNED_INT, 
+		(void*)0
 	);
 
 	glBindVertexArray(0);
@@ -26,13 +26,12 @@ void EuclideModel::drawFaces() const
 void EuclideModel::drawWireframe() const
 {
 	glBindVertexArray(vaoWireframe);
-	glLineWidth(1.5f);
 
 	glDrawElements(
-		GL_LINES,      // mode
-		mesh.wireframeIndices.size(),    // count
-		GL_UNSIGNED_INT,   // type
-		(void*)0           // element array buffer offset
+		GL_LINES,
+		mesh.wireframeIndices.size(),
+		GL_UNSIGNED_INT,
+		(void*)0
 	);
 
 	glBindVertexArray(0);
@@ -40,7 +39,6 @@ void EuclideModel::drawWireframe() const
 
 void EuclideModel::drawPoints() const
 {
-	glEnable(GL_PROGRAM_POINT_SIZE);
 	glBindVertexArray(vaoPoints);
 
 	glDrawArrays(
@@ -77,6 +75,7 @@ void EuclideModel::initBuffers()
 
 	glBindVertexArray(0);
 
+
 	/* ------------ VAO WIREFRAME -------------- */
 	glGenVertexArrays(1, &vaoWireframe);
 	glBindVertexArray(vaoWireframe);
@@ -91,9 +90,9 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.wireframeIndices.size() * sizeof(uint32_t), mesh.wireframeIndices.data(), GL_DYNAMIC_DRAW);
 
-
 	// Unbind the VAO, VBO, AND INDEX BUFFER
 	glBindVertexArray(0);
+
 
 	/* ------------ VAO POINTS -------------- */
 	glGenVertexArrays(1, &vaoPoints);
@@ -109,9 +108,9 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void EuclideModel::update(Mesh& updatedMesh) {
+void EuclideModel::update(Mesh::Builder& meshBuilder) {
 
-	mesh = updatedMesh;
+	mesh.updateMesh(meshBuilder);
 
 	std::cout << "Index count : " << mesh.triangulateIndices.size() << "\n";
 

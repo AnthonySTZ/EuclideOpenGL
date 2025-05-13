@@ -146,10 +146,10 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
 
     std::cout << "Compute triangulation : " << triangulateIndices.size() << "\n";
 
-    for (auto& he : halfedges) {
+    /*for (auto& he : halfedges) {
 
         std::cout << "Pair : " << he.origin << " -> " << halfedges[he.next].origin << "\n";
-    }
+    }*/
 
     std::cout << "Edges number : " << edges.size() << "\n";
 }

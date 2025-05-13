@@ -20,7 +20,7 @@ void EuclideEngine::createWindow(int w, int h)
 
 }
 
-void EuclideEngine::updateModel(Mesh& builder)
+void EuclideEngine::updateModel(Mesh::Builder& builder)
 {
 
 	euclideInterface->updateModel(builder);

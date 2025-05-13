@@ -22,7 +22,7 @@ public:
 	void createUI();
 	void createViewport();
 	void renderUI();
-	void updateModel(Mesh& builder) { renderer->updateModel(builder); };
+	void updateModel(Mesh::Builder& builder) { renderer->updateModel(builder); };
 
 
 	bool hasViewportResized() const { return viewportResized; };

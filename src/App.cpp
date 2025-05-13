@@ -7,7 +7,7 @@
 
 void App::run()
 {
-    Mesh cube = createCube();
+    Mesh::Builder cube = createCube();
 
 	euclideEngine.initEngine(1600, 1000, "Euclide");
 	euclideEngine.updateModel(cube);
@@ -15,7 +15,7 @@ void App::run()
 
 }
 
-Mesh App::createCube() {
+Mesh::Builder App::createCube() {
 
     Mesh::Builder modelBuilder{};
 
@@ -76,5 +76,5 @@ Mesh App::createCube() {
     };
 
 
-    return Mesh{ modelBuilder };
+    return modelBuilder;
 }

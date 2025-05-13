@@ -17,7 +17,7 @@ public:
 	void cleanup();
 	void initBuffers();
 
-	void update(Mesh& updatedMesh);
+	void update(Mesh::Builder& meshBuilder);
 
 
 private:

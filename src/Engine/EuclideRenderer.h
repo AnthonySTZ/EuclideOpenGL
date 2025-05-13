@@ -28,7 +28,7 @@ public:
 	void clearFrame() ;
 	void bindUniforms(unsigned int shaderProgram) ;
 	void drawModel() ;
-	void updateModel(Mesh& builder) { model.update(builder); };
+	void updateModel(Mesh::Builder& builder) { model.update(builder); };
 
 	void orbitCamera(float yaw, float pitch) { camera.orbit(yaw * viewSpeed, pitch * viewSpeed); };
 	void panCamera(float dx, float dy) { camera.pan(glm::vec2(dx * translateSpeed, dy * translateSpeed)); };
@@ -43,6 +43,7 @@ public:
 
 	
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
+	void createGrid();
 private:
 	unsigned int facesShaderProgram;
 	unsigned int wireframeShaderProgram;
@@ -51,6 +52,7 @@ private:
 	int viewportWidth, viewportHeight;
 
 	EuclideModel model;
+	EuclideModel grid;
 	EuclideCamera camera;
 
 	float translateSpeed = 0.003f;
