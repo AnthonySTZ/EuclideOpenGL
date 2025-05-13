@@ -180,6 +180,9 @@
     <ClInclude Include="src\Engine\EuclideRenderer.h" />
     <ClInclude Include="src\Engine\EuclideWindow.h" />
     <ClInclude Include="src\Engine\Geometry.h" />
+    <ClInclude Include="src\Engine\NodeScene.h" />
+    <ClInclude Include="src\Engine\Nodes\Cube.h" />
+    <ClInclude Include="src\Engine\Nodes\Node.h" />
     <ClInclude Include="src\Engine\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
