@@ -23,8 +23,6 @@ public:
 	void createViewport();
 	void createNodeGraph();
 	void renderUI();
-	void updateModel(Mesh::Builder& builder) { renderer->updateModel(builder); };
-
 
 	bool hasViewportResized() const { return viewportResized; };
 	int getViewportWidth() const { return viewportWidth; };

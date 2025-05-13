@@ -12,8 +12,6 @@ public:
 	/* Window */
 	void createWindow(int w, int h);
 
-	void updateModel(Mesh::Builder& builder);
-
 	/* Rendering */
 	void exec();
 	void mainLoop();

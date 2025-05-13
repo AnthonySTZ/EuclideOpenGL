@@ -7,8 +7,6 @@ class App {
 public:
 	void run();
 
-	Mesh::Builder createCube();
-
 public:
 	EuclideEngine euclideEngine{};
 };
