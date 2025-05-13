@@ -144,12 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="src\Engine\shaders\pointsFragShader.frag" />
-    <None Include="src\Engine\shaders\pointsVertShader.vert" />
-    <None Include="src\Engine\shaders\wireframeFragShader.frag" />
-    <None Include="src\Engine\shaders\fragShader.frag" />
-    <None Include="src\Engine\shaders\vertShader.vert" />
-    <None Include="src\Engine\shaders\wireframeVertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\pointsFragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\pointsVertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\wireframeFragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\fragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\vertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\wireframeVertShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CPP\libs\glad\src\glad.c" />
@@ -161,29 +161,29 @@
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_tables.cpp" />
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\Engine\EuclideCamera.cpp" />
-    <ClCompile Include="src\Engine\EuclideEngine.cpp" />
-    <ClCompile Include="src\Engine\EuclideInterface.cpp" />
-    <ClCompile Include="src\Engine\EuclideModel.cpp" />
-    <ClCompile Include="src\Engine\EuclideRenderer.cpp" />
-    <ClCompile Include="src\Engine\EuclideWindow.cpp" />
-    <ClCompile Include="src\Engine\Core\Geometry.cpp" />
-    <ClCompile Include="src\Engine\Core\Utils.cpp" />
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideCamera.cpp" />
+    <ClCompile Include="src\Engine\UI\EuclideEngine.cpp" />
+    <ClCompile Include="src\Engine\UI\EuclideInterface.cpp" />
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideModel.cpp" />
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideRenderer.cpp" />
+    <ClCompile Include="src\Engine\UI\EuclideWindow.cpp" />
+    <ClCompile Include="src\Engine\Core\Geometry\Geometry.cpp" />
+    <ClCompile Include="src\Engine\Core\Rendering\Utils.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
-    <ClInclude Include="src\Engine\EuclideCamera.h" />
-    <ClInclude Include="src\Engine\EuclideEngine.h" />
-    <ClInclude Include="src\Engine\EuclideInterface.h" />
-    <ClInclude Include="src\Engine\EuclideModel.h" />
-    <ClInclude Include="src\Engine\EuclideRenderer.h" />
-    <ClInclude Include="src\Engine\EuclideWindow.h" />
-    <ClInclude Include="src\Engine\Core\Geometry.h" />
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
+    <ClInclude Include="src\Engine\UI\EuclideEngine.h" />
+    <ClInclude Include="src\Engine\UI\EuclideInterface.h" />
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideModel.h" />
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideRenderer.h" />
+    <ClInclude Include="src\Engine\UI\EuclideWindow.h" />
+    <ClInclude Include="src\Engine\Core\Geometry\Geometry.h" />
     <ClInclude Include="src\Engine\Nodes\NodeScene.h" />
     <ClInclude Include="src\Engine\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Nodes\Node.h" />
-    <ClInclude Include="src\Engine\Core\Utils.h" />
+    <ClInclude Include="src\Engine\Core\Rendering\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

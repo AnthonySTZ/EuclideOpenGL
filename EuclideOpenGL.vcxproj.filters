@@ -22,12 +22,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="src\Engine\shaders\vertShader.vert" />
-    <None Include="src\Engine\shaders\fragShader.frag" />
-    <None Include="src\Engine\shaders\wireframeFragShader.frag" />
-    <None Include="src\Engine\shaders\wireframeVertShader.vert" />
-    <None Include="src\Engine\shaders\pointsVertShader.vert" />
-    <None Include="src\Engine\shaders\pointsFragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\vertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\fragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\wireframeFragShader.frag" />
+    <None Include="src\Engine\Core\Rendering\shaders\wireframeVertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\pointsVertShader.vert" />
+    <None Include="src\Engine\Core\Rendering\shaders\pointsFragShader.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -57,31 +57,31 @@
     <ClCompile Include="src\App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideEngine.cpp">
+    <ClCompile Include="src\Engine\UI\EuclideEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideWindow.cpp">
+    <ClCompile Include="src\Engine\UI\EuclideWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\CPP\libs\glad\src\glad.c">
       <Filter>Source Files\glad</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideInterface.cpp">
+    <ClCompile Include="src\Engine\UI\EuclideInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideRenderer.cpp">
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideModel.cpp">
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\Utils.cpp">
+    <ClCompile Include="src\Engine\Core\Rendering\Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\EuclideCamera.cpp">
+    <ClCompile Include="src\Engine\Core\Rendering\EuclideCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Core\Geometry.cpp">
+    <ClCompile Include="src\Engine\Core\Geometry\Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,28 +89,28 @@
     <ClInclude Include="src\App.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideEngine.h">
+    <ClInclude Include="src\Engine\UI\EuclideEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideWindow.h">
+    <ClInclude Include="src\Engine\UI\EuclideWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideInterface.h">
+    <ClInclude Include="src\Engine\UI\EuclideInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideRenderer.h">
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideModel.h">
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Utils.h">
+    <ClInclude Include="src\Engine\Core\Rendering\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\EuclideCamera.h">
+    <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Geometry.h">
+    <ClInclude Include="src\Engine\Core\Geometry\Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Nodes\NodeScene.h">

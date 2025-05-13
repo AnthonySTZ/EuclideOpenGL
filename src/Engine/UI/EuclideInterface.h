@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EuclideRenderer.h"
+#include "../Core/Rendering/EuclideRenderer.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>

@@ -2,7 +2,6 @@
 
 #include <stdexcept>
 
-#include "Engine/Core/Geometry.h"
 #include <iostream>
 
 void App::run()

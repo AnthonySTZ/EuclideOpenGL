@@ -1,5 +1,5 @@
 #include "EuclideRenderer.h"
-#include "Core/Utils.h"
+#include "Utils.h"
 
 #include <iostream>
 
@@ -12,16 +12,16 @@ EuclideRenderer::EuclideRenderer()
 	model.update(cube);
 
 	createShaderProgram(facesShaderProgram,
-		"src/Engine/shaders/vertShader.vert",
-		"src/Engine/shaders/fragShader.frag");
+		"src/Engine/Core/Rendering/shaders/vertShader.vert",
+		"src/Engine/Core/Rendering/shaders/fragShader.frag");
 
 	createShaderProgram(wireframeShaderProgram,
-		"src/Engine/shaders/wireframeVertShader.vert",
-		"src/Engine/shaders/wireframeFragShader.frag");
+		"src/Engine/Core/Rendering/shaders/wireframeVertShader.vert",
+		"src/Engine/Core/Rendering/shaders/wireframeFragShader.frag");
 
 	createShaderProgram(pointsShaderProgram,
-		"src/Engine/shaders/pointsVertShader.vert",
-		"src/Engine/shaders/pointsFragShader.frag");
+		"src/Engine/Core/Rendering/shaders/pointsVertShader.vert",
+		"src/Engine/Core/Rendering/shaders/pointsFragShader.frag");
 
 	createGrid();
 	initBuffers();
