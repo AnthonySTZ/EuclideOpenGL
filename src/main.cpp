@@ -11,7 +11,7 @@ int main() {
 	std::cout << "Name: " << cube.nodeName.c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
 
 
-	return EXIT_SUCCESS;
+	//return EXIT_SUCCESS;
 	App app;
 
 	try {

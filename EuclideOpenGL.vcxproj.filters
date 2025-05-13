@@ -81,7 +81,7 @@
     <ClCompile Include="src\Engine\EuclideCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Geometry.cpp">
+    <ClCompile Include="src\Engine\Core\Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,7 +110,7 @@
     <ClInclude Include="src\Engine\EuclideCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Geometry.h">
+    <ClInclude Include="src\Engine\Core\Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\NodeScene.h">

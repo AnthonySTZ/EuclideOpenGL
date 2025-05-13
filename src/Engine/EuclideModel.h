@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry.h"
+#include "Core/Geometry.h"
 
 #include <glad/glad.h>
 

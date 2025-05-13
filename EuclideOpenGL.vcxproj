@@ -167,7 +167,7 @@
     <ClCompile Include="src\Engine\EuclideModel.cpp" />
     <ClCompile Include="src\Engine\EuclideRenderer.cpp" />
     <ClCompile Include="src\Engine\EuclideWindow.cpp" />
-    <ClCompile Include="src\Engine\Geometry.cpp" />
+    <ClCompile Include="src\Engine\Core\Geometry.cpp" />
     <ClCompile Include="src\Engine\Utils.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -179,7 +179,7 @@
     <ClInclude Include="src\Engine\EuclideModel.h" />
     <ClInclude Include="src\Engine\EuclideRenderer.h" />
     <ClInclude Include="src\Engine\EuclideWindow.h" />
-    <ClInclude Include="src\Engine\Geometry.h" />
+    <ClInclude Include="src\Engine\Core\Geometry.h" />
     <ClInclude Include="src\Engine\NodeScene.h" />
     <ClInclude Include="src\Engine\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Nodes\Node.h" />
