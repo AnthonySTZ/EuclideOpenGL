@@ -143,9 +143,9 @@ void EuclideInterface::createNodeGraph()
 
 	if (ImGui::BeginPopupContextItem("node_menu")) {
 		ImGui::MenuItem("Cube");
-		ImGui::Separator();
+		//ImGui::Separator();
 		//ImGui::MenuItem("Tranform");
-		//ImGui::EndPopup();
+		ImGui::EndPopup();
 	}
 
 	ImGui::End();
