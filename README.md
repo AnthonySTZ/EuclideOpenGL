@@ -10,4 +10,4 @@ You can move with your mouse buttons (pan, zoom, orbit) in the scene.
 
 ## Geometry System
 
-I decided to use a half-edge daat structure to store mesh data.
+I decided to use a half-edge data structure to store mesh data.
