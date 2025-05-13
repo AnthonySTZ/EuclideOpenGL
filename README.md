@@ -1,6 +1,7 @@
 # Euclide WIP
 
 Euclide is a node-based 3D engine currently in development.
+At this point only the rendering part works, I'm working on the node graph system. 
 
 ## Rendering
 
