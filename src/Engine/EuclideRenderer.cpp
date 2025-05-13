@@ -8,13 +8,7 @@
 
 EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile)
 {
-	std::string vertCode = Utils::readFile(vertexFile);
-	std::string fragCode = Utils::readFile(fragmentFile);
-
-	unsigned int vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
-	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
-
-	createShaderProgram(vertexShader, fragmentShader);
+	createShaderProgram(facesShaderProgram, vertexFile, fragmentFile);
 	initBuffers();
 	initFramebuffer();
 	createCamera();
@@ -25,22 +19,28 @@ EuclideRenderer::~EuclideRenderer()
 	glDeleteTextures(1, &renderTexture);
 	glDeleteTextures(1, &depthBuffer);
 	glDeleteFramebuffers(1, &FBO);
-	glDeleteProgram(shaderProgram);
+	glDeleteProgram(facesShaderProgram);
 	model.cleanup();	
 }
 
-void EuclideRenderer::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader) {
+void EuclideRenderer::createShaderProgram(unsigned int& facesShaderProgram, std::string vertexFile, std::string fragmentFile) {
 
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
+	std::string vertCode = Utils::readFile(vertexFile);
+	std::string fragCode = Utils::readFile(fragmentFile);
+
+	unsigned int vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
+	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
+
+	facesShaderProgram = glCreateProgram();
+	glAttachShader(facesShaderProgram, vertexShader);
+	glAttachShader(facesShaderProgram, fragmentShader);
+	glLinkProgram(facesShaderProgram);
 
 	int success;
 	char infoLog[512];
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	glGetProgramiv(facesShaderProgram, GL_LINK_STATUS, &success);
 	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, 0, infoLog);
+		glGetProgramInfoLog(facesShaderProgram, 512, 0, infoLog);
 		std::cout << infoLog << "\n";
 		throw std::runtime_error("Shader program link failed");
 	}
@@ -138,7 +138,7 @@ void EuclideRenderer::startFrame()  {
 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 	glViewport(0, 0, viewportWidth, viewportHeight);
-	glUseProgram(shaderProgram);
+	glUseProgram(facesShaderProgram);
 
 }
 
@@ -158,11 +158,11 @@ void EuclideRenderer::clearFrame()  {
 
 void EuclideRenderer::bindUniforms() {
 
-	GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
+	GLuint projectionLocation = glGetUniformLocation(facesShaderProgram, "projection");
 	glm::mat4 projection = camera.getProjection();
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
-	GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
+	GLuint viewLocation = glGetUniformLocation(facesShaderProgram, "view");
 	glm::mat4 view = camera.getView();
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
@@ -171,6 +171,7 @@ void EuclideRenderer::bindUniforms() {
 void EuclideRenderer::drawModel() {
 
 		model.drawFaces();
+		model.drawWireframe();
 
 }
 

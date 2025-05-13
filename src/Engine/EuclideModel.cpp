@@ -28,7 +28,7 @@ void EuclideModel::drawWireframe() const
 	glBindVertexArray(vaoWireframe);
 
 	glDrawElements(
-		GL_TRIANGLES,      // mode
+		GL_LINES,      // mode
 		mesh.wireframeIndices.size(),    // count
 		GL_UNSIGNED_INT,   // type
 		(void*)0           // element array buffer offset

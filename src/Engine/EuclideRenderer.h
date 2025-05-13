@@ -14,7 +14,7 @@ public:
 	EuclideRenderer() = default;
 	~EuclideRenderer();
 
-	void createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
+	void createShaderProgram(unsigned int &shaderProgram, std::string vertexFile, std::string fragmentFile);
 
 	void createCamera();
 	void initBuffers();
@@ -45,7 +45,7 @@ public:
 	
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
-	unsigned int shaderProgram;
+	unsigned int facesShaderProgram;
 	GLuint renderTexture, FBO, depthBuffer;
 	int viewportWidth, viewportHeight;
 
