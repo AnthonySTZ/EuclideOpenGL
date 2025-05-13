@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "Nodes/Node.h"
+#include "Node.h"
 
 class NodeScene {
 
