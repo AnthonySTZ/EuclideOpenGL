@@ -144,6 +144,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="src\Engine\shaders\pointsFragShader.frag" />
+    <None Include="src\Engine\shaders\pointsVertShader.vert" />
     <None Include="src\Engine\shaders\wireframeFragShader.frag" />
     <None Include="src\Engine\shaders\fragShader.frag" />
     <None Include="src\Engine\shaders\vertShader.vert" />

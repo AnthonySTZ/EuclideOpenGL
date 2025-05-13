@@ -46,6 +46,7 @@ public:
 private:
 	unsigned int facesShaderProgram;
 	unsigned int wireframeShaderProgram;
+	unsigned int pointsShaderProgram;
 	GLuint renderTexture, FBO, depthBuffer;
 	int viewportWidth, viewportHeight;
 

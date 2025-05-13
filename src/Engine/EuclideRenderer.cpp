@@ -11,9 +11,14 @@ EuclideRenderer::EuclideRenderer()
 	createShaderProgram(facesShaderProgram,
 		"src/Engine/shaders/vertShader.vert",
 		"src/Engine/shaders/fragShader.frag");
+
 	createShaderProgram(wireframeShaderProgram,
 		"src/Engine/shaders/wireframeVertShader.vert",
 		"src/Engine/shaders/wireframeFragShader.frag");
+
+	createShaderProgram(pointsShaderProgram,
+		"src/Engine/shaders/pointsVertShader.vert",
+		"src/Engine/shaders/pointsFragShader.frag");
 	initBuffers();
 	initFramebuffer();
 	createCamera();
@@ -181,6 +186,10 @@ void EuclideRenderer::drawModel() {
 	glUseProgram(wireframeShaderProgram);
 	bindUniforms(wireframeShaderProgram);
 	model.drawWireframe();
+
+	glUseProgram(pointsShaderProgram);
+	bindUniforms(pointsShaderProgram);
+	model.drawPoints();
 
 }
 

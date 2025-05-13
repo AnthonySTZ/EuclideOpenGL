@@ -13,7 +13,7 @@ public:
 
 	void drawFaces() const;
 	void drawWireframe() const;
-	//void drawVertices() const;
+	void drawPoints() const;
 	void cleanup();
 	void initBuffers();
 
@@ -25,6 +25,7 @@ private:
 
 	GLuint vaoFaces = 0; 
 	GLuint vaoWireframe = 0;
+	GLuint vaoPoints = 0;
 	GLuint VBO = 0;
 	GLuint faceIndicesBuffer = 0;
 	GLuint wireframeIndicesBuffer = 0;
