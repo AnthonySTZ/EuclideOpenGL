@@ -144,8 +144,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="src\Engine\shaders\wireframeFragShader.frag" />
     <None Include="src\Engine\shaders\fragShader.frag" />
     <None Include="src\Engine\shaders\vertShader.vert" />
+    <None Include="src\Engine\shaders\wireframeVertShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CPP\libs\glad\src\glad.c" />

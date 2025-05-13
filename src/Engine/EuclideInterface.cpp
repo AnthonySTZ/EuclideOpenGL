@@ -29,9 +29,7 @@ void EuclideInterface::initImGui(GLFWwindow* window) {
 
 void EuclideInterface::createRenderer() {
 
-	renderer = std::make_unique<EuclideRenderer>(
-		"src/Engine/shaders/vertShader.vert",
-		"src/Engine/shaders/fragShader.frag");
+	renderer = std::make_unique<EuclideRenderer>();
 }
 
 EuclideInterface::~EuclideInterface()

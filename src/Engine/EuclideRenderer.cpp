@@ -6,9 +6,14 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-EuclideRenderer::EuclideRenderer(std::string vertexFile, std::string fragmentFile)
+EuclideRenderer::EuclideRenderer()
 {
-	createShaderProgram(facesShaderProgram, vertexFile, fragmentFile);
+	createShaderProgram(facesShaderProgram,
+		"src/Engine/shaders/vertShader.vert",
+		"src/Engine/shaders/fragShader.frag");
+	createShaderProgram(wireframeShaderProgram,
+		"src/Engine/shaders/wireframeVertShader.vert",
+		"src/Engine/shaders/wireframeFragShader.frag");
 	initBuffers();
 	initFramebuffer();
 	createCamera();
@@ -127,7 +132,6 @@ void EuclideRenderer::draw()  {
 	startFrame();
 
 	clearFrame();
-	bindUniforms();
 	drawModel();
 
 	endFrame();
@@ -156,22 +160,27 @@ void EuclideRenderer::clearFrame()  {
 
 }
 
-void EuclideRenderer::bindUniforms() {
+void EuclideRenderer::bindUniforms(unsigned int shaderProgram) {
 
-	GLuint projectionLocation = glGetUniformLocation(facesShaderProgram, "projection");
+	GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
 	glm::mat4 projection = camera.getProjection();
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
-	GLuint viewLocation = glGetUniformLocation(facesShaderProgram, "view");
+	GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
 	glm::mat4 view = camera.getView();
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
 }
 
 void EuclideRenderer::drawModel() {
+	
+	glUseProgram(facesShaderProgram);
+	bindUniforms(facesShaderProgram);
+	model.drawFaces();
 
-		model.drawFaces();
-		model.drawWireframe();
+	glUseProgram(wireframeShaderProgram);
+	bindUniforms(wireframeShaderProgram);
+	model.drawWireframe();
 
 }
 

@@ -10,8 +10,7 @@
 class EuclideRenderer {
 
 public:
-	EuclideRenderer(std::string vertexFile, std::string fragmentFile);
-	EuclideRenderer() = default;
+	EuclideRenderer();
 	~EuclideRenderer();
 
 	void createShaderProgram(unsigned int &shaderProgram, std::string vertexFile, std::string fragmentFile);
@@ -27,7 +26,7 @@ public:
 	void startFrame() ;
 	void endFrame() ;
 	void clearFrame() ;
-	void bindUniforms() ;
+	void bindUniforms(unsigned int shaderProgram) ;
 	void drawModel() ;
 	void updateModel(Mesh& builder) { model.update(builder); };
 
@@ -46,6 +45,7 @@ public:
 	static unsigned int createShader(const char* shaderSrc, GLenum type);
 private:
 	unsigned int facesShaderProgram;
+	unsigned int wireframeShaderProgram;
 	GLuint renderTexture, FBO, depthBuffer;
 	int viewportWidth, viewportHeight;
 
