@@ -8,7 +8,6 @@ void NodeItem::draw()
 	ImVec2 nodeEnd = nodePos + nodeSize;
 
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	if (isClicked(ImGuiMouseButton_Left)) std::cout << node->getName() << " clicked\n";
 
 	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? nodeColor * 0.8 : nodeColor, 4.0f);
 	drawList->AddRect(nodePos, nodeEnd, IM_COL32(200, 200, 200, 255), 4.0f);

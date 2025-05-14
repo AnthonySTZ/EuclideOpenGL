@@ -17,7 +17,10 @@ public:
 	NodeItem() = default;
 
 	void draw();
-
+	void moveBy(ImVec2 delta) { 
+		nodePos.x += delta.x; 
+		nodePos.y += delta.y;
+	}
 
 	std::shared_ptr<Node> getNode() const { return node; };
 

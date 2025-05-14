@@ -13,16 +13,16 @@ public:
 	SceneGraph() = default;
 
 	void addNode(NodeItem node);
-	void drawNodes() { 
-		for (auto& nodeItem : nodeItems) {
-			nodeItem.draw();
-		}
-	};
+	void drawNodes();
 
 	
 private:
 	Scene scene;
 	std::vector<NodeItem> nodeItems;
+
+	NodeItem* nodeClicked = nullptr;
+	bool nodeMoving = false;
+	float moveThreshold = 1.0;
 
 
 };
