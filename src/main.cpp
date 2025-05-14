@@ -5,6 +5,8 @@
 #include "Engine/Core/Nodes/Cube.h"
 #include "Engine/Core/Nodes/Transform.h"
 
+#include "Engine/Core/Nodes/Scene.h"
+
 static void testNodes() {
 
 	Cube cube;
