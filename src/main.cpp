@@ -5,23 +5,29 @@
 #include "Engine/Core/Nodes/Cube.h"
 #include "Engine/Core/Nodes/Transform.h"
 
-int main() {
+static void testNodes() {
 
 	Cube cube;
 	Transform transform;
 
-	std::cout << "Name: " << cube.getName().c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
+	std::cout << "Name: " << cube.getName() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
 
 	transform.setInput(0, &cube, 0);
 
 	Node* inputNode = transform.getInput(0);
 	if (inputNode != nullptr) {
-		std::cout << "Transform -> input 0 : " << inputNode->getName().c_str() << "\n";
+		std::cout << "Transform -> input 0 : " << inputNode->getName() << "\n";
 	}
 
 	Mesh mesh = transform.processOutput(0);
 
-	std::cout << "Mesh : " << mesh.vertices.size() << " vertices" << "\n";
+	std::cout << "Transform output 0 : " << mesh.vertices.size() << " vertices" << "\n";
+
+}
+
+int main() {
+
+	testNodes();
 
 	return EXIT_SUCCESS;
 	App app;
@@ -37,3 +43,4 @@ int main() {
 	return EXIT_SUCCESS;
 
 }
+

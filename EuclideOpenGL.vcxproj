@@ -163,6 +163,7 @@
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Null.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Transform.cpp" />
     <ClCompile Include="src\Engine\Core\Rendering\EuclideCamera.cpp" />
     <ClCompile Include="src\Engine\UI\EuclideEngine.cpp" />
@@ -177,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Null.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Transform.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
     <ClInclude Include="src\Engine\UI\EuclideEngine.h" />
