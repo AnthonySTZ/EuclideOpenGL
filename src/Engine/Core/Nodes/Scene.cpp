@@ -1,12 +1,13 @@
 #include "Scene.h"
 
+#include <iostream>
 #include <ctype.h>
 
-void Scene::addNode(Node node)
+void Scene::addNode(Node* node)
 {
 
-	std::string newName = getUntakenName(node.getName());
-	node.setName(newName);
+	std::string newName = getUntakenName(node->getName());
+	node->setName(newName);
 	nodes[newName] = node;
 
 }

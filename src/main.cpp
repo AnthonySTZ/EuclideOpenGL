@@ -10,6 +10,7 @@
 static void testNodes() {
 
 	Cube cube;
+	Cube cube1;
 	Transform transform;
 
 	std::cout << "Name: " << cube.getName() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
@@ -25,6 +26,15 @@ static void testNodes() {
 
 	std::cout << "Transform output 0 : " << mesh.vertices.size() << " vertices" << "\n";
 
+	Scene scene;
+
+	scene.addNode(&cube);
+	scene.addNode(&transform);
+	scene.addNode(&cube1);
+
+	std::cout << "Cube Name: " << cube.getName() << "\n";
+	std::cout << "Transform Name: " << transform.getName() << "\n";
+	std::cout << "Cube Name: " << cube1.getName() << "\n";
 }
 
 int main() {
