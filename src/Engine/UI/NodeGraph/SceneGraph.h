@@ -9,6 +9,8 @@ public:
 
 	SceneGraph() = default;
 
+	void addNode(NodeItem nodeItem);
+
 private:
 	Scene scene;
 
