@@ -5,19 +5,27 @@
 void NodeItem::draw()
 {
 	ImGuiIO& io = ImGui::GetIO();
-	ImVec2 nodeSize = ImVec2(80, 40);
-	ImVec2 nodeEnd = pos + nodeSize;
+	ImVec2 nodeEnd = nodePos + nodeSize;
 
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	bool nodeHovered = io.MousePos.x >= pos.x && io.MousePos.x <= nodeEnd.x &&
-		io.MousePos.y >= pos.y && io.MousePos.y <= nodeEnd.y;
-	bool nodeClicked = nodeHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left);
-	if (nodeClicked) std::cout << node->getName() << " clicked\n";
+	if (isClicked(ImGuiMouseButton_Left)) std::cout << node->getName() << " clicked\n";
 
-	ImU32 nodeColor = nodeHovered ? IM_COL32(200, 150, 80, 255) : IM_COL32(100, 100, 150, 255);
-	drawList->AddRectFilled(pos, nodeEnd, nodeColor, 6.0f);
-	drawList->AddRect(pos, nodeEnd, IM_COL32(255, 255, 255, 255), 6.0f);
+	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? nodeColor * 0.8 : nodeColor, 4.0f);
+	drawList->AddRect(nodePos, nodeEnd, IM_COL32(200, 200, 200, 255), 4.0f);
 
-	drawList->AddText(pos + ImVec2(25, 15), IM_COL32(255, 255, 255, 255), node->getName().c_str());
+	drawList->AddText(nodePos + ImVec2(25, 15), IM_COL32(255, 255, 255, 255), node->getName().c_str());
 
+}
+
+bool NodeItem::isHovered() const {
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImVec2 nodeEnd = nodePos + nodeSize;
+
+	return io.MousePos.x >= nodePos.x && io.MousePos.x <= nodeEnd.x &&
+		io.MousePos.y >= nodePos.y && io.MousePos.y <= nodeEnd.y;
+}
+
+bool NodeItem::isClicked(ImGuiMouseButton mouseButton) const {
+	return isHovered() && ImGui::IsMouseClicked(mouseButton);
 }
