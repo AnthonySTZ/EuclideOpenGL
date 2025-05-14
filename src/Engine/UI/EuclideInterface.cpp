@@ -141,30 +141,40 @@ void EuclideInterface::createNodeGraph()
 {
 	ImGui::Begin("NodeGraph");
 
-	bool isHovered = ImGui::IsItemHovered();
+	ImGuiIO& io = ImGui::GetIO();
 
-	ImGui::InvisibleButton("nodegraph_area", ImGui::GetContentRegionAvail(), ImGuiMouseButton_Right);
+	ImVec2 region = ImGui::GetContentRegionAvail();
+	ImVec2 startPos = ImGui::GetCursorScreenPos();
+	ImVec2 endPos = startPos + region;
 
-	if (ImGui::BeginPopupContextItem("node_menu")) {
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+	drawList->AddRectFilled(startPos, endPos, IM_COL32(50, 50, 50, 255));
+
+	ImGui::SetCursorScreenPos(startPos); // Reset cursor
+	ImGui::InvisibleButton("nodegraph_click_area", region, ImGuiButtonFlags_None);
+	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+		ImGui::OpenPopup("node_menu");
+	}
+
+	if (ImGui::BeginPopup("node_menu")) {
 		if (ImGui::MenuItem("Cube")) {
 			std::shared_ptr<Node> cubeNode = std::make_shared<Cube>();
-			auto nodeItem = NodeItem(cubeNode);
-			sceneGraph.addNode(nodeItem);
-		};
+			sceneGraph.addNode(NodeItem(cubeNode, io.MousePos));
+		}
 		ImGui::Separator();
 		if (ImGui::MenuItem("Transform")) {
 			std::shared_ptr<Node> transformNode = std::make_shared<Transform>();
-			auto nodeItem = NodeItem(transformNode);
-			sceneGraph.addNode(NodeItem(nodeItem));
-		};
+			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
+		}
 		ImGui::Separator();
 		if (ImGui::MenuItem("Null")) {
 			std::shared_ptr<Node> nullNode = std::make_shared<Null>();
-			auto nodeItem = NodeItem(nullNode);
-			sceneGraph.addNode(NodeItem(nodeItem));
-		};
+			sceneGraph.addNode(NodeItem(nullNode, io.MousePos));
+		}
 		ImGui::EndPopup();
 	}
+
+	sceneGraph.drawNodes();
 
 	ImGui::End();
 }
