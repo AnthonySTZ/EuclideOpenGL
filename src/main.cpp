@@ -16,9 +16,9 @@ int main() {
 	cube.setInput(0, &cubeTop, 0);
 
 	Node* inputNode = cube.getInput(0);
-
-	std::cout << "Cube -> input 0 : " << inputNode->getName().c_str() << "\n";
-
+	if (inputNode != nullptr) {
+		std::cout << "Cube -> input 0 : " << inputNode->getName().c_str() << "\n";
+	}
 
 	return EXIT_SUCCESS;
 	App app;

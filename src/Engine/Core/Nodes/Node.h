@@ -3,8 +3,10 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <stdexcept>
 
 #include "NodeConnection.h"
+#include "../Geometry/Geometry.h"
 
 class Node {
 
@@ -29,6 +31,10 @@ public:
 		}
 
 		return it->second->getInputNode();
+	};
+
+	virtual Mesh processOutput(uint32_t index) {
+		throw std::runtime_error("process not implemented!");
 	};
 
 protected:
