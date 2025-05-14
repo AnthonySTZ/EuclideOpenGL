@@ -90,6 +90,9 @@
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\Nodes\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -129,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Nodes\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

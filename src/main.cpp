@@ -3,17 +3,16 @@
 #include <iostream>
 
 #include "Engine/Core/Nodes/Cube.h"
+#include "Engine/Core/Nodes/Transform.h"
 
 int main() {
 
-	Cube cubeTop;
 	Cube cube;
+	Transform transform;
 
 	std::cout << "Name: " << cube.getName().c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
 
-	cubeTop.setName("CubeTop");
-
-	cube.setInput(0, &cubeTop, 0);
+	cube.setInput(0, &transform, 0);
 
 	Node* inputNode = cube.getInput(0);
 	if (inputNode != nullptr) {
