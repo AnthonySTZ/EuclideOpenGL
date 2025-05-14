@@ -22,6 +22,14 @@ public:
 	uint32_t getOutputsNb() const { return outputsNb; }
 
 	void setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex = 0);
+	Node* getInput(uint32_t index) const {
+		auto it = inputs.find(index);
+		if (it == inputs.end()) {
+			return nullptr;
+		}
+
+		return it->second->getInputNode();
+	};
 
 protected:
 	std::string nodeName;

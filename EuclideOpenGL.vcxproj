@@ -161,6 +161,7 @@
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_tables.cpp" />
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
     <ClCompile Include="src\Engine\Core\Rendering\EuclideCamera.cpp" />
     <ClCompile Include="src\Engine\UI\EuclideEngine.cpp" />
     <ClCompile Include="src\Engine\UI\EuclideInterface.cpp" />

@@ -6,9 +6,18 @@
 
 int main() {
 
+	Cube cubeTop;
 	Cube cube;
 
 	std::cout << "Name: " << cube.getName().c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
+
+	cubeTop.setName("CubeTop");
+
+	cube.setInput(0, &cubeTop, 0);
+
+	Node* inputNode = cube.getInput(0);
+
+	std::cout << "Cube -> input 0 : " << inputNode->getName().c_str() << "\n";
 
 
 	return EXIT_SUCCESS;

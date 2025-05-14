@@ -15,7 +15,7 @@ void Node::setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex)
 		return;
 	}
 
-	auto conn = std::make_shared<NodeConnection>(inputNode, outputIndex, this, inputIndex;
+	auto conn = std::make_shared<NodeConnection>(inputNode, outputIndex, this, inputIndex);
 	inputs[inputIndex] = conn;
 	inputNode->outputs[inputIndex] = conn;
 
