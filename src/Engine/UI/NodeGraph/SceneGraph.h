@@ -18,9 +18,10 @@ public:
 	
 private:
 	Scene scene;
-	std::vector<NodeItem> nodeItems;
+	std::vector<std::shared_ptr<NodeItem>> nodeItems;
 
-	NodeItem* nodeClicked = nullptr;
+	std::shared_ptr<NodeItem> nodeClicked = nullptr;
+	std::shared_ptr<NodeItem> nodeSelected = nullptr;
 	bool nodeMoving = false;
 	float moveThreshold = 1.0;
 

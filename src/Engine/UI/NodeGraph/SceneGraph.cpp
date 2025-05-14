@@ -2,23 +2,25 @@
 
 #include <iostream>
 
+
 void SceneGraph::addNode(NodeItem nodeItem)
 {
-	nodeItems.push_back(nodeItem);
-	scene.addNode(nodeItem.getNode());
+	std::shared_ptr<NodeItem> nodeItemPtr = std::make_shared<NodeItem>(nodeItem);
+	nodeItems.push_back(nodeItemPtr);
+	scene.addNode(nodeItemPtr->getNode());
 
 }
 
 void SceneGraph::drawNodes()
 {
 
-	for (auto& nodeItem : nodeItems) {
-		nodeItem.draw();
+	for (auto &nodeItem : nodeItems) {
+		nodeItem->draw();
 
-		if (nodeItem.isClicked(ImGuiMouseButton_Left)) {
+		if (nodeItem->isClicked(ImGuiMouseButton_Left)) {
 
-			nodeClicked = &nodeItem;
-			std::cout << nodeItem.getNode()->getName() << " clicked!\n";
+			nodeClicked = nodeItem;
+			std::cout << nodeItem->getNode()->getName() << " clicked!\n";
 
 		}
 
@@ -28,7 +30,9 @@ void SceneGraph::drawNodes()
 	ImVec2 dragDelta = io.MouseDelta;
 	if (nodeMoving) {
 
-		nodeClicked->moveBy(dragDelta);
+		if (nodeClicked != nullptr) {
+			nodeClicked->moveBy(dragDelta);
+		}
 
 	}
 	else if (nodeClicked) {
@@ -41,6 +45,16 @@ void SceneGraph::drawNodes()
 
 	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
 
+		if (!nodeMoving) {
+
+			std::cout << "Deselect " << nodeSelected.get() << "\n";
+			if (nodeSelected != nullptr) nodeSelected->setSelected(false);
+			nodeSelected = nodeClicked;
+			std::cout << "Select " << nodeSelected.get() << "\n";
+			nodeClicked->setSelected(true);
+
+		}
+
 		nodeClicked = nullptr;
 		nodeMoving = false;
 
@@ -49,7 +63,7 @@ void SceneGraph::drawNodes()
 	if (ImGui::IsItemHovered() && ImGui::IsMouseDown(ImGuiMouseButton_Middle) && nodeClicked == nullptr) {
 
 		for (auto& nodeItem : nodeItems) {
-			nodeItem.moveBy(dragDelta);
+			nodeItem->moveBy(dragDelta);
 		}
 
 	}

@@ -14,7 +14,7 @@ void NodeItem::drawNodeRect() {
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
 
 	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? nodeColor * 0.8f : nodeColor, 4.0f);
-	drawList->AddRect(nodePos, nodeEnd, IM_COL32(200, 200, 200, 255), 4.0f);
+	drawList->AddRect(nodePos, nodeEnd, isSelected ? outlineSelectedColor : IM_COL32(200, 200, 200, 255), 4.0f, 0, 2.0f);
 
 	ImVec2 textSize = ImGui::CalcTextSize(node->getName().c_str());
 	ImVec2 textPos = nodePos;

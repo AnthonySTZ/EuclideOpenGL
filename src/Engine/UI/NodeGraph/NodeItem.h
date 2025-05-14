@@ -29,6 +29,7 @@ public:
 		nodePos.x += delta.x; 
 		nodePos.y += delta.y;
 	}
+	void setSelected(bool select) { isSelected = select; }
 
 	std::shared_ptr<Node> getNode() const { return node; };
 
@@ -43,6 +44,8 @@ private:
 	ImVec2 nodePos;
 	ImVec2 nodeSize = ImVec2(80, 40);
 	ImU32 nodeColor = IM_COL32(100, 100, 150, 255);
+	bool isSelected = false;
+	ImU32 outlineSelectedColor = IM_COL32(255, 178, 102, 255);
 
 	std::shared_ptr<Node> node;
 
