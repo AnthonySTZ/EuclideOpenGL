@@ -20,6 +20,10 @@ int main() {
 		std::cout << "Cube -> input 0 : " << inputNode->getName().c_str() << "\n";
 	}
 
+	Mesh mesh = cube.processOutput(0);
+
+	std::cout << "Mesh : " << mesh.vertices.size() << " vertices" << "\n";
+
 	return EXIT_SUCCESS;
 	App app;
 

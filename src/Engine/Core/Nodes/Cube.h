@@ -10,4 +10,5 @@ public:
 		outputsNb = 1;
 	};
 	
+	Mesh processOutput(uint32_t index) override;
 };
