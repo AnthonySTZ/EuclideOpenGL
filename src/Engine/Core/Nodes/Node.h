@@ -21,6 +21,8 @@ public:
 	uint32_t getInputsNb() const { return inputsNb; }
 	uint32_t getOutputsNb() const { return outputsNb; }
 
+	void setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex = 0);
+
 protected:
 	std::string nodeName;
 
