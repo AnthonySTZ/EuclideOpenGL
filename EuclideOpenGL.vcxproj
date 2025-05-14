@@ -174,6 +174,8 @@
     <ClCompile Include="src\Engine\UI\EuclideWindow.cpp" />
     <ClCompile Include="src\Engine\Core\Geometry\Geometry.cpp" />
     <ClCompile Include="src\Engine\Core\Rendering\Utils.cpp" />
+    <ClCompile Include="src\Engine\UI\NodeGraph\SceneGraph.cpp" />
+    <ClCompile Include="src\Engine\UI\NodeGraph\SceneGraph.h" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +195,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Node.h" />
     <ClInclude Include="src\Engine\Core\Rendering\Utils.h" />
+    <ClInclude Include="src\Engine\UI\NodeGraph\NodeItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,10 @@
 #pragma once
 
 #include "../../Core/Nodes/Scene.h"
+#include "../../Core/Nodes/Node.h"
 #include "NodeItem.h"
+
+#include <vector>
 
 class SceneGraph {
 
@@ -9,12 +12,12 @@ public:
 
 	SceneGraph() = default;
 
-	void addNode(NodeItem nodeItem);
+	void addNode(NodeItem node);
 
-private:
 	Scene scene;
-
 	std::vector<NodeItem> nodeItems;
+private:
+
 
 
 };

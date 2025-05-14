@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ctype.h>
 
-void Scene::addNode(Node* node)
+void Scene::addNode(std::shared_ptr<Node> node)
 {
 
 	std::string newName = getUntakenName(node->getName());

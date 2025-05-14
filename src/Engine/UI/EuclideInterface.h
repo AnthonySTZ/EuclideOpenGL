@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/Rendering/EuclideRenderer.h"
+#include "NodeGraph/SceneGraph.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -45,5 +46,6 @@ private:
 	void calcFps();
 
 	std::unique_ptr<EuclideRenderer> renderer;
+	SceneGraph sceneGraph;
 
 };

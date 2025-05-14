@@ -5,12 +5,12 @@
 class NodeItem {
 
 public:
-	NodeItem() = default;
+	NodeItem(std::shared_ptr<Node> node) : node{ node } {};
 
-	Node* getNode() const { return node; };
+	std::shared_ptr<Node> getNode() { return node; };
 
 private:
 
-	Node* node;
+	std::shared_ptr<Node> node;
 
 };

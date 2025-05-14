@@ -39,9 +39,9 @@ static void testNodes() {
 
 int main() {
 
-	testNodes();
+	/*testNodes();
+	return EXIT_SUCCESS;*/
 
-	return EXIT_SUCCESS;
 	App app;
 
 	try {

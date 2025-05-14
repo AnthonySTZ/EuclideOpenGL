@@ -4,6 +4,10 @@
 #include <iostream>
 #include <iomanip>
 
+#include "../Core/Nodes/Cube.h"
+#include "../Core/Nodes/Transform.h"
+#include "../Core/Nodes/Null.h"
+
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
 	initImGui(window);
@@ -142,9 +146,23 @@ void EuclideInterface::createNodeGraph()
 	ImGui::InvisibleButton("nodegraph_area", ImGui::GetContentRegionAvail(), ImGuiMouseButton_Right);
 
 	if (ImGui::BeginPopupContextItem("node_menu")) {
-		ImGui::MenuItem("Cube");
-		//ImGui::Separator();
-		//ImGui::MenuItem("Tranform");
+		if (ImGui::MenuItem("Cube")) {
+			std::shared_ptr<Node> cubeNode = std::make_shared<Cube>();
+			auto nodeItem = NodeItem(cubeNode);
+			sceneGraph.addNode(nodeItem);
+		};
+		ImGui::Separator();
+		if (ImGui::MenuItem("Transform")) {
+			std::shared_ptr<Node> transformNode = std::make_shared<Transform>();
+			auto nodeItem = NodeItem(transformNode);
+			sceneGraph.addNode(NodeItem(nodeItem));
+		};
+		ImGui::Separator();
+		if (ImGui::MenuItem("Null")) {
+			std::shared_ptr<Node> nullNode = std::make_shared<Null>();
+			auto nodeItem = NodeItem(nullNode);
+			sceneGraph.addNode(NodeItem(nodeItem));
+		};
 		ImGui::EndPopup();
 	}
 
