@@ -24,5 +24,4 @@ private:
 	bool nodeMoving = false;
 	float moveThreshold = 1.0;
 
-
 };

@@ -11,7 +11,6 @@ void SceneGraph::addNode(NodeItem nodeItem)
 
 void SceneGraph::drawNodes()
 {
-	ImGuiIO& io = ImGui::GetIO();
 
 	for (auto& nodeItem : nodeItems) {
 		nodeItem.draw();
@@ -25,7 +24,8 @@ void SceneGraph::drawNodes()
 
 	}
 
-	ImVec2 dragDelta = ImGui::GetIO().MouseDelta;
+	ImGuiIO& io = ImGui::GetIO();
+	ImVec2 dragDelta = io.MouseDelta;
 	if (nodeMoving) {
 
 		nodeClicked->moveBy(dragDelta);
@@ -39,10 +39,18 @@ void SceneGraph::drawNodes()
 
 	}
 
-	if (ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
+	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
 
 		nodeClicked = nullptr;
 		nodeMoving = false;
+
+	}
+
+	if (ImGui::IsItemHovered() && ImGui::IsMouseDown(ImGuiMouseButton_Middle) && nodeClicked == nullptr) {
+
+		for (auto& nodeItem : nodeItems) {
+			nodeItem.moveBy(dragDelta);
+		}
 
 	}
 

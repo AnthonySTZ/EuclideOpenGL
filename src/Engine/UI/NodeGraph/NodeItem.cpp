@@ -12,7 +12,11 @@ void NodeItem::draw()
 	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? nodeColor * 0.8 : nodeColor, 4.0f);
 	drawList->AddRect(nodePos, nodeEnd, IM_COL32(200, 200, 200, 255), 4.0f);
 
-	drawList->AddText(nodePos + ImVec2(25, 15), IM_COL32(255, 255, 255, 255), node->getName().c_str());
+	ImVec2 textSize = ImGui::CalcTextSize(node->getName().c_str());
+	ImVec2 textPos = nodePos;
+	textPos.x += nodeSize.x * 0.5 - textSize.x * 0.5;
+	textPos.y += nodeSize.y * 0.5 - textSize.y * 0.5;
+	drawList->AddText(textPos, IM_COL32(255, 255, 255, 255), node->getName().c_str());
 
 }
 
