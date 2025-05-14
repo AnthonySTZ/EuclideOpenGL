@@ -36,6 +36,9 @@ public:
 	bool isClicked(ImGuiMouseButton mouseButton) const;
 
 private:
+	void drawNodeRect();
+	void drawNodeIO();
+
 
 	ImVec2 nodePos;
 	ImVec2 nodeSize = ImVec2(80, 40);
