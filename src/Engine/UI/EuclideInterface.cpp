@@ -139,7 +139,9 @@ void EuclideInterface::createViewport() {
 
 void EuclideInterface::createNodeGraph()
 {
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("NodeGraph");
+	ImGui::PopStyleVar(1);
 
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -177,6 +179,7 @@ void EuclideInterface::createNodeGraph()
 	sceneGraph.drawNodes();
 
 	ImGui::End();
+	
 }
 
 void EuclideInterface::renderUI() {
