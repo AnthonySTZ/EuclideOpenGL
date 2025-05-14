@@ -12,14 +12,14 @@ int main() {
 
 	std::cout << "Name: " << cube.getName().c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
 
-	cube.setInput(0, &transform, 0);
+	transform.setInput(0, &cube, 0);
 
-	Node* inputNode = cube.getInput(0);
+	Node* inputNode = transform.getInput(0);
 	if (inputNode != nullptr) {
-		std::cout << "Cube -> input 0 : " << inputNode->getName().c_str() << "\n";
+		std::cout << "Transform -> input 0 : " << inputNode->getName().c_str() << "\n";
 	}
 
-	Mesh mesh = cube.processOutput(0);
+	Mesh mesh = transform.processOutput(0);
 
 	std::cout << "Mesh : " << mesh.vertices.size() << " vertices" << "\n";
 
