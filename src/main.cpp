@@ -8,7 +8,7 @@ int main() {
 
 	Cube cube;
 
-	std::cout << "Name: " << cube.nodeName.c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
+	std::cout << "Name: " << cube.getName().c_str() << " -- Inputs: " << cube.getInputsNb() << " -- Outputs: " << cube.getOutputsNb() << "\n";
 
 
 	return EXIT_SUCCESS;

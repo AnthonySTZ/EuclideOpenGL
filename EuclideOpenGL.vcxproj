@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
     <ClInclude Include="src\Engine\UI\EuclideEngine.h" />
     <ClInclude Include="src\Engine\UI\EuclideInterface.h" />

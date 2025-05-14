@@ -122,5 +122,8 @@
     <ClInclude Include="src\Engine\Core\Nodes\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
