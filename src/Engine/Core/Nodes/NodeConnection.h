@@ -18,6 +18,12 @@ public:
 		outputNode{ outputNode }, outputIndex{ outputIndex } {
 	}
 
+	std::shared_ptr<Node> getInputNode() const { return inputNode; };
+	std::shared_ptr<Node> getOutputNode() const { return outputNode; };
+
+	uint32_t getInputIndex() const { return inputIndex; };
+	uint32_t getOutputIndex() const { return outputIndex; };
+
 private:
 	std::shared_ptr<Node> inputNode;
 	uint32_t inputIndex;
