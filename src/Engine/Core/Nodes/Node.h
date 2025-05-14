@@ -13,6 +13,9 @@ public:
 
 	virtual ~Node() = default;
 
+	std::string getName() const { return nodeName; };
+	void setName(std::string name) { nodeName = name; };
+
 	uint32_t getInputsNb() const { return inputsNb; }
 	uint32_t getOutputsNb() const { return outputsNb; }
 
