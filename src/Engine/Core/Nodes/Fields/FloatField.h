@@ -4,13 +4,13 @@
 
 #include <string>
 
-class FloatField : Field {
+class FloatField : public Field {
 
 public:
-	FloatField(std::string name, float defaultValue = 0.0f) : label{name}, value{defaultValue} {}
+	FloatField(std::string &name, float defaultValue = 0.0f) : label{name}, value{defaultValue} {}
 
 	void draw() override;
-	float getValue() const;
+	float getValue() const { return value; }
 
 private:
 	std::string label;

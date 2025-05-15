@@ -162,6 +162,8 @@
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Fields\Float3Field.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Fields\FloatField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Null.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Scene.cpp" />
@@ -182,6 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Fields\Field.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Fields\Float3Field.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Fields\FloatField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Null.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Scene.h" />

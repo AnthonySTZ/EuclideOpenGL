@@ -1,9 +1,11 @@
 #pragma once
 
+#include <imgui.h>
 
 class Field {
 
 public:
-	virtual void draw();
+	virtual ~Field() = default;
+	virtual void draw() {};
 
 };

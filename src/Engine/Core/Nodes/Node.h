@@ -8,6 +8,10 @@
 #include "NodeConnection.h"
 #include "../Geometry/Geometry.h"
 
+#include "Fields/Field.h"
+
+#include <vector>
+
 class Node : public std::enable_shared_from_this<Node> {
 
 public:
@@ -37,6 +41,17 @@ public:
 		throw std::runtime_error("process not implemented!");
 	};
 
+	void drawParameters();
+
+	template<typename T>
+	T* getParam(const std::string& name) {
+		auto it = parameters.find(name);
+		if (it != parameters.end()) {
+			return dynamic_cast<T*>(it->second.get());
+		}
+		return nullptr;
+	}
+
 protected:
 	std::string nodeName;
 
@@ -45,5 +60,8 @@ protected:
 
 	std::map<uint32_t, std::shared_ptr<NodeConnection>> inputs;
 	std::map<uint32_t, std::shared_ptr<NodeConnection>> outputs;
+
+	std::map<std::string, std::unique_ptr<Field>> parameters;
+	std::vector<std::string> paramOrder;
 
 };

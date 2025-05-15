@@ -20,3 +20,16 @@ void Node::setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32
 	inputNode->outputs[inputIndex] = conn;
 
 }
+
+void Node::drawParameters()
+{
+
+	for (auto& param : paramOrder) {
+
+		if (parameters.find(param) == parameters.end()) continue;
+
+		parameters[param]->draw();
+
+	}
+
+}

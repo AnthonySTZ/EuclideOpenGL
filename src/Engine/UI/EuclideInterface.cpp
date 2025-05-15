@@ -143,15 +143,19 @@ void EuclideInterface::createNodeGraph()
 	ImGui::Begin("NodeGraph");
 	ImGui::PopStyleVar(1);
 
+	;
+
 	ImGuiIO& io = ImGui::GetIO();
 
-	ImVec2 region = ImGui::GetContentRegionAvail();
+	ImVec2 regionAvail = ImGui::GetContentRegionAvail();
+	ImVec2 region = ImVec2(std::max(regionAvail.x, 100.0f), std::max(regionAvail.y, 100.0f));
 	ImVec2 startPos = ImGui::GetCursorScreenPos();
 	ImVec2 endPos = startPos + region;
 
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
 	drawList->AddRectFilled(startPos, endPos, IM_COL32(50, 50, 50, 255));
 
+	
 	ImGui::SetCursorScreenPos(startPos); // Reset cursor
 	ImGui::InvisibleButton("nodegraph_click_area", region, ImGuiButtonFlags_None);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
@@ -175,7 +179,7 @@ void EuclideInterface::createNodeGraph()
 		}
 		ImGui::EndPopup();
 	}
-
+	
 	sceneGraph.drawNodes();
 
 	std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
@@ -183,7 +187,11 @@ void EuclideInterface::createNodeGraph()
 
 		ImGui::Begin("Parameters");
 
+		ImGui::Text("Node Name :");
+		ImGui::SameLine();
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
+
+		selectedNode->getNode()->drawParameters();
 
 		ImGui::End();
 
