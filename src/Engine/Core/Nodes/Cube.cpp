@@ -4,56 +4,39 @@ Mesh Cube::processOutput(uint32_t index)
 {
     Mesh::Builder cubeBuilder;
 
+	glm::vec3 size = getParam<Float3Field>("Size")->toVec3();
+	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
+
 	cubeBuilder.vertices = {
-		// Front face (0-3)
-		{ {-0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, 1.0f} },
-		{ {-0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, 1.0f} },
-		{ { 0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, 1.0f} },
-		{ { 0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, 1.0f} },
+		// Front face (+X)
+		{glm::vec3(0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{glm::vec3(0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{glm::vec3(0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{glm::vec3(0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
 
-		// Back face (4-7)
-		{ {-0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, -1.0f} },
-		{ {-0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, -1.0f} },
-		{ { 0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, -1.0f} },
-		{ { 0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  0.0f, -1.0f} },
-
-		// Left face (8-11)
-		{ {-0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, {-1.0f,  0.0f,  0.0f} },
-		{ {-0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, {-1.0f,  0.0f,  0.0f} },
-		{ {-0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, {-1.0f,  0.0f,  0.0f} },
-		{ {-0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, {-1.0f,  0.0f,  0.0f} },
-
-		// Right face (12-15)
-		{ { 0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 1.0f,  0.0f,  0.0f} },
-		{ { 0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 1.0f,  0.0f,  0.0f} },
-		{ { 0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 1.0f,  0.0f,  0.0f} },
-		{ { 0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 1.0f,  0.0f,  0.0f} },
-
-		// Top face (16-19)
-		{ {-0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  1.0f,  0.0f} },
-		{ {-0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  1.0f,  0.0f} },
-		{ { 0.5f,  0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  1.0f,  0.0f} },
-		{ { 0.5f,  0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f,  1.0f,  0.0f} },
-
-		// Bottom face (20-23)
-		{ {-0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f, -1.0f,  0.0f} },
-		{ {-0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f, -1.0f,  0.0f} },
-		{ { 0.5f, -0.5f, -0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f, -1.0f,  0.0f} },
-		{ { 0.5f, -0.5f,  0.5f}, {0.8f, 0.8f, 0.8f}, { 0.0f, -1.0f,  0.0f} },
+		//Back face (-X)
+		{glm::vec3(-0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{glm::vec3(-0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{glm::vec3(-0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{glm::vec3(-0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		
 	};
 
 	Face faceFront;
-	faceFront.vertexIndices = { 0, 1, 3, 2 };
+	faceFront.vertexIndices = { 0, 1, 2, 3 };
 	Face faceBack;
-	faceBack.vertexIndices = { 4, 6, 7, 5 };
-	Face faceLeft;
-	faceLeft.vertexIndices = { 8, 9, 11, 10 };
-	Face faceRight;
-	faceRight.vertexIndices = { 12, 14, 15, 13 };
+	faceBack.vertexIndices = { 4, 5, 6, 7 };
+
+	Face faceLeft; // (-Z)
+	faceLeft.vertexIndices = { 5, 0, 3, 6 };
+
+	Face faceRight;	// (+Z)
+	faceRight.vertexIndices = { 1, 4, 7, 2 };
+
 	Face faceTop;
-	faceTop.vertexIndices = { 16, 18, 19, 17 };
+	faceTop.vertexIndices = { 0, 5, 4, 1 };
 	Face faceBottom;
-	faceBottom.vertexIndices = { 20, 21, 23, 22 };
+	faceBottom.vertexIndices = { 3, 2, 7, 6 };
 
 
 	cubeBuilder.faces = {
