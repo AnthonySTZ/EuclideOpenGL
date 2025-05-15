@@ -61,6 +61,16 @@ void SceneGraph::drawNodes()
 
 	}
 
+	if (currentIoNode != nullptr) {
+
+		ImGuiIO& io = ImGui::GetIO();
+		ImVec2 ioPos = currentIoNode->getPosition() + ioClicked->offset;
+		
+		ImDrawList* drawList = ImGui::GetWindowDrawList();
+		drawList->AddLine(io.MousePos, ioPos, IM_COL32(255, 255, 255, 255));
+
+	}
+
 	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
 
 		if (!nodeMoving) {

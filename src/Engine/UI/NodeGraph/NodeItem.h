@@ -57,6 +57,8 @@ public:
 	NodeItem::NodeIO* IOClicked(ImGuiMouseButton mouseButton) const;
 	bool isClicked(ImGuiMouseButton mouseButton) const;
 
+	ImVec2 getPosition() const { return nodePos; };
+
 private:
 	void drawNodeRect();
 	void drawNodeIO();
@@ -64,7 +66,7 @@ private:
 	void createIOs();
 
 
-	ImVec2 nodePos;
+	ImVec2 nodePos = ImVec2(0, 0);
 	ImVec2 nodeSize = ImVec2(80, 40);
 	ImU32 nodeColor = IM_COL32(100, 100, 150, 255);
 	bool isSelected = false;
