@@ -108,9 +108,7 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void EuclideModel::update(Mesh::Builder& meshBuilder) {
-
-	mesh.updateMesh(meshBuilder);
+void EuclideModel::update() {
 
 	std::cout << "Index count : " << mesh.triangulateIndices.size() << "\n";
 
@@ -126,7 +124,7 @@ void EuclideModel::updateBuffers() {
 	glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceIndicesBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), &mesh.triangulateIndices[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), mesh.triangulateIndices.data(), GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.wireframeIndices.size() * sizeof(uint32_t), mesh.wireframeIndices.data(), GL_DYNAMIC_DRAW);

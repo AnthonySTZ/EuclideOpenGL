@@ -8,9 +8,6 @@
 
 EuclideRenderer::EuclideRenderer()
 {
-	Mesh::Builder cube = createCube();
-	model.update(cube);
-
 	createShaderProgram(facesShaderProgram,
 		"src/Engine/Core/Rendering/shaders/vertShader.vert",
 		"src/Engine/Core/Rendering/shaders/fragShader.frag");
@@ -81,7 +78,7 @@ void EuclideRenderer::createGrid() {
 		}
 	}
 
-	grid.update(gridBuilder);
+	grid.updateMesh(gridBuilder);
 
 }
 
