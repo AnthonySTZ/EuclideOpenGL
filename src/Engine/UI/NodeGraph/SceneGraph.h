@@ -16,6 +16,8 @@ public:
 	void addNode(NodeItem node);
 	void drawNodes();
 
+	std::shared_ptr<NodeItem> getSelectedNode() const { return nodeSelected; };
+
 	
 private:
 	Scene scene;

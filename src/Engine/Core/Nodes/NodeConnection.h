@@ -12,21 +12,21 @@ class NodeConnection {
 	Output node is the node that the connection goes to.In a vertical flow, this is the bottom node.
 	*/
 public:
-	NodeConnection(Node* inputNode, uint32_t inputIndex,
-		Node* outputNode, uint32_t outputIndex)
+	NodeConnection(std::shared_ptr<Node> inputNode, uint32_t inputIndex,
+		std::shared_ptr<Node> outputNode, uint32_t outputIndex)
 		: inputNode{ inputNode }, inputIndex{ inputIndex },
 		outputNode{ outputNode }, outputIndex{ outputIndex } {
 	}
 
-	Node* getInputNode() const { return inputNode; };
-	Node* getOutputNode() const { return outputNode; };
+	std::shared_ptr<Node> getInputNode() const { return inputNode; };
+	std::shared_ptr<Node> getOutputNode() const { return outputNode; };
 
 	uint32_t getInputIndex() const { return inputIndex; };
 	uint32_t getOutputIndex() const { return outputIndex; };
 
 private:
-	Node* inputNode;
+	std::shared_ptr<Node> inputNode;
 	uint32_t inputIndex;
-	Node* outputNode;
+	std::shared_ptr<Node> outputNode;
 	uint32_t outputIndex;
 };

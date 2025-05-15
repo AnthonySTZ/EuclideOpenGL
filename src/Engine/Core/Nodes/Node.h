@@ -8,7 +8,7 @@
 #include "NodeConnection.h"
 #include "../Geometry/Geometry.h"
 
-class Node {
+class Node : public std::enable_shared_from_this<Node> {
 
 public:
 
@@ -23,8 +23,8 @@ public:
 	uint32_t getInputsNb() const { return inputsNb; }
 	uint32_t getOutputsNb() const { return outputsNb; }
 
-	void setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex = 0);
-	Node* getInput(uint32_t index) const {
+	void setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32_t outputIndex = 0);
+	std::shared_ptr<Node> getInput(uint32_t index) const {
 		auto it = inputs.find(index);
 		if (it == inputs.end()) {
 			return nullptr;

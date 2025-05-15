@@ -30,7 +30,6 @@ void SceneGraph::drawNodes()
 			if (ioClicked == nullptr) {
 				ioClicked = tmpNodeIO;
 				currentIoNode = nodeItem;
-				std::cout << "IO index clicked : " << ioClicked->index << "\n";
 			}
 			else {
 				// CREATE CONNECTION
@@ -41,7 +40,7 @@ void SceneGraph::drawNodes()
 					NodeItem::NodeIO* inputIO;
 					NodeItem::NodeIO* outputIO;
 
-					if (tmpNodeIO->type == NodeItem::INPUT) {
+					if (tmpNodeIO->type == NodeItem::OUTPUT) {
 						inputNode = nodeItem;
 						inputIO = tmpNodeIO;
 						outputNode = currentIoNode;
@@ -61,6 +60,7 @@ void SceneGraph::drawNodes()
 						outputIO
 					);
 					nodeConnections.push_back(conn);
+					outputNode->getNode()->setInput(outputIO->index, inputNode->getNode(), inputIO->index);
 
 					std::cout << "Create connection between " <<
 						currentIoNode->getNode()->getName() << " at index " << ioClicked->index << " and " <<

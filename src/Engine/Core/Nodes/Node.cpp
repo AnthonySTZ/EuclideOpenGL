@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void Node::setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex)
+void Node::setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32_t outputIndex)
 {
 
 	if (inputIndex >= inputsNb) {
@@ -15,7 +15,7 @@ void Node::setInput(uint32_t inputIndex, Node* inputNode, uint32_t outputIndex)
 		return;
 	}
 
-	auto conn = std::make_shared<NodeConnection>(inputNode, outputIndex, this, inputIndex);
+	auto conn = std::make_shared<NodeConnection>(inputNode, outputIndex, shared_from_this(), inputIndex);
 	inputs[inputIndex] = conn;
 	inputNode->outputs[inputIndex] = conn;
 

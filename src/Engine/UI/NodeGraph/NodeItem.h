@@ -15,7 +15,7 @@ inline ImVec2 operator-(const ImVec2& lvec, const ImVec2& rvec) {
 }
 
 inline ImVec2 operator*(const ImVec2& lvec, const float& rval) {
-	return ImVec2(lvec.x + rval, lvec.y + rval);
+	return ImVec2(lvec.x * rval, lvec.y * rval);
 }
 
 
@@ -29,10 +29,10 @@ public:
 	};
 
 	struct NodeIO {
-		IOType type;
-		uint32_t index;
-		ImVec2 offset;
-		float radius;
+		IOType type = INPUT;
+		uint32_t index = 0;
+		ImVec2 offset = ImVec2(0.0, 0.0);
+		float radius = 5.0f;
 
 		void drawAt(ImVec2 pos) const;
 	};
