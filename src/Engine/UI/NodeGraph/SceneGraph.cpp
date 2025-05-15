@@ -25,10 +25,22 @@ void SceneGraph::drawNodes()
 		}
 
 		NodeItem::NodeIO* tmpNodeIO = nodeItem->IOClicked(ImGuiMouseButton_Left);
-		if (ioClicked == nullptr && tmpNodeIO != nullptr) {
-			ioClicked = tmpNodeIO;
-			std::cout << "IO index clicked : " << ioClicked->index << "\n";
+		if (tmpNodeIO != nullptr) {
+			if (ioClicked == nullptr) {
+				ioClicked = tmpNodeIO;
+				currentIoNode = nodeItem.get();
+				std::cout << "IO index clicked : " << ioClicked->index << "\n";
+			}
+			else {
+				std::cout << "Create connection between " <<
+					currentIoNode->getNode()->getName() << " at index " << ioClicked->index << " and " << 
+					nodeItem->getNode()->getName() << " at index " << tmpNodeIO->index << "\n";
+				ioClicked = nullptr;
+				currentIoNode = nullptr;
+
+			}
 		}
+		
 
 	}
 
@@ -46,11 +58,6 @@ void SceneGraph::drawNodes()
 		if (abs(dragDelta.x + dragDelta.y) >= moveThreshold) {
 			nodeMoving = true;
 		}
-
-	}
-
-	if (ioClicked != nullptr) {
-
 
 	}
 
