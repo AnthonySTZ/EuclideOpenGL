@@ -108,6 +108,9 @@
     <ClCompile Include="src\Engine\UI\NodeGraph\NodeItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\UI\NodeGraph\NodeConnectionLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\UI\NodeGraph\NodeItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\UI\NodeGraph\NodeConnectionLine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

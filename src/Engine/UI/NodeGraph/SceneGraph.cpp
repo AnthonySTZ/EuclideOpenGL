@@ -29,20 +29,58 @@ void SceneGraph::drawNodes()
 			hasClickedIO = true;
 			if (ioClicked == nullptr) {
 				ioClicked = tmpNodeIO;
-				currentIoNode = nodeItem.get();
+				currentIoNode = nodeItem;
 				std::cout << "IO index clicked : " << ioClicked->index << "\n";
 			}
 			else {
-				std::cout << "Create connection between " <<
-					currentIoNode->getNode()->getName() << " at index " << ioClicked->index << " and " << 
-					nodeItem->getNode()->getName() << " at index " << tmpNodeIO->index << "\n";
-				ioClicked = nullptr;
-				currentIoNode = nullptr;
+				// CREATE CONNECTION
+				if ((tmpNodeIO->type != ioClicked->type) && (nodeItem->getNode()->getName() != currentIoNode->getNode()->getName())) {
+
+					std::shared_ptr<NodeItem> inputNode;
+					std::shared_ptr<NodeItem> outputNode;
+					NodeItem::NodeIO* inputIO;
+					NodeItem::NodeIO* outputIO;
+
+					if (tmpNodeIO->type == NodeItem::INPUT) {
+						inputNode = nodeItem;
+						inputIO = tmpNodeIO;
+						outputNode = currentIoNode;
+						outputIO = ioClicked;
+					}
+					else {
+						inputNode = currentIoNode;
+						inputIO = ioClicked;
+						outputNode = nodeItem;
+						outputIO = tmpNodeIO;
+					}
+
+					std::shared_ptr<NodeConnectionLine> conn = std::make_shared<NodeConnectionLine>(
+						inputNode,
+						inputIO,
+						outputNode,
+						outputIO
+					);
+					nodeConnections.push_back(conn);
+
+					std::cout << "Create connection between " <<
+						currentIoNode->getNode()->getName() << " at index " << ioClicked->index << " and " <<
+						nodeItem->getNode()->getName() << " at index " << tmpNodeIO->index << "\n";
+					ioClicked = nullptr;
+					currentIoNode = nullptr;
+
+
+				}
+
+				
 
 			}
 		}
 		
 
+	}
+
+	for (auto& conn : nodeConnections) {
+		conn->draw();
 	}
 
 	ImGuiIO& io = ImGui::GetIO();

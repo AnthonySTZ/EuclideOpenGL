@@ -2,9 +2,10 @@
 
 #include "NodeItem.h"
 
-class NodeConnection {
+class NodeConnectionLine {
 
-	NodeConnection(
+public:
+	NodeConnectionLine(
 		std::shared_ptr<NodeItem> input,
 		NodeItem::NodeIO* inIO,
 		std::shared_ptr<NodeItem> output,
@@ -12,7 +13,7 @@ class NodeConnection {
 	) : inputNode{ input }, outputNode{ output }, inputIO{ inIO }, outputIO{ outIO } {
 	}
 
-	void draw() {}
+	void draw();
 
 private:
 	std::shared_ptr<NodeItem> inputNode;
