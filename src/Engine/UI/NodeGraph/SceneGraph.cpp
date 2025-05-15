@@ -13,7 +13,7 @@ void SceneGraph::addNode(NodeItem nodeItem)
 
 void SceneGraph::drawNodes()
 {
-
+	bool hasClickedIO = false;
 	for (auto &nodeItem : nodeItems) {
 		nodeItem->draw();
 
@@ -26,6 +26,7 @@ void SceneGraph::drawNodes()
 
 		NodeItem::NodeIO* tmpNodeIO = nodeItem->IOClicked(ImGuiMouseButton_Left);
 		if (tmpNodeIO != nullptr) {
+			hasClickedIO = true;
 			if (ioClicked == nullptr) {
 				ioClicked = tmpNodeIO;
 				currentIoNode = nodeItem.get();
@@ -62,14 +63,18 @@ void SceneGraph::drawNodes()
 	}
 
 	if (currentIoNode != nullptr) {
-
 		ImGuiIO& io = ImGui::GetIO();
 		ImVec2 ioPos = currentIoNode->getPosition() + ioClicked->offset;
 		
 		ImDrawList* drawList = ImGui::GetWindowDrawList();
 		drawList->AddLine(io.MousePos, ioPos, IM_COL32(255, 255, 255, 255));
 
-	}
+		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !hasClickedIO) {
+			currentIoNode = nullptr;
+			ioClicked = nullptr;
+		}
+
+	}	
 
 	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
 
