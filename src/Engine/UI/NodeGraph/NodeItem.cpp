@@ -83,14 +83,27 @@ bool NodeItem::isHovered() const {
 		io.MousePos.y >= nodePos.y && io.MousePos.y <= nodeEnd.y;
 }
 
+NodeItem::NodeIO* NodeItem::IOClicked(ImGuiMouseButton mouseButton) const {
+	
+	ImGuiIO& io = ImGui::GetIO();
+	for (auto &nodeIo : nodeIOs) {
+		ImVec2 center = nodePos + nodeIo.offset;
+		ImVec2 delta = io.MousePos - center;
+		float dist2 = delta.x * delta.x + delta.y * delta.y;
+
+		if (dist2 < nodeIo.radius * nodeIo.radius) {
+			if (ImGui::IsMouseClicked(mouseButton)) {
+				std::cout << "IO Clicked !\n";
+				return const_cast<NodeIO*>(&nodeIo);
+			}
+		}
+
+	}
+
+	return nullptr;
+}
+
 bool NodeItem::isClicked(ImGuiMouseButton mouseButton) const {
 	return isHovered() && ImGui::IsMouseClicked(mouseButton);
 }
-
-bool NodeItem::isIoClicked() const {
-
-
-	return false;
-}
-
 

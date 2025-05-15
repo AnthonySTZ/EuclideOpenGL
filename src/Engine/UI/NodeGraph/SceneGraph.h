@@ -22,6 +22,7 @@ private:
 
 	std::shared_ptr<NodeItem> nodeClicked = nullptr;
 	std::shared_ptr<NodeItem> nodeSelected = nullptr;
+	NodeItem::NodeIO* ioClicked = nullptr;
 	bool nodeMoving = false;
 	float moveThreshold = 1.0;
 

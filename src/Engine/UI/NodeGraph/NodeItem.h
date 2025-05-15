@@ -19,8 +19,9 @@ inline ImVec2 operator*(const ImVec2& lvec, const float& rval) {
 }
 
 
-
 class NodeItem {
+
+public:
 
 	enum IOType {
 		INPUT,
@@ -35,9 +36,6 @@ class NodeItem {
 
 		void drawAt(ImVec2 pos) const;
 	};
-
-public:		
-
 
 	NodeItem(std::shared_ptr<Node> node, ImVec2 nodePos) : node{ node }, nodePos{ nodePos } 
 	{
@@ -56,9 +54,8 @@ public:
 	std::shared_ptr<Node> getNode() const { return node; };
 
 	bool isHovered() const;
+	NodeItem::NodeIO* IOClicked(ImGuiMouseButton mouseButton) const;
 	bool isClicked(ImGuiMouseButton mouseButton) const;
-
-	bool isIoClicked() const;
 
 private:
 	void drawNodeRect();

@@ -24,6 +24,12 @@ void SceneGraph::drawNodes()
 
 		}
 
+		NodeItem::NodeIO* tmpNodeIO = nodeItem->IOClicked(ImGuiMouseButton_Left);
+		if (ioClicked == nullptr && tmpNodeIO != nullptr) {
+			ioClicked = tmpNodeIO;
+			std::cout << "IO index clicked : " << ioClicked->index << "\n";
+		}
+
 	}
 
 	ImGuiIO& io = ImGui::GetIO();
@@ -40,6 +46,11 @@ void SceneGraph::drawNodes()
 		if (abs(dragDelta.x + dragDelta.y) >= moveThreshold) {
 			nodeMoving = true;
 		}
+
+	}
+
+	if (ioClicked != nullptr) {
+
 
 	}
 
