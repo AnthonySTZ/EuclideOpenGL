@@ -183,6 +183,7 @@ void EuclideInterface::createNodeGraph()
 		std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
 		if (selectedNode != nullptr) {
 
+			sceneGraph.setSelectedNodeRender();
 			Mesh mesh = selectedNode->getNode()->processOutput(0);
 			renderer->updateMesh(mesh);
 

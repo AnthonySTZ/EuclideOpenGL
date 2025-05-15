@@ -13,8 +13,10 @@ void NodeItem::drawNodeRect() {
 	ImVec2 nodeEnd = nodePos + nodeSize;
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
 
-	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? nodeColor * 0.8f : nodeColor, 4.0f);
-	drawList->AddRect(nodePos, nodeEnd, isSelected ? outlineSelectedColor : IM_COL32(200, 200, 200, 255), 4.0f, 0, 2.0f);
+	ImVec4 col = isRender ? nodeRenderColor : nodeColor;
+
+	drawList->AddRectFilled(nodePos, nodeEnd, isHovered() ? vec4ToColor(col * 0.8f) : vec4ToColor(col), 4.0f);
+	drawList->AddRect(nodePos, nodeEnd, isSelected ? vec4ToColor(outlineSelectedColor) : IM_COL32(200, 200, 200, 255), 4.0f, 0, 2.0f);
 
 	ImVec2 textSize = ImGui::CalcTextSize(node->getName().c_str());
 	ImVec2 textPos = nodePos;

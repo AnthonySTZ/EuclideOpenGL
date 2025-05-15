@@ -140,3 +140,15 @@ void SceneGraph::drawNodes()
 	}
 
 }
+
+void SceneGraph::setSelectedNodeRender()
+{
+
+	for (auto& nodeItem : nodeItems) {
+
+		nodeItem->setRenderState(false);
+
+	}
+
+	nodeSelected->setRenderState(true);
+}

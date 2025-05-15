@@ -18,6 +18,9 @@ inline ImVec2 operator*(const ImVec2& lvec, const float& rval) {
 	return ImVec2(lvec.x * rval, lvec.y * rval);
 }
 
+inline ImVec4 operator*(const ImVec4& lvec, const float& rval) {
+	return ImVec4(lvec.x * rval, lvec.y * rval, lvec.z * rval, lvec.w);
+}
 
 class NodeItem {
 
@@ -56,6 +59,7 @@ public:
 	bool isHovered() const;
 	NodeItem::NodeIO* IOClicked(ImGuiMouseButton mouseButton) const;
 	bool isClicked(ImGuiMouseButton mouseButton) const;
+	void setRenderState(bool renderState) { isRender = renderState; }
 
 	ImVec2 getPosition() const { return nodePos; };
 
@@ -65,12 +69,16 @@ private:
 
 	void createIOs();
 
+	ImU32 vec4ToColor(ImVec4 col) { return IM_COL32(col.x, col.y, col.z, col.w); }
+
 
 	ImVec2 nodePos = ImVec2(0, 0);
 	ImVec2 nodeSize = ImVec2(80, 40);
-	ImU32 nodeColor = IM_COL32(100, 100, 150, 255);
+	ImVec4 nodeColor = ImVec4(100, 100, 150, 255);
+	ImVec4 nodeRenderColor = ImVec4(181, 72, 94, 255);
 	bool isSelected = false;
-	ImU32 outlineSelectedColor = IM_COL32(255, 178, 102, 255);
+	ImVec4 outlineSelectedColor = ImVec4(255, 178, 102, 255);
+	bool isRender = false;
 
 	float ioPadding = 5.0f;
 	float ioRadius = 6.0f;

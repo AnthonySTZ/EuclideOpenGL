@@ -15,8 +15,10 @@ public:
 
 	void addNode(NodeItem node);
 	void drawNodes();
+	void setSelectedNodeRender();
 
 	std::shared_ptr<NodeItem> getSelectedNode() const { return nodeSelected; };
+
 
 	
 private:
