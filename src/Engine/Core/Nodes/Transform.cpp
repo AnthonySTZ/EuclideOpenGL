@@ -8,6 +8,18 @@ Mesh Transform::processOutput(uint32_t index)
 
     Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
 
-
+    translateMesh(inputMesh);
+    // TODO: Add Scale and rotate
     return inputMesh;
 }
+
+void Transform::translateMesh(Mesh& mesh) {
+    glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
+
+    for (auto& vertex : mesh.vertices) {
+        vertex.position += translate;
+    }
+
+}
+
+// TODO: Add Scale and rotate

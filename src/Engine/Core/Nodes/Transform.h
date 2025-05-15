@@ -21,4 +21,5 @@ public:
 	};
 
 	Mesh processOutput(uint32_t index) override;
+	void translateMesh(Mesh& mesh);
 };
