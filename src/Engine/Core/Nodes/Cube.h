@@ -10,8 +10,8 @@ public:
 		inputsNb = 0;
 		outputsNb = 1;
 
-		parameters["Size"] = std::make_unique<Float3Field>( "Size", std::array<float, 3>{1.0f, 1.0f, 1.0f} );
-		parameters["Translate"] = std::make_unique<Float3Field>( "Translate");
+		parameters["Size"] = std::make_unique<Float3Field>( "Size", std::array<float, 3>{1.0f, 1.0f, 1.0f}, 0.0f);
+		parameters["Translate"] = std::make_unique<Float3Field>("Translate");
 
 		paramOrder.push_back("Size");
 		paramOrder.push_back("Translate");
