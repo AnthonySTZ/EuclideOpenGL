@@ -178,18 +178,27 @@ void EuclideInterface::createNodeGraph()
 
 	sceneGraph.drawNodes();
 
-	if (ImGui::IsKeyPressed(ImGuiKey_R)) {
+	std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
+	if (selectedNode != nullptr) {
 
-		std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
-		if (selectedNode != nullptr) {
+		ImGui::Begin("Parameters");
 
-			sceneGraph.setSelectedNodeRender();
-			Mesh mesh = selectedNode->getNode()->processOutput(0);
-			renderer->updateMesh(mesh);
+		ImGui::Text(selectedNode->getNode()->getName().c_str());
+
+		ImGui::End();
+
+
+		if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
+
+				sceneGraph.setSelectedNodeRender();
+				Mesh mesh = selectedNode->getNode()->processOutput(0);
+				renderer->updateMesh(mesh);
 
 		}
 
 	}
+
+
 
 	ImGui::End();
 	
