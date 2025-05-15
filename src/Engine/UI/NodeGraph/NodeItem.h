@@ -18,10 +18,32 @@ inline ImVec2 operator*(const ImVec2& lvec, const float& rval) {
 	return ImVec2(lvec.x + rval, lvec.y + rval);
 }
 
+
+
 class NodeItem {
 
-public:
-	NodeItem(std::shared_ptr<Node> node, ImVec2 nodePos) : node{ node }, nodePos{ nodePos } {};
+	enum IOType {
+		INPUT,
+		OUTPUT
+	};
+
+	struct NodeIO {
+		IOType type;
+		uint32_t index;
+		ImVec2 offset;
+		float radius;
+
+		void drawAt(ImVec2 pos) const;
+	};
+
+public:		
+
+
+	NodeItem(std::shared_ptr<Node> node, ImVec2 nodePos) : node{ node }, nodePos{ nodePos } 
+	{
+		createIOs();
+	};
+
 	NodeItem() = default;
 
 	void draw();
@@ -36,9 +58,13 @@ public:
 	bool isHovered() const;
 	bool isClicked(ImGuiMouseButton mouseButton) const;
 
+	bool isIoClicked() const;
+
 private:
 	void drawNodeRect();
 	void drawNodeIO();
+
+	void createIOs();
 
 
 	ImVec2 nodePos;
@@ -47,6 +73,9 @@ private:
 	bool isSelected = false;
 	ImU32 outlineSelectedColor = IM_COL32(255, 178, 102, 255);
 
-	std::shared_ptr<Node> node;
+	float ioPadding = 5.0f;
+	float ioRadius = 6.0f;
 
+	std::shared_ptr<Node> node;
+	std::vector<NodeIO> nodeIOs;
 };

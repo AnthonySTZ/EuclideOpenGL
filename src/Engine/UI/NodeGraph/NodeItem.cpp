@@ -25,31 +25,53 @@ void NodeItem::drawNodeRect() {
 
 void NodeItem::drawNodeIO() {
 
-	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	float radius = 6.0f;
-	float padding = 5.0f;
-	float width = nodeSize.x - padding * 2 - radius * 0.5f;
+	for (auto& nodeIo : nodeIOs) {
+		nodeIo.drawAt(nodePos);
+	}
+
+}
+
+void NodeItem::createIOs() {
+
+	float width = nodeSize.x - ioPadding * 2 - ioRadius * 0.5f;
 
 	float inputDelta = width / node->getInputsNb();
-	ImVec2 inputPos = ImVec2(0.0, nodePos.y - radius * 1.5f);
+	ImVec2 inputOffset = ImVec2(0.0, - ioRadius * 1.5f);
 
+	nodeIOs.reserve(node->getInputsNb() + node->getOutputsNb());
 	for (int i = 0; i < node->getInputsNb(); i++) {
 		float xOffset = 0.5f * inputDelta + i * inputDelta;
-		inputPos.x = nodePos.x + xOffset + padding;
-		drawList->AddCircleFilled(inputPos, radius, IM_COL32(170, 170, 170, 255));
-		drawList->AddCircle(inputPos, radius, IM_COL32(200, 200, 200, 255));
+		inputOffset.x = xOffset + ioPadding;
+		NodeIO nodeIo;
+		nodeIo.type = INPUT;
+		nodeIo.index = i;
+		nodeIo.offset = inputOffset;
+		nodeIo.radius = ioRadius;
+		nodeIOs.push_back(nodeIo);
 	}
 
 	float outputDelta = width / node->getOutputsNb();
-	ImVec2 outputPos = ImVec2(0.0, nodePos.y + nodeSize.y + radius * 1.5f);
+	ImVec2 outputOffset = ImVec2(0.0, nodeSize.y + ioRadius * 1.5f);
 
 	for (int i = 0; i < node->getOutputsNb(); i++) {
 		float xOffset = 0.5f * outputDelta + i * outputDelta;
-		outputPos.x = nodePos.x + xOffset + padding;
-		drawList->AddCircleFilled(outputPos, radius, IM_COL32(170, 170, 170, 255));
-		drawList->AddCircle(outputPos, radius, IM_COL32(200, 200, 200, 255));
+		outputOffset.x = xOffset + ioPadding;
+		NodeIO nodeIo;
+		nodeIo.type = OUTPUT;
+		nodeIo.index = i;
+		nodeIo.offset = outputOffset;
+		nodeIo.radius = ioRadius;
+		nodeIOs.push_back(nodeIo);
 	}
 
+}
+
+void NodeItem::NodeIO::drawAt(ImVec2 pos) const
+{
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+	ImVec2 ioPos = pos + offset;
+	drawList->AddCircleFilled(ioPos, radius, IM_COL32(170, 170, 170, 255));
+	drawList->AddCircle(ioPos, radius, IM_COL32(200, 200, 200, 255));
 }
 
 bool NodeItem::isHovered() const {
@@ -64,3 +86,11 @@ bool NodeItem::isHovered() const {
 bool NodeItem::isClicked(ImGuiMouseButton mouseButton) const {
 	return isHovered() && ImGui::IsMouseClicked(mouseButton);
 }
+
+bool NodeItem::isIoClicked() const {
+
+
+	return false;
+}
+
+
