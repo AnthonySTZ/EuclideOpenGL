@@ -18,6 +18,7 @@ public:
 	~EuclideInterface();
 	void drawFrame();
 	void createUI();
+	void beginTab(const char* name);
 	void createViewport();
 	void createNodeGraph();
 	void updateRenderNode();

@@ -80,10 +80,32 @@ void EuclideInterface::createUI()
 	
 }
 
+void EuclideInterface::beginTab(const char* name) {
+	
+	ImGuiWindowClass window_class;
+	window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_AutoHideTabBar;
+	ImGui::SetNextWindowClass(&window_class);	
+	ImGui::Begin(name);
+
+	ImVec2 windowPos = ImGui::GetWindowPos();
+	ImVec2 windowSize = ImGui::GetWindowSize();
+	ImVec2 titleRectSize = ImVec2(windowSize.x, 25.0f);
+	ImVec2 endTitleBar = windowPos;
+	endTitleBar.y = titleRectSize.y;
+
+	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	draw_list->AddRectFilled(windowPos, windowPos + titleRectSize, IM_COL32(35, 35, 35, 255));
+
+	ImVec2 textPadding{15.0f, 6.0f};
+	draw_list->AddText(windowPos + textPadding, IM_COL32(200, 200, 200, 255), name);
+
+	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y));
+}
+
 void EuclideInterface::createViewport() {
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	ImGui::Begin("Viewport");	
+	beginTab("Viewport");
 
 	/* RENDER IMAGE */
 	ImVec2 imagePos = ImGui::GetCursorScreenPos();
@@ -146,23 +168,15 @@ void EuclideInterface::createViewport() {
 void EuclideInterface::createNodeGraph()
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	ImGui::Begin("NodeGraph");
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(40, 40, 40, 255));
+	beginTab("NodeGraph");
 	ImGui::PopStyleVar(1);
-
-	;
+	ImGui::PopStyleColor(1);
 
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImVec2 regionAvail = ImGui::GetContentRegionAvail();
 	ImVec2 region = ImVec2(std::max(regionAvail.x, 100.0f), std::max(regionAvail.y, 100.0f));
-	ImVec2 startPos = ImGui::GetCursorScreenPos();
-	ImVec2 endPos = startPos + region;
-
-	ImDrawList* drawList = ImGui::GetWindowDrawList();
-	drawList->AddRectFilled(startPos, endPos, IM_COL32(50, 50, 50, 255));
-
-	
-	ImGui::SetCursorScreenPos(startPos); // Reset cursor
 	ImGui::InvisibleButton("nodegraph_click_area", region, ImGuiButtonFlags_None);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
 		ImGui::OpenPopup("node_menu");
@@ -191,7 +205,11 @@ void EuclideInterface::createNodeGraph()
 	std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
 	if (selectedNode != nullptr) {
 
-		ImGui::Begin("Parameters");
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(50, 50, 50, 255));
+		beginTab("Parameters");
+		ImGui::PopStyleVar(1);
+		ImGui::PopStyleColor(1);
 
 		ImGui::Text("Node Name :");
 		ImGui::SameLine();
