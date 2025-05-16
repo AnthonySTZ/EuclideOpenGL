@@ -43,9 +43,9 @@ public:
 	};
 
 	
-	static unsigned int createShader(const char* shaderSrc, GLenum type);
-	Mesh::Builder createCube();
+	static unsigned int createShader(const char* shaderSrc, GLenum type);;
 	void createGrid();
+
 private:
 	unsigned int facesShaderProgram;
 	unsigned int wireframeShaderProgram;
