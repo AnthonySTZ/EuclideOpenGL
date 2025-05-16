@@ -1,5 +1,5 @@
 Interface :
-	- Modify UI
+	- Upgrade UI
 
 NodeGraph:
 	- Cut connections
