@@ -20,6 +20,7 @@ public:
 
 	std::shared_ptr<NodeItem> getSelectedNode() const { return nodeSelected; };
 	std::shared_ptr<NodeItem> getRenderNode() const { return renderNode; };
+	bool shouldUpdateRender() const { return shouldUpdate; };
 
 	
 private:
@@ -35,5 +36,7 @@ private:
 
 	bool nodeMoving = false;
 	float moveThreshold = 1.0;
+
+	bool shouldUpdate = false;
 
 };

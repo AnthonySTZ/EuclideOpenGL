@@ -220,6 +220,11 @@ void EuclideInterface::createNodeGraph()
 
 	}
 
+	if (sceneGraph.shouldUpdateRender()) {
+		updateRenderNode();
+
+	}
+
 	if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
 
 		sceneGraph.setSelectedNodeRender();

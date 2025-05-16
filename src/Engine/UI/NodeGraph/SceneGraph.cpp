@@ -14,6 +14,7 @@ void SceneGraph::addNode(NodeItem nodeItem)
 void SceneGraph::drawNodes()
 {
 	bool hasClickedIO = false;
+	shouldUpdate = false;
 	for (auto &nodeItem : nodeItems) {
 		nodeItem->draw();
 
@@ -67,6 +68,9 @@ void SceneGraph::drawNodes()
 						nodeItem->getNode()->getName() << " at index " << tmpNodeIO->index << "\n";
 					ioClicked = nullptr;
 					currentIoNode = nullptr;
+					
+					shouldUpdate = true;
+					
 
 
 				}
