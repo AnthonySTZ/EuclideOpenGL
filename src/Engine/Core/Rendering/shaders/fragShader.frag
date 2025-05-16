@@ -5,7 +5,7 @@ in vec3 vertexColor;
 
 out vec4 outColor;
 
-uniform vec3 lightDir = vec3(0.8f, -1.0f, 0.5f);
+uniform vec3 lightDir = vec3(0.8f, 1.0f, 0.5f);
 
 void main() {
     vec3 norm = normalize(vertexNormal);
