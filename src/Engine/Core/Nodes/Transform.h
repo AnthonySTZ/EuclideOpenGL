@@ -12,7 +12,7 @@ public:
 		outputsNb = 1;
 
 		parameters["Translate"] = std::make_unique<Float3Field>("Translate");
-		parameters["Scale"] = std::make_unique<Float3Field>("Scale");
+		parameters["Scale"] = std::make_unique<Float3Field>("Scale", std::array<float, 3>{1.0f, 1.0f, 1.0f});
 		parameters["Rotate"] = std::make_unique<Float3Field>("Rotate");
 
 		paramOrder.push_back("Translate");
@@ -22,4 +22,5 @@ public:
 
 	Mesh processOutput(uint32_t index) override;
 	void translateMesh(Mesh& mesh);
+	void scaleMesh(Mesh& mesh);
 };
