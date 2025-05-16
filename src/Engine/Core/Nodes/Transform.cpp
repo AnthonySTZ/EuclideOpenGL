@@ -1,5 +1,8 @@
 #include "Transform.h"
 
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/matrix_transform.hpp>
+
 Mesh Transform::processOutput(uint32_t index)
 {
     auto it = inputs.find(index);
@@ -8,9 +11,10 @@ Mesh Transform::processOutput(uint32_t index)
 
     Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
 
+    rotateMesh(inputMesh);
     scaleMesh(inputMesh);
     translateMesh(inputMesh);
-    // TODO: Add rotate
+    
     return inputMesh;
 }
 
@@ -32,4 +36,20 @@ void Transform::scaleMesh(Mesh& mesh) {
 
 }
 
-// TODO: Add rotate
+void Transform::rotateMesh(Mesh& mesh) {
+    glm::vec3 rotation = getParam<Float3Field>("Rotate")->toVec3();
+    glm::vec3 xAxis{1.0, 0.0, 0.0};
+    glm::vec3 yAxis{0.0, 1.0, 0.0};
+    glm::vec3 zAxis{0.0, 0.0, 1.0};
+
+    glm::mat4 rotMat{ 1.f };
+    rotMat = glm::rotate(rotMat, glm::radians(rotation.x), xAxis);
+    rotMat = glm::rotate(rotMat, glm::radians(rotation.y), yAxis);
+    rotMat = glm::rotate(rotMat, glm::radians(rotation.z), zAxis);
+
+    for (auto& vertex : mesh.vertices) {
+        vertex.position = glm::vec3(rotMat * glm::vec4(vertex.position, 1.0));
+    }
+
+}
+
