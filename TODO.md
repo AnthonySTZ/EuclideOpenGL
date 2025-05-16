@@ -5,6 +5,3 @@ NodeGraph:
 	- Cut connections
 	- Zoom in/Out nodeGraph
 	- Recenter nodes or on selected
-
-Viewport:
-	- Recenter on Mesh

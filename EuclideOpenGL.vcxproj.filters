@@ -28,6 +28,7 @@
     <None Include="src\Engine\Core\Rendering\shaders\wireframeVertShader.vert" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsVertShader.vert" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsFragShader.frag" />
+    <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

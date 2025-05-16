@@ -84,6 +84,14 @@ void EuclideRenderer::createGrid() {
 
 }
 
+void EuclideRenderer::centerCamera()
+{
+
+	glm::vec3 center = model.getMesh()->getCenterPos();
+	camera.updateTarget(center);
+
+}
+
 void EuclideRenderer::createShaderProgram(unsigned int& facesShaderProgram, std::string vertexFile, std::string fragmentFile) {
 
 	std::string vertCode = Utils::readFile(vertexFile);

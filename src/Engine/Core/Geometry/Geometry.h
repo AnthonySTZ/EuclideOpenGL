@@ -45,6 +45,11 @@ struct Vertex {
 
 };
 
+struct BoundingBox {
+	glm::vec3 min{ 0.0 };
+	glm::vec3 max{ 0.0 };
+};
+
 class Mesh {
 
 public:
@@ -65,6 +70,8 @@ public:
 	void recomputeMeshData();
 	void triangulateFaces();
 	void createWireframeIndices();
+	glm::vec3 getCenterPos();
+	BoundingBox getBoundingBox();
 
 	std::vector<Vertex> vertices;
 	std::vector<Edge> edges;

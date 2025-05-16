@@ -137,6 +137,39 @@ void Mesh::createWireframeIndices()
 
 }
 
+glm::vec3 Mesh::getCenterPos()
+{
+    BoundingBox boundingBox = getBoundingBox();
+    glm::vec3 center = glm::vec3(
+        (boundingBox.max.x + boundingBox.min.x) * 0.5f,
+        (boundingBox.max.y + boundingBox.min.y) * 0.5f,
+        (boundingBox.max.z + boundingBox.min.z) * 0.5f
+        );
+    return center;
+}
+
+BoundingBox Mesh::getBoundingBox() {
+    BoundingBox bbox;
+    if (vertices.size() == 0) return bbox;
+
+    // Init bbox
+    bbox.min = vertices[0].position;
+    bbox.max = vertices[0].position;
+
+    for (auto& vertex : vertices) {
+
+        if (vertex.position.x < bbox.min.x) bbox.min.x = vertex.position.x;
+        if (vertex.position.y < bbox.min.y) bbox.min.y = vertex.position.y;
+        if (vertex.position.z < bbox.min.z) bbox.min.z = vertex.position.z;
+
+        if (vertex.position.x > bbox.max.x) bbox.max.x = vertex.position.x;
+        if (vertex.position.y > bbox.max.y) bbox.max.y = vertex.position.y;
+        if (vertex.position.z > bbox.max.z) bbox.max.z = vertex.position.z;
+    }
+
+    return bbox;
+}
+
 void Mesh::updateMesh(const Mesh::Builder& builder)
 {
     vertices = builder.vertices;

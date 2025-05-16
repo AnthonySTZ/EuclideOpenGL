@@ -150,6 +150,7 @@
     <None Include="src\Engine\Core\Rendering\shaders\fragShader.frag" />
     <None Include="src\Engine\Core\Rendering\shaders\vertShader.vert" />
     <None Include="src\Engine\Core\Rendering\shaders\wireframeVertShader.vert" />
+    <None Include="TODO.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CPP\libs\glad\src\glad.c" />

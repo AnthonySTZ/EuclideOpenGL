@@ -34,6 +34,10 @@ public:
     glm::vec3 getTarget() const { return targetPosition; };
     glm::vec3 getPosition() const { return cameraPosition; };
 
+    void updateTarget(glm::vec3 target) {
+        setViewTarget(cameraPosition, target);
+    }
+
 private:
     void updateViewMatrix();
 

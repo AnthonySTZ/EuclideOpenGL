@@ -133,6 +133,12 @@ void EuclideInterface::createViewport() {
 	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos, IM_COL32(255, 255, 255, 255), fpsString.c_str());
 	/* END FPS TEXT */
 
+	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
+
+		renderer->centerCamera();
+
+	}
+
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 }

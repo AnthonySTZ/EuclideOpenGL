@@ -19,6 +19,7 @@ public:
 
 	void update();
 	void updateMesh(Mesh newMesh) { mesh = newMesh; update(); };
+	Mesh* getMesh() { return &mesh; };
 
 
 private:

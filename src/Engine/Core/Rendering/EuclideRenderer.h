@@ -45,6 +45,7 @@ public:
 	
 	static unsigned int createShader(const char* shaderSrc, GLenum type);;
 	void createGrid();
+	void centerCamera();
 
 private:
 	unsigned int facesShaderProgram;
