@@ -20,12 +20,14 @@ void EuclideCamera::setPerspectiveProjection(float fovy, float aspect, float nea
 
     assert(glm::abs(aspect - std::numeric_limits<float>::epsilon()) > 0.0f);
     projectionMatrix = glm::perspective(fovy, aspect, nearPlane, farPlane);
+    projectionMatrix[1][1] *= -1.0f; // Setting +Y axis to up
 }
 
 void EuclideCamera::updatePerpectiveProjection() {
 
     assert(glm::abs(aspectRatio - std::numeric_limits<float>::epsilon()) > 0.0f);
     projectionMatrix = glm::perspective(fov, aspectRatio, near, far);
+    projectionMatrix[1][1] *= -1.0f; // Setting +Y axis to up
 }
 
 void EuclideCamera::updateAspectRatio(float aspect)

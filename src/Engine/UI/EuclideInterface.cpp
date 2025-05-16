@@ -100,12 +100,12 @@ void EuclideInterface::createViewport() {
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
 			ImGui::SetMouseCursor(ImGuiMouseSource_Pen);
-			renderer->orbitCamera(-dragDelta.x, dragDelta.y);
+			renderer->orbitCamera(-dragDelta.x, -dragDelta.y);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
 			ImGui::SetMouseCursor(ImGuiMouseSource_Pen);
-			renderer->panCamera(-dragDelta.x, -dragDelta.y);
+			renderer->panCamera(-dragDelta.x, dragDelta.y);
 		}
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Right)) {

@@ -112,7 +112,7 @@ void EuclideRenderer::createCamera()
 {
 	float aspect = getViewportAspectRatio();
 
-	glm::vec3 position = glm::vec3(3.f, -2.f, 2.f);
+	glm::vec3 position = glm::vec3(3.f, 2.f, 2.f);
 	glm::vec3 target = glm::vec3(0.f, 0.f, 0.f);
 
 	camera.setPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 1000.f);
