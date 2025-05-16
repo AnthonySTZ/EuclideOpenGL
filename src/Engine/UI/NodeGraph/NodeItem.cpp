@@ -93,7 +93,7 @@ NodeItem::NodeIO* NodeItem::IOClicked(ImGuiMouseButton mouseButton) const {
 		ImVec2 delta = io.MousePos - center;
 		float dist2 = delta.x * delta.x + delta.y * delta.y;
 
-		if (dist2 < nodeIo.radius * nodeIo.radius) {
+		if (dist2 <= nodeIo.radius * nodeIo.radius) {
 			if (ImGui::IsMouseClicked(mouseButton)) {
 				std::cout << "IO Clicked !\n";
 				return const_cast<NodeIO*>(&nodeIo);

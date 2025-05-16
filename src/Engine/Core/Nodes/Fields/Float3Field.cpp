@@ -8,7 +8,10 @@ static float clamp(float val, float min, float max) {
 
 void Float3Field::draw()
 {
-    ImGui::InputFloat3(label.c_str(), value.data());
+    hasChanged = false;
+    if (ImGui::InputFloat3(label.c_str(), value.data())) {
+        hasChanged = true;
+    }
     value[0] = clamp(value[0], min, max);
     value[1] = clamp(value[1], min, max);
     value[2] = clamp(value[2], min, max);

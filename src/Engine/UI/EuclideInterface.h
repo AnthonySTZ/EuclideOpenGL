@@ -20,6 +20,7 @@ public:
 	void createUI();
 	void createViewport();
 	void createNodeGraph();
+	void updateRenderNode();
 	void renderUI();
 
 	bool hasViewportResized() const { return viewportResized; };

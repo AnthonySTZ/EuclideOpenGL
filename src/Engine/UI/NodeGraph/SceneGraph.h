@@ -17,8 +17,9 @@ public:
 	void drawNodes();
 	void setSelectedNodeRender();
 
-	std::shared_ptr<NodeItem> getSelectedNode() const { return nodeSelected; };
 
+	std::shared_ptr<NodeItem> getSelectedNode() const { return nodeSelected; };
+	std::shared_ptr<NodeItem> getRenderNode() const { return renderNode; };
 
 	
 private:
@@ -28,6 +29,7 @@ private:
 
 	std::shared_ptr<NodeItem> nodeClicked = nullptr;
 	std::shared_ptr<NodeItem> nodeSelected = nullptr;
+	std::shared_ptr<NodeItem> renderNode = nullptr;
 	NodeItem::NodeIO* ioClicked = nullptr;
 	std::shared_ptr<NodeItem> currentIoNode = nullptr;
 

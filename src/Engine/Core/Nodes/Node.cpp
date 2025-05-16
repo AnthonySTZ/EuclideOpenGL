@@ -23,7 +23,6 @@ void Node::setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32
 
 void Node::drawParameters()
 {
-
 	for (auto& param : paramOrder) {
 
 		if (parameters.find(param) == parameters.end()) continue;
@@ -31,5 +30,16 @@ void Node::drawParameters()
 		parameters[param]->draw();
 
 	}
+
+}
+
+bool Node::hasParamsChanged() {
+
+	bool hasChanged = false;
+	for (auto& param : paramOrder) {
+		if (parameters.find(param) == parameters.end()) continue;
+		hasChanged |= parameters[param]->hasValueChanged();
+	}
+	return hasChanged;
 
 }

@@ -192,24 +192,36 @@ void EuclideInterface::createNodeGraph()
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
 
 		selectedNode->getNode()->drawParameters();
+		bool hasParamsChanged = selectedNode->getNode()->hasParamsChanged();
+		if (hasParamsChanged) {
+			updateRenderNode();
+		}
 
 		ImGui::End();
 
+	}
 
-		if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
+	if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
 
-				sceneGraph.setSelectedNodeRender();
-				Mesh mesh = selectedNode->getNode()->processOutput(0);
-				renderer->updateMesh(mesh);
-
-		}
+		sceneGraph.setSelectedNodeRender();
+		updateRenderNode();
 
 	}
 
-
-
 	ImGui::End();
 	
+}
+
+void EuclideInterface::updateRenderNode() {
+
+	std::shared_ptr<NodeItem> renderNode = sceneGraph.getRenderNode();
+	if (renderNode != nullptr) {
+		
+		Mesh mesh = renderNode->getNode()->processOutput(0);
+		renderer->updateMesh(mesh);	
+
+	}
+
 }
 
 void EuclideInterface::renderUI() {

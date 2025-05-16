@@ -10,5 +10,8 @@ class Field {
 public:
 	virtual ~Field() = default;
 	virtual void draw() {};
+	bool hasValueChanged() const { return hasChanged; };
+protected:
+	bool hasChanged = false;
 
 };

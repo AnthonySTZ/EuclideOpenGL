@@ -16,7 +16,7 @@ class Node : public std::enable_shared_from_this<Node> {
 
 public:
 
-	Node(const std::string name) : nodeName{ name } {};
+	Node(const std::string name, void* updateCallback = nullptr) : nodeName{ name }, updateRender{updateCallback} {};
 	Node() : nodeName{ "Node" } {};
 
 	virtual ~Node() = default;
@@ -43,6 +43,8 @@ public:
 
 	void drawParameters();
 
+	bool hasParamsChanged();
+
 	template<typename T>
 	T* getParam(const std::string& name) {
 		auto it = parameters.find(name);
@@ -64,4 +66,5 @@ protected:
 	std::map<std::string, std::unique_ptr<Field>> parameters;
 	std::vector<std::string> paramOrder;
 
+	void* updateRender = nullptr;
 };
