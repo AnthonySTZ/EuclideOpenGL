@@ -32,6 +32,8 @@ EuclideRenderer::~EuclideRenderer()
 	glDeleteTextures(1, &depthBuffer);
 	glDeleteFramebuffers(1, &FBO);
 	glDeleteProgram(facesShaderProgram);
+	glDeleteProgram(wireframeShaderProgram);
+	glDeleteProgram(pointsShaderProgram);
 	model.cleanup();	
 }
 
