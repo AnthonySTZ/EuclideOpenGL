@@ -80,12 +80,17 @@ void EuclideInterface::createUI()
 	
 }
 
-void EuclideInterface::beginTab(const char* name) {
+void EuclideInterface::beginTab(const char* name, ImVec2 padding, ImU32 bgCol) {
 	
 	ImGuiWindowClass window_class;
 	window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_AutoHideTabBar;
-	ImGui::SetNextWindowClass(&window_class);	
+	ImGui::SetNextWindowClass(&window_class);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, padding);
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, bgCol);
 	ImGui::Begin(name);
+	ImGui::PopStyleVar(1);
+	ImGui::PopStyleColor(1);
 
 	ImVec2 windowPos = ImGui::GetWindowPos();
 	ImVec2 windowSize = ImGui::GetWindowSize();
@@ -99,12 +104,11 @@ void EuclideInterface::beginTab(const char* name) {
 	ImVec2 textPadding{15.0f, 6.0f};
 	draw_list->AddText(windowPos + textPadding, IM_COL32(200, 200, 200, 255), name);
 
-	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y));
+	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
 }
 
 void EuclideInterface::createViewport() {
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	beginTab("Viewport");
 
 	/* RENDER IMAGE */
@@ -162,16 +166,11 @@ void EuclideInterface::createViewport() {
 	}
 
 	ImGui::End();
-	ImGui::PopStyleVar(1);
 }
 
 void EuclideInterface::createNodeGraph()
 {
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(40, 40, 40, 255));
-	beginTab("NodeGraph");
-	ImGui::PopStyleVar(1);
-	ImGui::PopStyleColor(1);
+	beginTab("NodeGraph", ImVec2(0, 0), IM_COL32(40, 40, 40, 255));
 
 	ImGuiIO& io = ImGui::GetIO();
 
@@ -205,12 +204,8 @@ void EuclideInterface::createNodeGraph()
 	std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
 	if (selectedNode != nullptr) {
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(50, 50, 50, 255));
-		beginTab("Parameters");
-		ImGui::PopStyleVar(1);
-		ImGui::PopStyleColor(1);
-
+		beginTab("Parameters", ImVec2(10.0, 10.0), IM_COL32(50, 50, 50, 255));
+		
 		ImGui::Text("Node Name :");
 		ImGui::SameLine();
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
