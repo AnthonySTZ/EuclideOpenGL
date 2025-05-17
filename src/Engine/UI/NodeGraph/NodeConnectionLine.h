@@ -13,6 +13,11 @@ public:
 	);
 
 	void draw();
+	static bool ccw(ImVec2 A, ImVec2 B, ImVec2 C);
+	static bool intersect(ImVec2 A, ImVec2 B, ImVec2 C, ImVec2 D);
+	bool intersectWithLine(ImVec2 lineStart, ImVec2 lineEnd);
+
+	void deleteConnection();
 
 private:
 	std::shared_ptr<NodeItem> inputNode;

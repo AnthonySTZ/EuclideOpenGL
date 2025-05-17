@@ -4,6 +4,7 @@
 #include "../../Core/Nodes/Node.h"
 #include "NodeItem.h"
 #include "NodeConnectionLine.h"
+#include "CuttingLine.h"
 
 #include <vector>
 
@@ -36,8 +37,12 @@ private:
 	NodeItem::NodeIO* ioClicked = nullptr;
 	std::shared_ptr<NodeItem> currentIoNode = nullptr;
 
+	std::vector<CuttingLine> cuttingLines;
+
 	bool nodeMoving = false;
 	float moveThreshold = 1.0;
+
+	bool isCutting = false;
 
 	bool shouldUpdate = false;
 

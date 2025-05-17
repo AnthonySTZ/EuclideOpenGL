@@ -144,6 +144,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="LICENSE.md" />
+    <None Include="README.md" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsFragShader.frag" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsVertShader.vert" />
     <None Include="src\Engine\Core\Rendering\shaders\wireframeFragShader.frag" />
@@ -177,6 +179,7 @@
     <ClCompile Include="src\Engine\UI\EuclideWindow.cpp" />
     <ClCompile Include="src\Engine\Core\Geometry\Geometry.cpp" />
     <ClCompile Include="src\Engine\Core\Rendering\Utils.cpp" />
+    <ClCompile Include="src\Engine\UI\NodeGraph\CuttingLine.cpp" />
     <ClCompile Include="src\Engine\UI\NodeGraph\NodeConnectionLine.cpp" />
     <ClCompile Include="src\Engine\UI\NodeGraph\NodeItem.cpp" />
     <ClCompile Include="src\Engine\UI\NodeGraph\SceneGraph.cpp" />
@@ -203,6 +206,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Node.h" />
     <ClInclude Include="src\Engine\Core\Rendering\Utils.h" />
+    <ClInclude Include="src\Engine\UI\NodeGraph\CuttingLine.h" />
     <ClInclude Include="src\Engine\UI\NodeGraph\NodeConnectionLine.h" />
     <ClInclude Include="src\Engine\UI\NodeGraph\NodeItem.h" />
   </ItemGroup>

@@ -13,6 +13,8 @@ void SceneGraph::addNode(NodeItem nodeItem)
 
 void SceneGraph::drawNodes()
 {
+	ImGuiIO& io = ImGui::GetIO();
+
 	bool hasClickedIO = false;
 	shouldUpdate = false;
 	for (auto &nodeItem : nodeItems) {
@@ -21,7 +23,7 @@ void SceneGraph::drawNodes()
 
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
 		for (auto& nodeItem : nodeItems) {
-			if (nodeItem->isClicked(ImGuiMouseButton_Left)) {
+			if (nodeItem->isHovered()) {
 				nodeClicked = nodeItem;
 				continue;
 			}
@@ -35,11 +37,34 @@ void SceneGraph::drawNodes()
 		}
 	}
 
+	if (ImGui::IsKeyDown(ImGuiKey_Y)) {
+		isCutting = true;
+		if (io.MousePosPrev != io.MousePos) {
+			cuttingLines.push_back(CuttingLine(io.MousePosPrev, io.MousePos));
+			for (size_t i = 0; i < nodeConnections.size(); i++) {
+				if (nodeConnections[i]->intersectWithLine(io.MousePosPrev, io.MousePos)) {
+					nodeConnections[i]->deleteConnection();
+					nodeConnections.erase(nodeConnections.begin() + i);
+					break;
+				}
+			}
+		}		
+	}
+
+	if (ImGui::IsKeyReleased(ImGuiKey_Y)) {
+		cuttingLines.clear();
+		isCutting = false;
+	}
+
+	for (auto& line : cuttingLines) {
+		line.draw();
+	}
+
 	for (auto& conn : nodeConnections) {
 		conn->draw();
 	}
 
-	ImGuiIO& io = ImGui::GetIO();
+	
 	ImVec2 dragDelta = io.MouseDelta;
 	if (nodeMoving) {
 

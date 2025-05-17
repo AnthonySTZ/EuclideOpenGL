@@ -22,6 +22,14 @@ inline ImVec4 operator*(const ImVec4& lvec, const float& rval) {
 	return ImVec4(lvec.x * rval, lvec.y * rval, lvec.z * rval, lvec.w);
 }
 
+inline bool operator==(const ImVec2& lvec, const ImVec2& rvec) {
+	return (lvec.x == rvec.x) && (lvec.y == rvec.y);
+}
+
+inline bool operator!=(const ImVec2& lvec, const ImVec2& rvec) {
+	return !(lvec == rvec);
+}
+
 class NodeItem {
 
 public:
