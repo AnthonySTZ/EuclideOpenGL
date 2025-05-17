@@ -6,10 +6,10 @@ class NodeConnectionLine {
 
 public:
 	NodeConnectionLine(
-		std::shared_ptr<NodeItem> input,
-		NodeItem::NodeIO* inIO,
-		std::shared_ptr<NodeItem> output,
-		NodeItem::NodeIO* outIO
+		std::shared_ptr<NodeItem> node_1,
+		NodeItem::NodeIO* nodeIO_1,
+		std::shared_ptr<NodeItem> node_2,
+		NodeItem::NodeIO* nodeIO_2
 	);
 
 	void draw();

@@ -28,6 +28,8 @@ public:
 	uint32_t getOutputsNb() const { return outputsNb; }
 
 	void setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32_t outputIndex = 0);
+	void deleteInputConnection(uint32_t index);
+	void deleteOutputConnection(uint32_t index, std::string outputNodeName, uint32_t outputIndex);
 	std::shared_ptr<Node> getInput(uint32_t index) const {
 		auto it = inputs.find(index);
 		if (it == inputs.end()) {
@@ -61,7 +63,7 @@ protected:
 	uint32_t outputsNb = 0;
 
 	std::map<uint32_t, std::shared_ptr<NodeConnection>> inputs;
-	std::map<uint32_t, std::shared_ptr<NodeConnection>> outputs;
+	std::map<uint32_t, std::vector<std::shared_ptr<NodeConnection>>> outputs;
 
 	std::map<std::string, std::unique_ptr<Field>> parameters;
 	std::vector<std::string> paramOrder;

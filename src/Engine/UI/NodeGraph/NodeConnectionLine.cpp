@@ -45,5 +45,5 @@ bool NodeConnectionLine::intersectWithLine(ImVec2 lineStart, ImVec2 lineEnd)
 }
 
 void NodeConnectionLine::deleteConnection() {
-	std::cout << "Delete connection!\n";
+	outputNode->getNode()->deleteInputConnection(outputIO->index);
 }
