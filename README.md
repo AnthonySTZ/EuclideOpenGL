@@ -11,6 +11,10 @@ Current working nodes: (I will add more over time)
 
 ![Image](./readme/interface.jpg)
 
+You can create new Node by right clicking on the graph (a dropdown list will appear).
+You can cut node connections by holding the 'Y' key and draging on the connection.
+You can delete nodes by selecting it and press 'Delete'.
+
 ## Viewport
 
 You can move with your mouse buttons (pan, zoom, orbit) in the scene.
