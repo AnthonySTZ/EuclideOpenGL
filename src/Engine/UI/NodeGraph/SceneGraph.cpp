@@ -38,18 +38,7 @@ void SceneGraph::drawNodes()
 	}
 
 	if (ImGui::IsKeyDown(ImGuiKey_Y)) {
-		isCutting = true;
-		if (io.MousePosPrev != io.MousePos) {
-			cuttingLines.push_back(CuttingLine(io.MousePosPrev, io.MousePos));
-			for (size_t i = 0; i < nodeConnections.size(); i++) {
-				if (nodeConnections[i]->intersectWithLine(io.MousePosPrev, io.MousePos)) {
-					nodeConnections[i]->deleteConnection();
-					nodeConnections.erase(nodeConnections.begin() + i);
-					shouldUpdate = true;
-					break;
-				}
-			}
-		}		
+		cutConnection();
 	}
 
 	if (ImGui::IsKeyReleased(ImGuiKey_Y)) {
@@ -117,6 +106,23 @@ void SceneGraph::drawNodes()
 
 	}
 
+}
+
+void SceneGraph::cutConnection() {
+	ImGuiIO& io = ImGui::GetIO();
+
+	isCutting = true;
+	if (io.MousePosPrev != io.MousePos) {
+		cuttingLines.push_back(CuttingLine(io.MousePosPrev, io.MousePos));
+		for (size_t i = 0; i < nodeConnections.size(); i++) {
+			if (nodeConnections[i]->intersectWithLine(io.MousePosPrev, io.MousePos)) {
+				nodeConnections[i]->deleteConnection();
+				nodeConnections.erase(nodeConnections.begin() + i);
+				shouldUpdate = true;
+				break;
+			}
+		}
+	}
 }
 
 void SceneGraph::handleIOClicked(std::shared_ptr<NodeItem> nodeItem, NodeItem::NodeIO* io) {
