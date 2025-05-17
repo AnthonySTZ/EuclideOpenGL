@@ -57,7 +57,7 @@ public:
 	std::shared_ptr<Node> getNode() const { return node; };
 
 	bool isHovered() const;
-	NodeItem::NodeIO* IOClicked(ImGuiMouseButton mouseButton) const;
+	NodeItem::NodeIO* getIOUnderMouse() const;
 	bool isClicked(ImGuiMouseButton mouseButton) const;
 	void setRenderState(bool renderState) { isRender = renderState; }
 

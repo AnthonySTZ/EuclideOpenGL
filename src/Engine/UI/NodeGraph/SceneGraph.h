@@ -15,6 +15,7 @@ public:
 
 	void addNode(NodeItem node);
 	void drawNodes();
+	void handleIOClicked(std::shared_ptr<NodeItem> nodeItem, NodeItem::NodeIO* io);
 	void drawCurrentConnectionLine();
 	void setSelectedNodeRender();
 

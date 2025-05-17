@@ -17,36 +17,22 @@ void SceneGraph::drawNodes()
 	shouldUpdate = false;
 	for (auto &nodeItem : nodeItems) {
 		nodeItem->draw();
+	}
 
-		if (nodeItem->isClicked(ImGuiMouseButton_Left)) nodeClicked = nodeItem;
+	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+		for (auto& nodeItem : nodeItems) {
+			if (nodeItem->isClicked(ImGuiMouseButton_Left)) {
+				nodeClicked = nodeItem;
+				continue;
+			}
 
-		NodeItem::NodeIO* tmpNodeIO = nodeItem->IOClicked(ImGuiMouseButton_Left);
-		if (tmpNodeIO == nullptr) continue;
-		
-		hasClickedIO = true;
-		if (ioClicked == nullptr) {
-			ioClicked = tmpNodeIO;
-			currentIoNode = nodeItem;
-			continue;
+			NodeItem::NodeIO* tmpNodeIO = nodeItem->getIOUnderMouse();
+			if (tmpNodeIO != nullptr) {
+				hasClickedIO = true;
+				handleIOClicked(nodeItem, tmpNodeIO);
+				continue;
+			}
 		}
-		
-		// CREATE CONNECTION
-		if ((tmpNodeIO->type != ioClicked->type) && (nodeItem->getNode()->getName() != currentIoNode->getNode()->getName())) {
-
-			std::shared_ptr<NodeConnectionLine> conn = std::make_shared<NodeConnectionLine>(
-				nodeItem,
-				tmpNodeIO,
-				currentIoNode,
-				ioClicked
-			);
-			nodeConnections.push_back(conn);
-
-			ioClicked = nullptr;
-			currentIoNode = nullptr;			
-			shouldUpdate = true;
-				
-		}
-
 	}
 
 	for (auto& conn : nodeConnections) {
@@ -73,6 +59,8 @@ void SceneGraph::drawNodes()
 
 	if (currentIoNode != nullptr) {
 		drawCurrentConnectionLine();
+
+		// Click on the graph to cancel current drawing conection
 		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !hasClickedIO) {
 			currentIoNode = nullptr;
 			ioClicked = nullptr;
@@ -103,6 +91,30 @@ void SceneGraph::drawNodes()
 
 	}
 
+}
+
+void SceneGraph::handleIOClicked(std::shared_ptr<NodeItem> nodeItem, NodeItem::NodeIO* io) {
+	if (ioClicked == nullptr) {
+		ioClicked = io;
+		currentIoNode = nodeItem;
+		return;
+	}
+
+	if ((io->type != ioClicked->type) && (nodeItem->getNode()->getName() != currentIoNode->getNode()->getName())) {
+
+		std::shared_ptr<NodeConnectionLine> conn = std::make_shared<NodeConnectionLine>(
+			nodeItem,
+			io,
+			currentIoNode,
+			ioClicked
+		);
+		nodeConnections.push_back(conn);
+
+		ioClicked = nullptr;
+		currentIoNode = nullptr;
+		shouldUpdate = true;
+
+	}
 }
 
 void SceneGraph::drawCurrentConnectionLine() {
