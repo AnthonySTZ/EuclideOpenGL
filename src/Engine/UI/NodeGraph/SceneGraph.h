@@ -16,6 +16,7 @@ public:
 
 	void addNode(NodeItem node);
 	void drawNodes();
+	void deleteSelectedNode();
 	void cutConnection();
 	void handleIOClicked(std::shared_ptr<NodeItem> nodeItem, NodeItem::NodeIO* io);
 	void drawCurrentConnectionLine();

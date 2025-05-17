@@ -30,6 +30,8 @@ public:
 	void setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32_t outputIndex = 0);
 	void deleteInputConnection(uint32_t index);
 	void deleteOutputConnection(uint32_t index, std::string outputNodeName, uint32_t outputIndex);
+	void deleteNode();
+
 	std::shared_ptr<Node> getInput(uint32_t index) const {
 		auto it = inputs.find(index);
 		if (it == inputs.end()) {

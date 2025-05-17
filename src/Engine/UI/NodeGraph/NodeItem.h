@@ -71,6 +71,8 @@ public:
 
 	ImVec2 getPosition() const { return nodePos; };
 
+	void deleteNode() { getNode()->deleteNode(); }
+
 private:
 	void drawNodeRect();
 	void drawNodeIO();

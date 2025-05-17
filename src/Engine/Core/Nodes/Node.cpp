@@ -52,6 +52,20 @@ void Node::deleteOutputConnection(uint32_t index, std::string outputNodeName, ui
 
 }
 
+void Node::deleteNode() {
+
+	for (auto& [inputIndex, inputNode] : inputs) {
+		deleteInputConnection(inputIndex);
+	}
+
+	for (auto& [outputIndex, outputConnections] : outputs) {
+		for (auto& conn : outputConnections) {
+			conn->getOutputNode()->deleteInputConnection(conn->getOutputIndex());
+		}
+	}
+
+}
+
 void Node::drawParameters()
 {
 	for (auto& param : paramOrder) {

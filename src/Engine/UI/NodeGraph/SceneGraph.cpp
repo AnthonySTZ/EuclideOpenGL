@@ -17,6 +17,11 @@ void SceneGraph::drawNodes()
 
 	bool hasClickedIO = false;
 	shouldUpdate = false;
+
+	if (ImGui::IsKeyPressed(ImGuiKey_Delete) && nodeSelected != nullptr ) {
+		deleteSelectedNode();
+	}
+
 	for (auto &nodeItem : nodeItems) {
 		nodeItem->draw();
 	}
@@ -106,6 +111,23 @@ void SceneGraph::drawNodes()
 
 	}
 
+}
+
+void SceneGraph::deleteSelectedNode() {
+	for (auto& conn : nodeConnections) {
+		for (size_t i = 0; i < nodeConnections.size(); i++) {
+			if (nodeConnections[i]->isConnectedTo(nodeSelected)) {
+				nodeConnections[i]->deleteConnection();
+				nodeConnections.erase(nodeConnections.begin() + i);
+			}
+		}
+	}
+	nodeSelected->deleteNode();
+	nodeItems.erase(
+		std::remove(nodeItems.begin(), nodeItems.end(), nodeSelected), nodeItems.end()
+	);
+	nodeSelected = nullptr;
+	shouldUpdate = true;
 }
 
 void SceneGraph::cutConnection() {

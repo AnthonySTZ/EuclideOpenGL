@@ -18,6 +18,9 @@ public:
 	bool intersectWithLine(ImVec2 lineStart, ImVec2 lineEnd);
 
 	void deleteConnection();
+	bool isConnectedTo(std::shared_ptr<NodeItem> node) const {
+		return (node == inputNode) || (node == outputNode);
+	}
 
 private:
 	std::shared_ptr<NodeItem> inputNode;
