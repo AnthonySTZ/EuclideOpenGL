@@ -18,68 +18,34 @@ void SceneGraph::drawNodes()
 	for (auto &nodeItem : nodeItems) {
 		nodeItem->draw();
 
-		if (nodeItem->isClicked(ImGuiMouseButton_Left)) {
-
-			nodeClicked = nodeItem;
-			std::cout << nodeItem->getNode()->getName() << " clicked!\n";
-
-		}
+		if (nodeItem->isClicked(ImGuiMouseButton_Left)) nodeClicked = nodeItem;
 
 		NodeItem::NodeIO* tmpNodeIO = nodeItem->IOClicked(ImGuiMouseButton_Left);
-		if (tmpNodeIO != nullptr) {
-			hasClickedIO = true;
-			if (ioClicked == nullptr) {
-				ioClicked = tmpNodeIO;
-				currentIoNode = nodeItem;
-			}
-			else {
-				// CREATE CONNECTION
-				if ((tmpNodeIO->type != ioClicked->type) && (nodeItem->getNode()->getName() != currentIoNode->getNode()->getName())) {
-
-					std::shared_ptr<NodeItem> inputNode;
-					std::shared_ptr<NodeItem> outputNode;
-					NodeItem::NodeIO* inputIO;
-					NodeItem::NodeIO* outputIO;
-
-					if (tmpNodeIO->type == NodeItem::OUTPUT) {
-						inputNode = nodeItem;
-						inputIO = tmpNodeIO;
-						outputNode = currentIoNode;
-						outputIO = ioClicked;
-					}
-					else {
-						inputNode = currentIoNode;
-						inputIO = ioClicked;
-						outputNode = nodeItem;
-						outputIO = tmpNodeIO;
-					}
-
-					std::shared_ptr<NodeConnectionLine> conn = std::make_shared<NodeConnectionLine>(
-						inputNode,
-						inputIO,
-						outputNode,
-						outputIO
-					);
-					nodeConnections.push_back(conn);
-					outputNode->getNode()->setInput(outputIO->index, inputNode->getNode(), inputIO->index);
-
-					std::cout << "Create connection between " <<
-						currentIoNode->getNode()->getName() << " at index " << ioClicked->index << " and " <<
-						nodeItem->getNode()->getName() << " at index " << tmpNodeIO->index << "\n";
-					ioClicked = nullptr;
-					currentIoNode = nullptr;
-					
-					shouldUpdate = true;
-					
-
-
-				}
-
-				
-
-			}
+		if (tmpNodeIO == nullptr) continue;
+		
+		hasClickedIO = true;
+		if (ioClicked == nullptr) {
+			ioClicked = tmpNodeIO;
+			currentIoNode = nodeItem;
+			continue;
 		}
 		
+		// CREATE CONNECTION
+		if ((tmpNodeIO->type != ioClicked->type) && (nodeItem->getNode()->getName() != currentIoNode->getNode()->getName())) {
+
+			std::shared_ptr<NodeConnectionLine> conn = std::make_shared<NodeConnectionLine>(
+				nodeItem,
+				tmpNodeIO,
+				currentIoNode,
+				ioClicked
+			);
+			nodeConnections.push_back(conn);
+
+			ioClicked = nullptr;
+			currentIoNode = nullptr;			
+			shouldUpdate = true;
+				
+		}
 
 	}
 
@@ -96,7 +62,8 @@ void SceneGraph::drawNodes()
 		}
 
 	}
-	else if (nodeClicked) {
+
+	if (nodeClicked) {
 
 		if (abs(dragDelta.x + dragDelta.y) >= moveThreshold) {
 			nodeMoving = true;
@@ -105,27 +72,20 @@ void SceneGraph::drawNodes()
 	}
 
 	if (currentIoNode != nullptr) {
-		ImGuiIO& io = ImGui::GetIO();
-		ImVec2 ioPos = currentIoNode->getPosition() + ioClicked->offset;
-		
-		ImDrawList* drawList = ImGui::GetWindowDrawList();
-		drawList->AddLine(io.MousePos, ioPos, IM_COL32(255, 255, 255, 255));
-
+		drawCurrentConnectionLine();
 		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !hasClickedIO) {
 			currentIoNode = nullptr;
 			ioClicked = nullptr;
 		}
-
 	}	
 
 	if (ImGui::IsItemHovered() && ImGui::IsMouseReleased(ImGuiMouseButton_Left) && nodeClicked != nullptr) {
 
 		if (!nodeMoving) {
 
-			std::cout << "Deselect " << nodeSelected.get() << "\n";
 			if (nodeSelected != nullptr) nodeSelected->setSelected(false);
+
 			nodeSelected = nodeClicked;
-			std::cout << "Select " << nodeSelected.get() << "\n";
 			nodeClicked->setSelected(true);
 
 		}
@@ -142,6 +102,16 @@ void SceneGraph::drawNodes()
 		}
 
 	}
+
+}
+
+void SceneGraph::drawCurrentConnectionLine() {
+
+	ImGuiIO& io = ImGui::GetIO();
+	ImVec2 ioPos = currentIoNode->getPosition() + ioClicked->offset;
+
+	ImDrawList* drawList = ImGui::GetWindowDrawList();
+	drawList->AddLine(io.MousePos, ioPos, IM_COL32(255, 255, 255, 255));
 
 }
 

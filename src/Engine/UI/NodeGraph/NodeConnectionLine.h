@@ -10,8 +10,7 @@ public:
 		NodeItem::NodeIO* inIO,
 		std::shared_ptr<NodeItem> output,
 		NodeItem::NodeIO* outIO
-	) : inputNode{ input }, outputNode{ output }, inputIO{ inIO }, outputIO{ outIO } {
-	}
+	);
 
 	void draw();
 

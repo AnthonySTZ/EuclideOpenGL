@@ -15,6 +15,7 @@ public:
 
 	void addNode(NodeItem node);
 	void drawNodes();
+	void drawCurrentConnectionLine();
 	void setSelectedNodeRender();
 
 

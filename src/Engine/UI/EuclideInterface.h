@@ -21,7 +21,9 @@ public:
 	void beginTab(const char* name, ImVec2 padding = ImVec2(0.0, 0.0), ImU32 bgCol = IM_COL32(150, 150, 150, 255));
 	void createViewport();
 	void createNodeGraph();
+	void createNodesMenu();
 	void updateRenderNode();
+	void drawParametersTab();
 	void renderUI();
 
 	bool hasViewportResized() const { return viewportResized; };

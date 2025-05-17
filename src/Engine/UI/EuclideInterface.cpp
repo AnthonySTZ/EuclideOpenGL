@@ -172,15 +172,40 @@ void EuclideInterface::createNodeGraph()
 {
 	beginTab("NodeGraph", ImVec2(0, 0), IM_COL32(40, 40, 40, 255));
 
-	ImGuiIO& io = ImGui::GetIO();
-
+	ImVec2 topLeftWindow = ImGui::GetCursorPos();
 	ImVec2 regionAvail = ImGui::GetContentRegionAvail();
 	ImVec2 region = ImVec2(std::max(regionAvail.x, 100.0f), std::max(regionAvail.y, 100.0f));
 	ImGui::InvisibleButton("nodegraph_click_area", region, ImGuiButtonFlags_None);
 	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
 		ImGui::OpenPopup("node_menu");
 	}
+	ImGui::SetCursorPos(topLeftWindow);
 
+	createNodesMenu();
+	
+	sceneGraph.drawNodes();
+
+	drawParametersTab();
+
+	if (sceneGraph.shouldUpdateRender()) {
+		updateRenderNode();
+
+	}
+
+	if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
+
+		sceneGraph.setSelectedNodeRender();
+		updateRenderNode();
+
+	}
+
+	ImGui::End();
+	
+}
+
+void EuclideInterface::createNodesMenu() {
+
+	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::BeginPopup("node_menu")) {
 		if (ImGui::MenuItem("Cube")) {
 			std::shared_ptr<Node> cubeNode = std::make_shared<Cube>();
@@ -198,14 +223,16 @@ void EuclideInterface::createNodeGraph()
 		}
 		ImGui::EndPopup();
 	}
-	
-	sceneGraph.drawNodes();
+
+}
+
+void EuclideInterface::drawParametersTab() {
 
 	std::shared_ptr<NodeItem> selectedNode = sceneGraph.getSelectedNode();
 	if (selectedNode != nullptr) {
 
 		beginTab("Parameters", ImVec2(10.0, 10.0), IM_COL32(50, 50, 50, 255));
-		
+
 		ImGui::Text("Node Name :");
 		ImGui::SameLine();
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
@@ -219,21 +246,6 @@ void EuclideInterface::createNodeGraph()
 		ImGui::End();
 
 	}
-
-	if (sceneGraph.shouldUpdateRender()) {
-		updateRenderNode();
-
-	}
-
-	if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
-
-		sceneGraph.setSelectedNodeRender();
-		updateRenderNode();
-
-	}
-
-	ImGui::End();
-	
 }
 
 void EuclideInterface::updateRenderNode() {

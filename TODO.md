@@ -3,5 +3,9 @@ Interface :
 
 NodeGraph:
 	- Cut connections
-	- Zoom in/Out nodeGraph
+	- Delete node
 	- Recenter nodes or on selected
+	- Zoom in/Out nodeGraph
+
+Nodes:
+	- Cache mesh

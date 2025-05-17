@@ -1,5 +1,22 @@
 #include "NodeConnectionLine.h"
 
+NodeConnectionLine::NodeConnectionLine(std::shared_ptr<NodeItem> node_1, NodeItem::NodeIO* nodeIO_1, std::shared_ptr<NodeItem> node_2, NodeItem::NodeIO* nodeIO_2)
+{
+	if (nodeIO_1->type == NodeItem::OUTPUT) {
+		inputNode = node_1;
+		inputIO = nodeIO_1;
+		outputNode = node_2;
+		outputIO = nodeIO_2;
+	}
+	else {
+		inputNode = node_2;
+		inputIO = nodeIO_2;
+		outputNode = node_1;
+		outputIO = nodeIO_1;
+	}
+	outputNode->getNode()->setInput(outputIO->index, inputNode->getNode(), inputIO->index);
+}
+
 void NodeConnectionLine::draw() {
 
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
