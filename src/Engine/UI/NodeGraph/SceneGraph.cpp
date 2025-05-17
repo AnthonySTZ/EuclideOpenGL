@@ -45,6 +45,7 @@ void SceneGraph::drawNodes()
 				if (nodeConnections[i]->intersectWithLine(io.MousePosPrev, io.MousePos)) {
 					nodeConnections[i]->deleteConnection();
 					nodeConnections.erase(nodeConnections.begin() + i);
+					shouldUpdate = true;
 					break;
 				}
 			}
