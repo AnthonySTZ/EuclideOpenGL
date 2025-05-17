@@ -98,7 +98,7 @@ void EuclideInterface::beginTab(const char* name, ImVec2 padding, ImU32 bgCol) {
 	ImVec2 endTitleBar = windowPos;
 	endTitleBar.y = titleRectSize.y;
 
-	ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	ImDrawList* draw_list = ImGui::GetForegroundDrawList();
 	draw_list->AddRectFilled(windowPos, windowPos + titleRectSize, IM_COL32(35, 35, 35, 255));
 
 	ImVec2 textPadding{15.0f, 6.0f};
