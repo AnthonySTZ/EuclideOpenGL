@@ -1,6 +1,7 @@
 #pragma once
 
-#define FLOAT_MAX 9999999999.0f
+#define FLOAT_MAXI 9999999999.0f
+#define INT_MAXI int(9999999999)
 
 #include <imgui.h>
 #include <glm/glm.hpp>

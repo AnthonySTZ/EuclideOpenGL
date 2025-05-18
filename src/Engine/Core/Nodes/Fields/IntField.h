@@ -7,7 +7,7 @@
 class IntField : public Field {
 
 public:
-	IntField(std::string& name, int defaultValue = 0) : label{ name }, value{ defaultValue } {}
+	IntField(const char* name, int defaultValue = 0, int min = -INT_MAXI, int max = INT_MAXI) : label{ std::string(name) }, value{ defaultValue }, min{ min }, max{ max } {}
 
 	void draw() override;
 	int getValue() const { return value; }
@@ -15,5 +15,7 @@ public:
 private:
 	std::string label;
 	int value;
+	int min = -INT_MAXI;
+	int max = INT_MAXI;
 
 };

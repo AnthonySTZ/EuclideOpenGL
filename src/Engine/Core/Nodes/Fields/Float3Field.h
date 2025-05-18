@@ -9,7 +9,7 @@ class Float3Field : public Field {
 
 public:
 	Float3Field(const std::string& name,
-		std::array<float, 3> defaultValue = std::array<float, 3>{ 0.0f, 0.0f, 0.0f }, float min=-FLOAT_MAX, float max= FLOAT_MAX)
+		std::array<float, 3> defaultValue = std::array<float, 3>{ 0.0f, 0.0f, 0.0f }, float min=-FLOAT_MAXI, float max= FLOAT_MAXI)
 		: label{ name }, value{ defaultValue }, min{ min }, max{ max } {
 	}
 
@@ -23,7 +23,7 @@ public:
 private:
 	std::string label;
 	std::array<float, 3> value{ 0.0f, 0.0f, 0.0f };
-	float min = -FLOAT_MAX;
-	float max = FLOAT_MAX;
+	float min = -FLOAT_MAXI;
+	float max = FLOAT_MAXI;
 
 };
