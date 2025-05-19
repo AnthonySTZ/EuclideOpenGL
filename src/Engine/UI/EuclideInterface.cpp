@@ -170,18 +170,25 @@ void EuclideInterface::createViewport() {
 
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 60), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 80), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 100), IM_COL32(255, 255, 0, 255), "Press W to Hide/Show wireframe");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 120), IM_COL32(255, 255, 0, 255), "Press P to Hide/Show polygons");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 140), IM_COL32(255, 255, 0, 255), "Press V to Hide/Show vertices");
 	/* END INFO TEXT*/
 
 	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
-
 		renderer->centerCamera();
-
 	}
-
-	if (ImGui::IsKeyPressed(ImGuiKey_G)) { // Render the selected Node
-
+	if (ImGui::IsKeyPressed(ImGuiKey_G)) { // Show/Hide grid
 		renderer->toogleGridVisibility();
-
+	}
+	if (ImGui::IsKeyPressed(ImGuiKey_W)) { // Show/Hide wireframe
+		renderer->toogleWireframeVisibility();
+	}
+	if (ImGui::IsKeyPressed(ImGuiKey_P)) { // Show/Hide polygons
+		renderer->toogleFaceVisibility();
+	}
+	if (ImGui::IsKeyPressed(ImGuiKey_V)) { // Show/Hide vertices
+		renderer->tooglePointVisibility();
 	}
 
 	ImGui::End();

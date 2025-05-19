@@ -208,17 +208,23 @@ void EuclideRenderer::bindUniforms(unsigned int shaderProgram) {
 
 void EuclideRenderer::drawModel() {
 	
-	glUseProgram(facesShaderProgram);
-	bindUniforms(facesShaderProgram);
-	model.drawFaces();
+	if (faceShown) {
+		glUseProgram(facesShaderProgram);
+		bindUniforms(facesShaderProgram);
+		model.drawFaces();
+	}
 
-	glUseProgram(wireframeShaderProgram);
-	bindUniforms(wireframeShaderProgram);
-	model.drawWireframe();
+	if (wireframeShown) {
+		glUseProgram(wireframeShaderProgram);
+		bindUniforms(wireframeShaderProgram);
+		model.drawWireframe();
+	}
 
-	glUseProgram(pointsShaderProgram);
-	bindUniforms(pointsShaderProgram);
-	model.drawPoints();
+	if (pointShown) {
+		glUseProgram(pointsShaderProgram);
+		bindUniforms(pointsShaderProgram);
+		model.drawPoints();
+	}
 
 	if (gridShown) {
 		glUseProgram(wireframeShaderProgram);

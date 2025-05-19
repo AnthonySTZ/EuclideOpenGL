@@ -48,6 +48,9 @@ public:
 	void centerCamera();
 
 	void toogleGridVisibility() { gridShown = !gridShown; };
+	void toogleWireframeVisibility() { wireframeShown = !wireframeShown; };
+	void tooglePointVisibility() { pointShown = !pointShown; };
+	void toogleFaceVisibility() { faceShown = !faceShown; };
 
 	EuclideModel getModel() const { return model; };
 
@@ -67,4 +70,7 @@ private:
 	float zoomSpeed = 0.01f;
 
 	bool gridShown = true;
+	bool wireframeShown = true;
+	bool pointShown = true;
+	bool faceShown = true;
 };
