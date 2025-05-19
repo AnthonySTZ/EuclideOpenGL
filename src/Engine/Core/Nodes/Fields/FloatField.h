@@ -7,7 +7,7 @@
 class FloatField : public Field {
 
 public:
-	FloatField(std::string &name, float defaultValue = 0.0f) : label{name}, value{defaultValue} {}
+	FloatField(const char* name, float defaultValue = 0.0f) : label{std::string(name)}, value{defaultValue} {}
 
 	void draw() override;
 	float getValue() const { return value; }

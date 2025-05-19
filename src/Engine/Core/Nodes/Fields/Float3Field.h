@@ -8,9 +8,9 @@
 class Float3Field : public Field {
 
 public:
-	Float3Field(const std::string& name,
+	Float3Field(const char* name,
 		std::array<float, 3> defaultValue = std::array<float, 3>{ 0.0f, 0.0f, 0.0f }, float min=-FLOAT_MAXI, float max= FLOAT_MAXI)
-		: label{ name }, value{ defaultValue }, min{ min }, max{ max } {
+		: label{ std::string(name) }, value{ defaultValue }, min{ min }, max{ max } {
 	}
 
 	void draw() override;
