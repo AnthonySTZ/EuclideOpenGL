@@ -159,12 +159,12 @@ void EuclideInterface::createViewport() {
 	int fpsPadding = 10;
 	ImVec2 fpsPos = ImVec2(imagePos.x + fpsPadding, imagePos.y + fpsPadding);
 	std::string fpsString = "Fps: " + std::to_string(fpsShow);
-	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos, IM_COL32(255, 255, 255, 255), fpsString.c_str());
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos, IM_COL32(255, 255, 0, 255), fpsString.c_str());
 	/* END FPS TEXT */
 
 	/* INFO TEXT */
-	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 255, 255), "Press F to recenter Camera");
-	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 255, 255), "Press G to Hide/Show grid");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
 	/* END INFO TEXT*/
 
 	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
