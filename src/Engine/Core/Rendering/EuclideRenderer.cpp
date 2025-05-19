@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Nodes/Grid.h"
+
 EuclideRenderer::EuclideRenderer()
 {
 	createShaderProgram(facesShaderProgram,
@@ -42,45 +44,10 @@ void EuclideRenderer::createGrid() {
 	Mesh::Builder gridBuilder;
 	int rows = 10;
 	int cols = 10;
-	float spacing = 1.0f;
+	float sizeX = 10.0f;
+	float sizeZ = 10.0f;
 
-	float rowsOffset = rows * spacing * 0.5f;
-	float colsOffset = cols * spacing * 0.5f;
-
-	for (int row = 0; row <= rows; row++) {
-		for (int col = 0; col <= cols; col++) {
-			float x = col * spacing - rowsOffset;
-			float z = row * spacing - colsOffset;
-			float y = 0.0f; // flat on XZ plane
-
-			glm::vec3 position = { x, y, z };
-			glm::vec3 normal = { 0.0f, 1.0f, 0.0f };
-			glm::vec3 color = { 0.8f, 0.8f, 0.8f };
-
-			gridBuilder.vertices.push_back({ position, color, normal });
-		}
-	}
-
-	// Generate quad faces
-	for (int row = 0; row < rows; row++) {
-		for (int col = 0; col < cols; col++) {
-			int topLeft = row * (cols + 1) + col;
-			int topRight = topLeft + 1;
-			int bottomLeft = topLeft + (cols + 1);
-			int bottomRight = bottomLeft + 1;
-
-			Face quad;
-			quad.vertexIndices = {
-				static_cast<uint32_t>(topLeft),
-				static_cast<uint32_t>(bottomLeft),
-				static_cast<uint32_t>(bottomRight),
-				static_cast<uint32_t>(topRight)
-			};
-			gridBuilder.faces.push_back(quad);
-		}
-	}
-
-	grid.updateMesh(gridBuilder);
+	grid.updateMesh(Grid::createGrid(rows, cols, sizeX, sizeZ));
 
 }
 

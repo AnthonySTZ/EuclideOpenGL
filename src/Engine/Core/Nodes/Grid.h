@@ -27,5 +27,5 @@ public:
 	};
 
 	Mesh processOutput(uint32_t index) override;
-	Mesh createGrid(int rows, int cols, float sizeX, float sizeY, glm::vec3 translate = glm::vec3{0.0});
+	static Mesh createGrid(int rows, int cols, float sizeX, float sizeY, glm::vec3 translate = glm::vec3{0.0});
 };
