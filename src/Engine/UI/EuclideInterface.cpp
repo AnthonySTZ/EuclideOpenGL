@@ -5,6 +5,7 @@
 #include <iomanip>
 
 #include "../Core/Nodes/Cube.h"
+#include "../Core/Nodes/Grid.h"
 #include "../Core/Nodes/Transform.h"
 #include "../Core/Nodes/Null.h"
 #include "../Core/Nodes/Subdivide.h"
@@ -211,6 +212,10 @@ void EuclideInterface::createNodesMenu() {
 	if (ImGui::BeginPopup("node_menu")) {
 		if (ImGui::MenuItem("Cube")) {
 			std::shared_ptr<Node> cubeNode = std::make_shared<Cube>();
+			sceneGraph.addNode(NodeItem(cubeNode, io.MousePos));
+		}
+		if (ImGui::MenuItem("Grid")) {
+			std::shared_ptr<Node> cubeNode = std::make_shared<Grid>();
 			sceneGraph.addNode(NodeItem(cubeNode, io.MousePos));
 		}
 		ImGui::Separator();
