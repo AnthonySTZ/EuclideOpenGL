@@ -87,13 +87,15 @@ bool NodeItem::isHovered() const {
 
 NodeItem::NodeIO* NodeItem::getIOUnderMouse() const {
 	
+	float threshold = 5.0f;
+
 	ImGuiIO& io = ImGui::GetIO();
 	for (auto &nodeIo : nodeIOs) {
 		ImVec2 center = nodePos + nodeIo.offset;
 		ImVec2 delta = io.MousePos - center;
 		float dist2 = delta.x * delta.x + delta.y * delta.y;
 
-		if (dist2 <= nodeIo.radius * nodeIo.radius) {
+		if (dist2 <= (nodeIo.radius * nodeIo.radius) + threshold) {
 			return const_cast<NodeIO*>(&nodeIo);			
 		}
 
