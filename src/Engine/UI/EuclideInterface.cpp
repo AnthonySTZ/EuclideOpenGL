@@ -163,8 +163,13 @@ void EuclideInterface::createViewport() {
 	/* END FPS TEXT */
 
 	/* INFO TEXT */
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
+	std::string pointCountInfo = "Point count: " + std::to_string(renderer->getModel().pointCount());
+	std::string polygonCountInfo = "Polygon count: "+ std::to_string(renderer->getModel().faceCount());
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 0, 255), pointCountInfo.c_str());
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 0, 255), polygonCountInfo.c_str());
+
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 60), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
+	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 80), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
 	/* END INFO TEXT*/
 
 	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node

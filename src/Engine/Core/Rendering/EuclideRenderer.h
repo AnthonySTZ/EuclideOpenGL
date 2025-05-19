@@ -49,6 +49,8 @@ public:
 
 	void toogleGridVisibility() { gridShown = !gridShown; };
 
+	EuclideModel getModel() const { return model; };
+
 private:
 	unsigned int facesShaderProgram;
 	unsigned int wireframeShaderProgram;

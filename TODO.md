@@ -11,4 +11,5 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
+	- Optimize Mesh creation 
 	- Cache mesh

@@ -21,6 +21,9 @@ public:
 	void updateMesh(Mesh newMesh) { mesh = newMesh; update(); };
 	Mesh* getMesh() { return &mesh; };
 
+	size_t pointCount() const { return mesh.vertices.size(); };
+	size_t faceCount() const { return mesh.faces.size(); };
+
 
 private:
 	void updateBuffers();
