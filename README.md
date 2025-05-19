@@ -4,12 +4,12 @@ Euclide is a node-based 3D engine currently in development.
 
 ## Nodes
 
-Current working nodes: (I will add more over time)
-- Cube
-- Grid
-- Transform
-- Merge
-- Null
+Current working nodes: (I will add more over time)<br/>
+- **Cube**<br/>
+- **Grid**<br/>
+- **Transform**<br/>
+- **Merge**<br/>
+- **Null**<br/>
 
 ![Image](./readme/interface.jpg)
 
@@ -20,11 +20,12 @@ You can delete nodes by selecting it and press 'Delete'.<br/>
 ## Viewport
 
 You can move with your mouse buttons (pan, zoom, orbit) in the scene.<br/>
-Yo can also press F to recenter the camera to the object.<br/>
-Yo can also press G to toogle the grid visibility.<br/>
-Yo can also press W to toogle the wireframe visibility.<br/>
-Yo can also press P to toogle the polygons visibility.<br/>
-Yo can also press V to toogle the vertex visibility.<br/>
+There are some shortcuts :<br/>
+- **F** to recenter the camera to the object.<br/>
+- **G** to toogle the **grid** visibility.<br/>
+- **W** to toogle the **wireframe** visibility.<br/>
+- **P** to toogle the **polygons** visibility.<br/>
+- **V** to toogle the **vertex** visibility.<br/>
 
 ## Parameters
 
