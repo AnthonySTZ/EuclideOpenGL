@@ -7,6 +7,7 @@ Viewport:
 	- render hard normal
 
 NodeGraph:
+	- Rename nodes
 	- Recenter nodes or on selected
 	- Zoom in/Out nodeGraph
 
