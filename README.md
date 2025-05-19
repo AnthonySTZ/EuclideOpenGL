@@ -13,22 +13,22 @@ Current working nodes: (I will add more over time)
 
 ![Image](./readme/interface.jpg)
 
-You can create new Node by right clicking on the graph (a dropdown list will appear).
-You can cut node connections by holding the 'Y' key and draging on the connection.
-You can delete nodes by selecting it and press 'Delete'.
+You can create new Node by right clicking on the graph (a dropdown list will appear).<br/>
+You can cut node connections by holding the 'Y' key and draging on the connection.<br/>
+You can delete nodes by selecting it and press 'Delete'.<br/>
 
 ## Viewport
 
-You can move with your mouse buttons (pan, zoom, orbit) in the scene.
-Yo can also press F to recenter the camera to the object.
-Yo can also press G to toogle the grid visibility.
-Yo can also press W to toogle the wireframe visibility.
-Yo can also press P to toogle the polygons visibility.
-Yo can also press V to toogle the vertex visibility.
+You can move with your mouse buttons (pan, zoom, orbit) in the scene.<br/>
+Yo can also press F to recenter the camera to the object.<br/>
+Yo can also press G to toogle the grid visibility.<br/>
+Yo can also press W to toogle the wireframe visibility.<br/>
+Yo can also press P to toogle the polygons visibility.<br/>
+Yo can also press V to toogle the vertex visibility.<br/>
 
 ## Parameters
 
-When you select a node, there is a parameters tab that open.
+When you select a node, there is a parameters tab that open.<br/>
 You can change parameters value !
 
 ## Geometry System
