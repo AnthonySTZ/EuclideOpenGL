@@ -6,6 +6,7 @@ Euclide is a node-based 3D engine currently in development.
 
 Current working nodes: (I will add more over time)
 - Cube
+- Grid
 - Transform
 - Merge
 - Null
