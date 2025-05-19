@@ -20,6 +20,7 @@ You can delete nodes by selecting it and press 'Delete'.
 
 You can move with your mouse buttons (pan, zoom, orbit) in the scene.
 Yo can also press F to recenter the camera to the object.
+Yo can also press G to toogle the grid visibility.
 
 ## Parameters
 
