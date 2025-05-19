@@ -10,6 +10,9 @@ out vec3 vertexColor;
 void main() {
 
 	vec4 positionWorld = vec4(aPos, 1.0);
+
+	vec4 camPos = vec4(inverse(view)[3]);
+	positionWorld = positionWorld + normalize(camPos - positionWorld) * 0.01;
 	gl_Position = projection * (view * positionWorld);
 	vertexColor = vec3(0.0);
 
