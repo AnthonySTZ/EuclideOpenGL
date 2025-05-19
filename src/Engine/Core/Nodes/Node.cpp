@@ -15,6 +15,8 @@ void Node::setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32
 		return;
 	}
 
+	deleteInputConnection(inputIndex);
+
 	auto conn = std::make_shared<NodeConnection>(inputNode, outputIndex, shared_from_this(), inputIndex);
 	inputs[inputIndex] = conn;
 	if (inputNode->outputs.find(inputIndex) == inputNode->outputs.end()) {

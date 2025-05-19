@@ -16,6 +16,10 @@ NodeConnectionLine::NodeConnectionLine(std::shared_ptr<NodeItem> node_1, NodeIte
 		outputNode = node_1;
 		outputIO = nodeIO_1;
 	}
+	rebuildConnection();
+}
+
+void NodeConnectionLine::rebuildConnection() {
 	outputNode->getNode()->setInput(outputIO->index, inputNode->getNode(), inputIO->index);
 }
 

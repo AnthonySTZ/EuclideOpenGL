@@ -5,7 +5,6 @@ Viewport:
 	- render hard normal
 
 NodeGraph:
-	- Prevent multiple connection to the same input
 	- Recenter nodes or on selected
 	- Zoom in/Out nodeGraph
 

@@ -162,6 +162,16 @@ void SceneGraph::handleIOClicked(std::shared_ptr<NodeItem> nodeItem, NodeItem::N
 			currentIoNode,
 			ioClicked
 		);
+
+		for (size_t i = 0; i < nodeConnections.size(); i++) {
+			if (nodeConnections[i]->getOutputNode() == conn->getOutputNode() && nodeConnections[i]->getOutputIO() == conn->getOutputIO()) {
+				nodeConnections[i]->deleteConnection();
+				nodeConnections[i] = nodeConnections.back();
+				nodeConnections.pop_back();
+				break;
+			}
+		}
+		conn->rebuildConnection();
 		nodeConnections.push_back(conn);
 
 		ioClicked = nullptr;
