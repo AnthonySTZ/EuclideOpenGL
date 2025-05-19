@@ -220,9 +220,11 @@ void EuclideRenderer::drawModel() {
 	bindUniforms(pointsShaderProgram);
 	model.drawPoints();
 
-	glUseProgram(wireframeShaderProgram);
-	bindUniforms(wireframeShaderProgram);
-	grid.drawWireframe();
+	if (gridShown) {
+		glUseProgram(wireframeShaderProgram);
+		bindUniforms(wireframeShaderProgram);
+		grid.drawWireframe();
+	}
 
 }
 

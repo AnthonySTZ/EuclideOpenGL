@@ -168,6 +168,12 @@ void EuclideInterface::createViewport() {
 
 	}
 
+	if (ImGui::IsKeyPressed(ImGuiKey_G)) { // Render the selected Node
+
+		renderer->toogleGridVisibility();
+
+	}
+
 	ImGui::End();
 }
 

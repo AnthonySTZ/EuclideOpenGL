@@ -47,6 +47,8 @@ public:
 	void createGrid();
 	void centerCamera();
 
+	void toogleGridVisibility() { gridShown = !gridShown; };
+
 private:
 	unsigned int facesShaderProgram;
 	unsigned int wireframeShaderProgram;
@@ -61,4 +63,6 @@ private:
 	float translateSpeed = 0.003f;
 	float viewSpeed = 0.005f;
 	float zoomSpeed = 0.01f;
+
+	bool gridShown = true;
 };
