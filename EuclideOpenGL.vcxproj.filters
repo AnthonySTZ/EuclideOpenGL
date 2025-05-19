@@ -129,6 +129,9 @@
     <ClCompile Include="src\Engine\Core\Nodes\Subdivide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\Nodes\Merge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -201,6 +204,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Nodes\Fields\IntField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Nodes\Merge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

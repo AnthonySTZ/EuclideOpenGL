@@ -5,6 +5,7 @@
 struct TempHalfedge {
     TempHalfedge* twin = nullptr;
     TempHalfedge* next = nullptr;
+    TempHalfedge* prev = nullptr;
     uint32_t origin = UINT32_MAX;
     uint32_t face = UINT32_MAX;
 };
@@ -50,6 +51,7 @@ void Mesh::recomputeMeshData()
             uint32_t w = face.vertexIndices[(i + 2) % face.vertexIndices.size()];
 
             halfedgesBuilder[{u, v}]->next = halfedgesBuilder[{v, w}];
+            halfedgesBuilder[{v, w}]->prev = halfedgesBuilder[{u, v}];
 
             if (halfedgesBuilder.find({ v, u }) != halfedgesBuilder.end()) {
                 halfedgesBuilder[{u, v}]->twin = halfedgesBuilder[{v, u}];
@@ -83,6 +85,8 @@ void Mesh::recomputeMeshData()
             halfedges[idx].twin = pointerToIndex[tempHalfedge->twin];
         if (tempHalfedge->next)
             halfedges[idx].next = pointerToIndex[tempHalfedge->next];
+        if (tempHalfedge->prev)
+            halfedges[idx].prev = pointerToIndex[tempHalfedge->prev];
     }
 
     /* Flatten Edges to Vector */

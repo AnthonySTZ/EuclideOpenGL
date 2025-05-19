@@ -14,6 +14,7 @@ struct Face;
 struct Halfedge {
 
 	uint32_t twin = UINT32_MAX;
+	uint32_t prev = UINT32_MAX;
 	uint32_t next = UINT32_MAX;
 	uint32_t origin = UINT32_MAX;
 	uint32_t edge = UINT32_MAX;

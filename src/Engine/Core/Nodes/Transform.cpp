@@ -5,7 +5,7 @@
 
 Mesh Transform::processOutput(uint32_t index)
 {
-    auto it = inputs.find(index);
+    auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();
 
 

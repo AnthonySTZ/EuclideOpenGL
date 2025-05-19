@@ -168,6 +168,7 @@
     <ClCompile Include="src\Engine\Core\Nodes\Fields\Float3Field.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\FloatField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\IntField.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Merge.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Null.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Scene.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Fields\Float3Field.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\FloatField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\IntField.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Merge.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Null.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Scene.h" />

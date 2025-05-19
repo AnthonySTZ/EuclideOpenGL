@@ -8,6 +8,7 @@
 #include "../Core/Nodes/Transform.h"
 #include "../Core/Nodes/Null.h"
 #include "../Core/Nodes/Subdivide.h"
+#include "../Core/Nodes/Merge.h"
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
@@ -218,10 +219,15 @@ void EuclideInterface::createNodesMenu() {
 			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
 		}
 		ImGui::Separator();
+		if (ImGui::MenuItem("Merge")) {
+			std::shared_ptr<Node> transformNode = std::make_shared<Merge>();
+			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
+		}
+		/*ImGui::Separator();
 		if (ImGui::MenuItem("Subdivide")) {
 			std::shared_ptr<Node> nullNode = std::make_shared<Subdivide>();
 			sceneGraph.addNode(NodeItem(nullNode, io.MousePos));
-		}
+		}*/
 		ImGui::Separator();
 		if (ImGui::MenuItem("Null")) {
 			std::shared_ptr<Node> nullNode = std::make_shared<Null>();
