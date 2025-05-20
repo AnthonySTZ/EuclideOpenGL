@@ -57,5 +57,7 @@ Mesh Grid::createGrid(int rows, int cols, float sizeX, float sizeZ, glm::vec3 tr
 		}
 	}
 
+	Timer timer{ "Mesh creation" };
+
 	return Mesh{ gridBuilder };
 }

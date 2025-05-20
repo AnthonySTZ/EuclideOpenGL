@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "../Utils.h"
+
 struct TempHalfedge {
     TempHalfedge* twin = nullptr;
     TempHalfedge* next = nullptr;
@@ -21,43 +23,57 @@ void Mesh::recomputeMeshData()
     std::map<std::pair<uint32_t, uint32_t>, TempHalfedge*> halfedgesBuilder;
     std::map<std::pair<uint32_t, uint32_t>, TempEdge*> edgesBuilder;
 
-    /* Creating Halfedges map */
-    for (size_t faceIndex = 0; faceIndex < faces.size(); faceIndex++) {
+    {
+        Timer timer{ "Halfedge creation" };
 
-        Face face = faces[faceIndex];
+        /* Creating Halfedges map */
+        for (size_t faceIndex = 0; faceIndex < faces.size(); faceIndex++) {
 
-        for (size_t i = 0; i < face.vertexIndices.size(); i++) {
+            Face face = faces[faceIndex];
+            size_t numVerts = face.vertexIndices.size();
 
-            uint32_t u = face.vertexIndices[i];
-            uint32_t v = face.vertexIndices[(i + 1) % face.vertexIndices.size()];
+            for (size_t i = 0; i < numVerts; i++) {
 
-            halfedgesBuilder[{u, v}] = new TempHalfedge();
-            halfedgesBuilder[{u, v}]->origin = u;
-            halfedgesBuilder[{u, v}]->face = (uint32_t) faceIndex;
+                uint32_t u = face.vertexIndices[i];
+                uint32_t v = face.vertexIndices[(i + 1) % numVerts];
 
-            if (edgesBuilder.find({ v, u }) == edgesBuilder.end()) { // Twin edge is not stored
-                edgesBuilder[{u, v}] = new TempEdge();
-                edgesBuilder[{u, v}]->halfedge = halfedgesBuilder[{u, v}];
-                edgesBuilder[{u, v}]->u = u;
-                edgesBuilder[{u, v}]->v = v;
+                auto uv = std::make_pair(u, v);
+                auto vu = std::make_pair(v, u);
+
+                TempHalfedge *he = new TempHalfedge();
+                he->origin = u;
+                he->face = (uint32_t)faceIndex;
+                halfedgesBuilder[uv] = he;
+
+                if (edgesBuilder.find(vu) == edgesBuilder.end()) { // Twin edge is not stored
+                    TempEdge *edge = new TempEdge();
+                    edge->halfedge = he;
+                    edge->u = u;
+                    edge->v = v;
+                    edgesBuilder[uv] = edge;
+                }
+
             }
 
-        }
+            for (size_t i = 0; i < numVerts; i++) {
 
-        for (size_t i = 0; i < face.vertexIndices.size(); i++) {
+                uint32_t u = face.vertexIndices[i];
+                uint32_t v = face.vertexIndices[(i + 1) % numVerts];
+                uint32_t w = face.vertexIndices[(i + 2) % numVerts];
 
-            uint32_t u = face.vertexIndices[i];
-            uint32_t v = face.vertexIndices[(i + 1) % face.vertexIndices.size()];
-            uint32_t w = face.vertexIndices[(i + 2) % face.vertexIndices.size()];
+                auto uv = std::make_pair(u, v);
+                auto vu = std::make_pair(v, u);
+                auto vw = std::make_pair(v, w);
 
-            halfedgesBuilder[{u, v}]->next = halfedgesBuilder[{v, w}];
-            halfedgesBuilder[{v, w}]->prev = halfedgesBuilder[{u, v}];
+                halfedgesBuilder[uv]->next = halfedgesBuilder[vw];
+                halfedgesBuilder[vw]->prev = halfedgesBuilder[uv];
 
-            if (halfedgesBuilder.find({ v, u }) != halfedgesBuilder.end()) {
-                halfedgesBuilder[{u, v}]->twin = halfedgesBuilder[{v, u}];
-                halfedgesBuilder[{v, u}]->twin = halfedgesBuilder[{u, v}];
+                if (halfedgesBuilder.find(vu) != halfedgesBuilder.end()) {
+                    halfedgesBuilder[uv]->twin = halfedgesBuilder[vu];
+                    halfedgesBuilder[vu]->twin = halfedgesBuilder[uv];
+                }
+
             }
-
         }
     }
 
