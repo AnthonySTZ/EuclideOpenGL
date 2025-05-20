@@ -175,6 +175,7 @@
     <ClCompile Include="src\Engine\Core\Nodes\Null.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Scene.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Subdivide.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\tests\Benchmarks.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Transform.cpp" />
     <ClCompile Include="src\Engine\Core\Rendering\EuclideCamera.cpp" />
     <ClCompile Include="src\Engine\UI\EuclideEngine.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Null.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Scene.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Subdivide.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\tests\Benchmarks.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Transform.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
     <ClInclude Include="src\Engine\Core\Utils.h" />

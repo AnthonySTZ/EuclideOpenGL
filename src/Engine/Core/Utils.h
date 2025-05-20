@@ -15,6 +15,9 @@ public:
 	}
 
 	void Stop() {
+		if (stopped) return;
+
+		stopped = true;
 		auto endTimepoint = std::chrono::high_resolution_clock::now();
 		auto start = std::chrono::time_point_cast<std::chrono::microseconds>(startTimepoint).time_since_epoch().count();
 		auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
@@ -27,4 +30,5 @@ public:
 private:
 	std::chrono::time_point<std::chrono::high_resolution_clock> startTimepoint;
 	const char* name;
+	bool stopped = false;
 };

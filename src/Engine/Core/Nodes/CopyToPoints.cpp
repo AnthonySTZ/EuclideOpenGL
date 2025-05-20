@@ -25,7 +25,7 @@ Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
     builder.vertices.reserve(mesh_1.vertices.size() * mesh_2.vertices.size());
     builder.vertices.reserve(mesh_1.faces.size() * mesh_2.vertices.size());
 
-    size_t vertOffset = mesh_1.vertices.size();
+    uint32_t vertOffset = (uint32_t)mesh_1.vertices.size();
 
     for (size_t i = 0; i < mesh_2.vertices.size(); i++) {
 
@@ -38,7 +38,7 @@ Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
 
         for (auto& face : faces) {
             for (auto& vertIndex : face.vertexIndices) {
-                vertIndex += vertOffset * i;
+                vertIndex += vertOffset * (uint32_t)i;
             }
         }
 
