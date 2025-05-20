@@ -110,11 +110,11 @@ void EuclideModel::initBuffers()
 
 void EuclideModel::update() {
 
-	std::cout << "Index count : " << mesh.triangulateIndices.size() << "\n";
+	//std::cout << "Index count : " << mesh.triangulateIndices.size() << "\n";
 
 	updateBuffers();
 
-	std::cout << "Model updated!\n";
+	//std::cout << "Model updated!\n";
 
 }
 
