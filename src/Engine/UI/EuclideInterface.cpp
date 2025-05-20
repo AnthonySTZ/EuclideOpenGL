@@ -10,6 +10,7 @@
 #include "../Core/Nodes/Null.h"
 #include "../Core/Nodes/Subdivide.h"
 #include "../Core/Nodes/Merge.h"
+#include "../Core/Nodes/CopyToPoints.h"
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
@@ -249,6 +250,11 @@ void EuclideInterface::createNodesMenu() {
 		ImGui::Separator();
 		if (ImGui::MenuItem("Merge")) {
 			std::shared_ptr<Node> transformNode = std::make_shared<Merge>();
+			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
+		}
+		ImGui::Separator();
+		if (ImGui::MenuItem("CopyToPoints")) {
+			std::shared_ptr<Node> transformNode = std::make_shared<CopyToPoints>();
 			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
 		}
 		/*ImGui::Separator();

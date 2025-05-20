@@ -9,6 +9,7 @@ Current working nodes: (I will add more over time)<br/>
 - **Grid**<br/>
 - **Transform**<br/>
 - **Merge**<br/>
+- **CopyToPoints**<br/>
 - **Null**<br/>
 
 ![Image](./readme/interface.jpg)
