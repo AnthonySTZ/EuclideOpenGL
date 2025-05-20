@@ -305,6 +305,9 @@ void EuclideInterface::updateRenderNode() {
 		renderer->updateMesh(mesh);	
 
 	}
+	else {
+		renderer->updateMesh(Mesh());
+	}
 
 }
 

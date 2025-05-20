@@ -126,6 +126,7 @@ void SceneGraph::deleteSelectedNode() {
 	nodeItems.erase(
 		std::remove(nodeItems.begin(), nodeItems.end(), nodeSelected), nodeItems.end()
 	);
+	renderNode = nullptr;
 	nodeSelected = nullptr;
 	shouldUpdate = true;
 }
