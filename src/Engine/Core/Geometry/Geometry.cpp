@@ -4,118 +4,42 @@
 
 #include "../Utils.h"
 
-struct TempHalfedge {
-    TempHalfedge* twin = nullptr;
-    TempHalfedge* next = nullptr;
-    TempHalfedge* prev = nullptr;
-    uint32_t origin = UINT32_MAX;
-    uint32_t face = UINT32_MAX;
-};
-
-struct TempEdge {
-    TempHalfedge* halfedge = nullptr;
-    uint32_t u = UINT32_MAX;
-    uint32_t v = UINT32_MAX;
-};
-
-void Mesh::recomputeMeshData()
+void Mesh::addPrimitives(std::vector<Face> faces)
 {
-    std::map<std::pair<uint32_t, uint32_t>, TempHalfedge*> halfedgesBuilder;
-    std::map<std::pair<uint32_t, uint32_t>, TempEdge*> edgesBuilder;
+    uint32_t primId = primitives.size();
+    primitives.reserve(primitives.size() + faces.size());
 
-    {
-        Timer timer{ "Halfedge creation" };
+    uint32_t vertexId = vertices.size();
 
-        /* Creating Halfedges map */
-        for (size_t faceIndex = 0; faceIndex < faces.size(); faceIndex++) {
+    for (const auto& face : faces) {
+        Primitive prim;
+        prim.id = primId;
 
-            Face face = faces[faceIndex];
-            size_t numVerts = face.vertexIndices.size();
+        for (size_t i = 0; i < face.pointIds.size(); i++) {
 
-            for (size_t i = 0; i < numVerts; i++) {
+            uint32_t pointId = face.pointIds[i];
+            Vertex vertex{};
+            vertex.id = vertexId;
+            vertex.pointId = pointId;
+            vertex.primitiveId = primId;
+            vertices.push_back(vertex);
+            prim.vertexIds.push_back(vertexId);
+            vertexId++;
 
-                uint32_t u = face.vertexIndices[i];
-                uint32_t v = face.vertexIndices[(i + 1) % numVerts];
-
-                auto uv = std::make_pair(u, v);
-                auto vu = std::make_pair(v, u);
-
-                TempHalfedge *he = new TempHalfedge();
-                he->origin = u;
-                he->face = (uint32_t)faceIndex;
-                halfedgesBuilder[uv] = he;
-
-                if (edgesBuilder.find(vu) == edgesBuilder.end()) { // Twin edge is not stored
-                    TempEdge *edge = new TempEdge();
-                    edge->halfedge = he;
-                    edge->u = u;
-                    edge->v = v;
-                    edgesBuilder[uv] = edge;
-                }
-
+            uint32_t next_pointId = face.pointIds[(i + 1) % face.pointIds.size()];
+            auto uv = std::make_pair(pointId, next_pointId);
+            auto vu = std::make_pair(next_pointId, pointId);
+            if (edges.find(vu) == edges.end()) {
+                Edge edge{};
+                edge.u = pointId;
+                edge.v = next_pointId;
+                edges[uv] = edge;
             }
 
-            for (size_t i = 0; i < numVerts; i++) {
-
-                uint32_t u = face.vertexIndices[i];
-                uint32_t v = face.vertexIndices[(i + 1) % numVerts];
-                uint32_t w = face.vertexIndices[(i + 2) % numVerts];
-
-                auto uv = std::make_pair(u, v);
-                auto vu = std::make_pair(v, u);
-                auto vw = std::make_pair(v, w);
-
-                halfedgesBuilder[uv]->next = halfedgesBuilder[vw];
-                halfedgesBuilder[vw]->prev = halfedgesBuilder[uv];
-
-                if (halfedgesBuilder.find(vu) != halfedgesBuilder.end()) {
-                    halfedgesBuilder[uv]->twin = halfedgesBuilder[vu];
-                    halfedgesBuilder[vu]->twin = halfedgesBuilder[uv];
-                }
-
-            }
         }
-    }
 
-    /* Flatten Halfedges to Vector */
-    halfedges.clear();
-    halfedges.reserve(halfedgesBuilder.size());
-    std::map<TempHalfedge*, uint32_t> pointerToIndex;
-
-    for (auto& [key, tempHalfedge] : halfedgesBuilder) {
-
-        uint32_t idx = (uint32_t)halfedges.size();
-        pointerToIndex[tempHalfedge] = idx;
-
-        Halfedge halfedge;
-        halfedge.origin = tempHalfedge->origin;
-        halfedge.face = tempHalfedge->face;
-        halfedges.push_back(halfedge);
-
-    }
-
-    for (auto& [key, tempHalfedge] : halfedgesBuilder) {
-        uint32_t idx = pointerToIndex[tempHalfedge];
-
-        if (tempHalfedge->twin)
-            halfedges[idx].twin = pointerToIndex[tempHalfedge->twin];
-        if (tempHalfedge->next)
-            halfedges[idx].next = pointerToIndex[tempHalfedge->next];
-        if (tempHalfedge->prev)
-            halfedges[idx].prev = pointerToIndex[tempHalfedge->prev];
-    }
-
-    /* Flatten Edges to Vector */
-    edges.clear();
-    edges.reserve(edgesBuilder.size());
-    for (auto& [key, tempEdge] : edgesBuilder) {
-        uint32_t idx = pointerToIndex[tempEdge->halfedge];
-
-        Edge edge;
-        edge.halfedge = idx;
-        edge.u = tempEdge->u;
-        edge.v = tempEdge->v;
-        edges.push_back(edge);
+        primitives.push_back(std::move(prim));
+        primId++;
     }
 
 }
@@ -123,16 +47,18 @@ void Mesh::recomputeMeshData()
 void Mesh::triangulateFaces()
 {
     triangulateIndices.clear();
-    for (auto const& face : faces) {
+    for (auto const& prim : primitives) {
 
-        if (face.vertexIndices.size() < 3)
+        size_t numVertex = prim.vertexIds.size();
+
+        if (numVertex < 3)
             continue;
 
-        for (size_t vertexIndex = 1; vertexIndex + 1 < face.vertexIndices.size(); vertexIndex++) {
+        for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
 
-            uint32_t u = face.vertexIndices[0];
-            uint32_t v = face.vertexIndices[vertexIndex];
-            uint32_t w = face.vertexIndices[vertexIndex + 1];
+            uint32_t u = vertices[prim.vertexIds[0]].pointId;
+            uint32_t v = vertices[prim.vertexIds[vertexIndex]].pointId;
+            uint32_t w = vertices[prim.vertexIds[vertexIndex + 1]].pointId;
 
             triangulateIndices.push_back(u);
             triangulateIndices.push_back(v);
@@ -149,7 +75,7 @@ void Mesh::createWireframeIndices()
 
     wireframeIndices.clear();
     wireframeIndices.reserve(edges.size() * 2);
-    for (const auto& edge : edges) {
+    for (const auto& [key, edge] : edges) {
 
         wireframeIndices.push_back(edge.u);
         wireframeIndices.push_back(edge.v);
@@ -170,21 +96,21 @@ glm::vec3 Mesh::getCenterPos()
 
 BoundingBox Mesh::getBoundingBox() {
     BoundingBox bbox;
-    if (vertices.size() == 0) return bbox;
+    if (points.size() == 0) return bbox;
 
     // Init bbox
-    bbox.min = vertices[0].position;
-    bbox.max = vertices[0].position;
+    bbox.min = points[0].position;
+    bbox.max = points[0].position;
 
-    for (auto& vertex : vertices) {
+    for (auto& point : points) {
 
-        if (vertex.position.x < bbox.min.x) bbox.min.x = vertex.position.x;
-        if (vertex.position.y < bbox.min.y) bbox.min.y = vertex.position.y;
-        if (vertex.position.z < bbox.min.z) bbox.min.z = vertex.position.z;
+        if (point.position.x < bbox.min.x) bbox.min.x = point.position.x;
+        if (point.position.y < bbox.min.y) bbox.min.y = point.position.y;
+        if (point.position.z < bbox.min.z) bbox.min.z = point.position.z;
 
-        if (vertex.position.x > bbox.max.x) bbox.max.x = vertex.position.x;
-        if (vertex.position.y > bbox.max.y) bbox.max.y = vertex.position.y;
-        if (vertex.position.z > bbox.max.z) bbox.max.z = vertex.position.z;
+        if (point.position.x > bbox.max.x) bbox.max.x = point.position.x;
+        if (point.position.y > bbox.max.y) bbox.max.y = point.position.y;
+        if (point.position.z > bbox.max.z) bbox.max.z = point.position.z;
     }
 
     return bbox;
@@ -192,9 +118,14 @@ BoundingBox Mesh::getBoundingBox() {
 
 void Mesh::updateMesh(const Mesh::Builder& builder)
 {
-    vertices = builder.vertices;
-    faces = builder.faces;
-        
+    points = builder.points;
+    
+    primitives.clear();
+    edges.clear();
+    vertices.clear();
+
+    addPrimitives(builder.faces);
+
     update();
 
     //std::cout << "Compute triangulation : " << triangulateIndices.size() << "\n";

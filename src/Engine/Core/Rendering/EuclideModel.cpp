@@ -44,7 +44,7 @@ void EuclideModel::drawPoints() const
 	glDrawArrays(
 		GL_POINTS, 
 		0,
-		mesh.vertices.size()
+		mesh.points.size()
 	);
 
 	glBindVertexArray(0);
@@ -60,13 +60,13 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload vertex data
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(Point), mesh.points.data(), GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, color));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, normal));
 	glEnableVertexAttribArray(2);
 
 	// Bind and upload index data
@@ -84,7 +84,7 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload index data
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
@@ -100,7 +100,7 @@ void EuclideModel::initBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	// Bind and upload index data
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
 	glEnableVertexAttribArray(0);
 
 	// Unbind the VAO, VBO, AND INDEX BUFFER
@@ -121,7 +121,7 @@ void EuclideModel::update() {
 void EuclideModel::updateBuffers() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(Vertex), mesh.vertices.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(Point), mesh.points.data(), GL_DYNAMIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, faceIndicesBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.triangulateIndices.size() * sizeof(unsigned int), mesh.triangulateIndices.data(), GL_DYNAMIC_DRAW);

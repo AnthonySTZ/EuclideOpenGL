@@ -7,44 +7,34 @@
 #include <vector>
 #include <map>
 
-struct Vertex;
-struct Edge;
-struct Face;
-
-struct Halfedge {
-
-	uint32_t twin = UINT32_MAX;
-	uint32_t prev = UINT32_MAX;
-	uint32_t next = UINT32_MAX;
-	uint32_t origin = UINT32_MAX;
-	uint32_t edge = UINT32_MAX;
-	uint32_t face = UINT32_MAX;
-
-};
-
-struct Edge {
-
-	uint32_t halfedge = UINT32_MAX;
-	uint32_t u = UINT32_MAX;
-	uint32_t v = UINT32_MAX;
-
-};
-
-struct Face {
-
-	uint32_t halfedge = UINT32_MAX;
-	std::vector<uint32_t> vertexIndices;
-
-};
-
-struct Vertex {
-
+struct Point {
+	uint32_t id;
 	glm::vec3 position;
 	glm::vec3 color;
 	glm::vec3 normal;
-	uint32_t halfedge = UINT32_MAX;
-
 };
+
+struct Vertex {
+	uint32_t id;
+	uint32_t pointId;
+	uint32_t primitiveId;
+};
+
+struct Edge {
+	uint32_t u;
+	uint32_t v;
+};
+
+struct Primitive {
+	uint32_t id;
+	std::vector<uint32_t> vertexIds;
+};
+
+struct Face {
+	std::vector<uint32_t> pointIds;
+};
+
+
 
 struct BoundingBox {
 	glm::vec3 min{ 0.0 };
@@ -57,7 +47,7 @@ public:
 	struct Builder {
 
 		std::vector<Face> faces;
-		std::vector<Vertex> vertices;
+		std::vector<Point> points;
 
 	};
 
@@ -65,20 +55,20 @@ public:
 	Mesh() = default;
 	void updateMesh(const Mesh::Builder& builder);
 	void update() {
-		recomputeMeshData(); triangulateFaces(); createWireframeIndices();
+		triangulateFaces(); createWireframeIndices();
 	};
 
-	void recomputeMeshData();
+	void addPrimitives(std::vector<Face> faces);
 	void triangulateFaces();
 	void createWireframeIndices();
 	glm::vec3 getCenterPos();
 	BoundingBox getBoundingBox();
 
+	std::vector<Point> points;
 	std::vector<Vertex> vertices;
-	std::vector<Edge> edges;
-	std::vector<Face> faces;
+	std::map<std::pair<uint32_t, uint32_t>, Edge> edges;
+	std::vector<Primitive> primitives;
 
-	std::vector<Halfedge> halfedges;
 	std::vector<uint32_t> triangulateIndices;
 	std::vector<uint32_t> wireframeIndices;
 	

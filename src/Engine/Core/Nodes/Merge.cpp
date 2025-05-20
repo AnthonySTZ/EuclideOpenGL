@@ -29,7 +29,7 @@ void Merge::mergeToMesh(Mesh& mesh1, Mesh& mesh2) {
 
     Timer timer{ nodeName.c_str() };
 
-    size_t vertexOffset = mesh1.vertices.size();
+    /*size_t vertexOffset = mesh1.vertices.size();
 
     mesh1.vertices.insert(mesh1.vertices.end(), mesh2.vertices.begin(), mesh2.vertices.end());
     for (auto& face : mesh2.faces) {
@@ -37,7 +37,7 @@ void Merge::mergeToMesh(Mesh& mesh1, Mesh& mesh2) {
             vertex += vertexOffset;
         }
     }
-    mesh1.faces.insert(mesh1.faces.end(), mesh2.faces.begin(), mesh2.faces.end());
+    mesh1.faces.insert(mesh1.faces.end(), mesh2.faces.begin(), mesh2.faces.end());*/
 
     mesh1.update();
 

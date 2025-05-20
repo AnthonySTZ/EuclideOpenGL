@@ -11,36 +11,36 @@ Mesh Cube::processOutput(uint32_t index)
 	glm::vec3 size = getParam<Float3Field>("Size")->toVec3();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
-	cubeBuilder.vertices = {
+	cubeBuilder.points = {
 		// Front face (+X)
-		{glm::vec3(0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{glm::vec3(0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{glm::vec3(0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{glm::vec3(0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		{0, glm::vec3(0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{1, glm::vec3(0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{2, glm::vec3(0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{3, glm::vec3(0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
 
 		//Back face (-X)
-		{glm::vec3(-0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{glm::vec3(-0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{glm::vec3(-0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{glm::vec3(-0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		{4, glm::vec3(-0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{5, glm::vec3(-0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{6, glm::vec3(-0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{7, glm::vec3(-0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
 		
 	};
 
 	Face faceFront;
-	faceFront.vertexIndices = { 0, 1, 2, 3 };
+	faceFront.pointIds = { 0, 1, 2, 3 };
 	Face faceBack;
-	faceBack.vertexIndices = { 4, 5, 6, 7 };
+	faceBack.pointIds = { 4, 5, 6, 7 };
 
 	Face faceLeft; // (-Z)
-	faceLeft.vertexIndices = { 5, 0, 3, 6 };
+	faceLeft.pointIds = { 5, 0, 3, 6 };
 
 	Face faceRight;	// (+Z)
-	faceRight.vertexIndices = { 1, 4, 7, 2 };
+	faceRight.pointIds = { 1, 4, 7, 2 };
 
 	Face faceTop;
-	faceTop.vertexIndices = { 0, 5, 4, 1 };
+	faceTop.pointIds = { 0, 5, 4, 1 };
 	Face faceBottom;
-	faceBottom.vertexIndices = { 3, 2, 7, 6 };
+	faceBottom.pointIds = { 3, 2, 7, 6 };
 
 
 	cubeBuilder.faces = {

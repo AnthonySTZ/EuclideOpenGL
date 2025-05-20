@@ -25,8 +25,8 @@ Mesh Transform::processOutput(uint32_t index)
 void Transform::translateMesh(Mesh& mesh) {
     glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
-    for (auto& vertex : mesh.vertices) {
-        vertex.position += translate;
+    for (auto& point : mesh.points) {
+        point.position += translate;
     }
 
 }
@@ -34,8 +34,8 @@ void Transform::translateMesh(Mesh& mesh) {
 void Transform::scaleMesh(Mesh& mesh) {
     glm::vec3 scale = getParam<Float3Field>("Scale")->toVec3();
 
-    for (auto& vertex : mesh.vertices) {
-        vertex.position *= scale;
+    for (auto& point : mesh.points) {
+        point.position *= scale;
     }
 
 }
@@ -51,8 +51,8 @@ void Transform::rotateMesh(Mesh& mesh) {
     rotMat = glm::rotate(rotMat, glm::radians(rotation.y), yAxis);
     rotMat = glm::rotate(rotMat, glm::radians(rotation.z), zAxis);
 
-    for (auto& vertex : mesh.vertices) {
-        vertex.position = glm::vec3(rotMat * glm::vec4(vertex.position, 1.0));
+    for (auto& point : mesh.points) {
+        point.position = glm::vec3(rotMat * glm::vec4(point.position, 1.0));
     }
 
 }

@@ -4,7 +4,7 @@
 
 #include "Engine/Core/Nodes/tests/Benchmarks.h"
 
-#define NODES_BENCHMARKS
+//#define NODES_BENCHMARKS
 
 int main() {
 

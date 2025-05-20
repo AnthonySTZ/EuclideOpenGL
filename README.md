@@ -32,7 +32,3 @@ There are some shortcuts :<br/>
 
 When you select a node, there is a parameters tab that open.<br/>
 You can change parameters value !
-
-## Geometry System
-
-I decided to use a half-edge data structure to store mesh data.

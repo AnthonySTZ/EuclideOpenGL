@@ -21,7 +21,7 @@ Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
 
     Timer timer{ nodeName.c_str() };
 
-    Mesh::Builder builder;
+    /*Mesh::Builder builder;
     builder.vertices.reserve(mesh_1.vertices.size() * mesh_2.vertices.size());
     builder.vertices.reserve(mesh_1.faces.size() * mesh_2.vertices.size());
 
@@ -45,8 +45,8 @@ Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
         builder.vertices.insert(builder.vertices.end(), vertices.begin(), vertices.end());
         builder.faces.insert(builder.faces.end(), faces.begin(), faces.end());
 
-    }
+    }*/
 
-    return Mesh{ builder };
+    return Mesh();
 
 }

@@ -146,6 +146,7 @@
     <None Include=".gitignore" />
     <None Include="LICENSE.md" />
     <None Include="README.md" />
+    <None Include="benchmarks.md" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsFragShader.frag" />
     <None Include="src\Engine\Core\Rendering\shaders\pointsVertShader.vert" />
     <None Include="src\Engine\Core\Rendering\shaders\wireframeFragShader.frag" />
