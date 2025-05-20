@@ -298,6 +298,8 @@ void EuclideInterface::updateRenderNode() {
 
 	std::shared_ptr<NodeItem> renderNode = sceneGraph.getRenderNode();
 	if (renderNode != nullptr) {
+
+		std::cout << "\n"; // Add empty line to separate timer 
 		
 		Mesh mesh = renderNode->getNode()->processOutput(0);
 		renderer->updateMesh(mesh);	

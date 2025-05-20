@@ -1,7 +1,11 @@
 #include "Cube.h"
 
+#include "../Utils.h"
+
 Mesh Cube::processOutput(uint32_t index)
 {
+	Timer timer{ nodeName.c_str() };
+
     Mesh::Builder cubeBuilder;
 
 	glm::vec3 size = getParam<Float3Field>("Size")->toVec3();

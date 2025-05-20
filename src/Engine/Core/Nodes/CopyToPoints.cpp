@@ -18,14 +18,14 @@ Mesh CopyToPoints::processOutput(uint32_t index) {
 }
 
 Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
-    
-    Timer timer{ "copyToPoints" };
+
+    Timer timer{ nodeName.c_str() };
 
     Mesh::Builder builder;
     builder.vertices.reserve(mesh_1.vertices.size() * mesh_2.vertices.size());
     builder.vertices.reserve(mesh_1.faces.size() * mesh_2.vertices.size());
 
-    uint32_t vertOffset = mesh_1.vertices.size();
+    size_t vertOffset = mesh_1.vertices.size();
 
     for (size_t i = 0; i < mesh_2.vertices.size(); i++) {
 

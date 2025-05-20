@@ -1,5 +1,7 @@
 #include "Merge.h"
 
+#include "../Utils.h"
+
 Mesh Merge::processOutput(uint32_t index) {
 
     auto it_0 = inputs.find(0);
@@ -24,6 +26,8 @@ Mesh Merge::processOutput(uint32_t index) {
 }
 
 void Merge::mergeToMesh(Mesh& mesh1, Mesh& mesh2) {
+
+    Timer timer{ nodeName.c_str() };
 
     size_t vertexOffset = mesh1.vertices.size();
 

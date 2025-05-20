@@ -1,5 +1,6 @@
 #include "Grid.h"
 
+#include "../Utils.h"
 
 Mesh Grid::processOutput(uint32_t index)
 {	
@@ -9,6 +10,7 @@ Mesh Grid::processOutput(uint32_t index)
 	float sizeZ = getParam<FloatField>("SizeZ")->getValue();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
+	Timer timer{ nodeName.c_str() };
     return createGrid(rows, cols, sizeX, sizeZ, translate);
 }
 

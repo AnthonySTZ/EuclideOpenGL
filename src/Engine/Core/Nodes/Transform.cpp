@@ -3,6 +3,8 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../Utils.h"
+
 Mesh Transform::processOutput(uint32_t index)
 {
     auto it = inputs.find(0);
@@ -10,6 +12,8 @@ Mesh Transform::processOutput(uint32_t index)
 
 
     Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
+
+    Timer timer{ nodeName.c_str() };
 
     rotateMesh(inputMesh);
     scaleMesh(inputMesh);
