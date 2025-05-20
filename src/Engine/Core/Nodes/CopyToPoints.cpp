@@ -1,5 +1,7 @@
 #include "CopyToPoints.h"
 
+#include "../Utils.h"
+
 Mesh CopyToPoints::processOutput(uint32_t index) {
 
     auto it_0 = inputs.find(0);
@@ -17,6 +19,8 @@ Mesh CopyToPoints::processOutput(uint32_t index) {
 
 Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
     
+    Timer timer{ "copyToPoints" };
+
     Mesh::Builder builder;
     builder.vertices.reserve(mesh_1.vertices.size() * mesh_2.vertices.size());
     builder.vertices.reserve(mesh_1.faces.size() * mesh_2.vertices.size());

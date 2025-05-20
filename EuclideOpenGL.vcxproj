@@ -206,6 +206,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Subdivide.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Transform.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
+    <ClInclude Include="src\Engine\Core\Utils.h" />
     <ClInclude Include="src\Engine\UI\EuclideEngine.h" />
     <ClInclude Include="src\Engine\UI\EuclideInterface.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideModel.h" />

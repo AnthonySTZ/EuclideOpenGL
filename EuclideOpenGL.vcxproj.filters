@@ -221,5 +221,8 @@
     <ClInclude Include="src\Engine\Core\Nodes\CopyToPoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
