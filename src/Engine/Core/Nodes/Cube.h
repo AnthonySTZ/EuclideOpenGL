@@ -18,4 +18,5 @@ public:
 	}
 
 	Mesh processOutput(uint32_t index) override;
+	static Mesh createCube(glm::vec3 position, glm::vec3 size);
 };

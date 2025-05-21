@@ -6,24 +6,29 @@ Mesh Cube::processOutput(uint32_t index)
 {
 	Timer timer{ nodeName.c_str() };
 
-    Mesh::Builder cubeBuilder;
-
 	glm::vec3 size = getParam<Float3Field>("Size")->toVec3();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
+	return createCube(translate, size);
+}
+
+Mesh Cube::createCube(glm::vec3 position, glm::vec3 size) {
+
+	Mesh::Builder cubeBuilder;
+
 	cubeBuilder.points = {
 		// Front face (+X)
-		{0, glm::vec3(0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{1, glm::vec3(0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{2, glm::vec3(0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{3, glm::vec3(0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		{0, glm::vec3(0.5f, 0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{1, glm::vec3(0.5f, 0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{2, glm::vec3(0.5f, -0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{3, glm::vec3(0.5f, -0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
 
 		//Back face (-X)
-		{4, glm::vec3(-0.5f, 0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{5, glm::vec3(-0.5f, 0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{6, glm::vec3(-0.5f, -0.5f, -0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{7, glm::vec3(-0.5f, -0.5f, 0.5f) * size + translate, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
-		
+		{4, glm::vec3(-0.5f, 0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
+		{5, glm::vec3(-0.5f, 0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
+		{6, glm::vec3(-0.5f, -0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
+		{7, glm::vec3(-0.5f, -0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+
 	};
 
 	Face faceFront;
@@ -47,5 +52,6 @@ Mesh Cube::processOutput(uint32_t index)
 		faceFront, faceBack, faceLeft, faceRight, faceTop, faceBottom
 	};
 
-    return Mesh(cubeBuilder);
+	return Mesh(cubeBuilder);
+
 }
