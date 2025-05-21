@@ -73,4 +73,7 @@ private:
 	bool wireframeShown = true;
 	bool pointShown = true;
 	bool faceShown = true;
+
+	float wireframeLineWidth = 1.5f;
+	float gridLineWidth = 0.5f;
 };

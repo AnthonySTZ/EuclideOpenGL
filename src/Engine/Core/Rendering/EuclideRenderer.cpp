@@ -106,7 +106,7 @@ void EuclideRenderer::initBuffers() {
 void EuclideRenderer::initFramebuffer() {
 
 	glEnable(GL_PROGRAM_POINT_SIZE);
-	glLineWidth(1.5f);
+	glLineWidth(wireframeLineWidth);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 
@@ -226,9 +226,11 @@ void EuclideRenderer::drawModel() {
 	}
 
 	if (gridShown) {
+		glLineWidth(gridLineWidth);
 		glUseProgram(wireframeShaderProgram);
 		bindUniforms(wireframeShaderProgram);
 		grid.drawWireframe();
+		glLineWidth(wireframeLineWidth);
 	}
 
 }
