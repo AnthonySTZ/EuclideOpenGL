@@ -176,7 +176,6 @@ void EuclideRenderer::startFrame()  {
 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 	glViewport(0, 0, viewportWidth, viewportHeight);
-	glUseProgram(facesShaderProgram);
 
 }
 
@@ -185,7 +184,7 @@ void EuclideRenderer::endFrame()  {
 	glUseProgram(0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-}
+}	
 
 void EuclideRenderer::clearFrame()  {
 

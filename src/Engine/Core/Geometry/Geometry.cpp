@@ -6,6 +6,8 @@
 
 void Mesh::addPrimitives(std::vector<Face> faces)
 {
+    Timer timer{ "addPrimitives" };
+
     uint32_t primId = primitives.size();
     primitives.reserve(primitives.size() + faces.size());
 
@@ -46,6 +48,8 @@ void Mesh::addPrimitives(std::vector<Face> faces)
 
 void Mesh::triangulateFaces()
 {
+    Timer timer{ "triangulateFaces" };
+
     triangulateIndices.clear();
     for (auto const& prim : primitives) {
 
@@ -72,6 +76,7 @@ void Mesh::triangulateFaces()
 
 void Mesh::createWireframeIndices()
 {
+    Timer timer{ "createWireframeIndices" };
 
     wireframeIndices.clear();
     wireframeIndices.reserve(edges.size() * 2);
