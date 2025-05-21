@@ -1,5 +1,3 @@
-Optimize (ex: Grid 50x50 170fps even with visibility disabled)
-
 Interface :
 	- Upgrade UI
 
@@ -14,6 +12,5 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
-	- make all real node process static 
-	- Optimize Mesh creation 
+	- make all real node process static
 	- Cache mesh
