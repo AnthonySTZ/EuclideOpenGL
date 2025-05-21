@@ -55,7 +55,10 @@ public:
 	Mesh() = default;
 	void updateMesh(const Mesh::Builder& builder);
 	void update() {
-		triangulateFaces(); createWireframeIndices();
+		triangulateFaces();
+		createWireframeIndices();
+		pointSize = points.size();
+		primSize = primitives.size();
 	};
 
 	void addPrimitives(std::vector<Face> faces);
@@ -65,9 +68,11 @@ public:
 	BoundingBox getBoundingBox();
 
 	std::vector<Point> points;
+	size_t pointSize = 0;
 	std::vector<Vertex> vertices;
 	std::map<std::pair<uint32_t, uint32_t>, Edge> edges;
 	std::vector<Primitive> primitives;
+	size_t primSize = 0;
 
 	std::vector<uint32_t> triangulateIndices;
 	std::vector<uint32_t> wireframeIndices;

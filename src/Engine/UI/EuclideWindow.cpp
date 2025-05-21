@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+#include <iostream>
+
 EuclideWindow::EuclideWindow(int w, int h, const char* name)
 {
 
@@ -30,6 +32,11 @@ EuclideWindow::EuclideWindow(int w, int h, const char* name)
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		glfwTerminate();
 		throw std::runtime_error("Failed to initialize GLAD!");
+	}
+
+	GLenum err = glGetError();
+	if (err != GL_NO_ERROR) {
+		std::cerr << "OpenGL Error: " << err << std::endl;
 	}
 }
 

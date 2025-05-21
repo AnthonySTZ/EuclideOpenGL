@@ -12,6 +12,8 @@
 #include "../Core/Nodes/Merge.h"
 #include "../Core/Nodes/CopyToPoints.h"
 
+#include "../Core/Utils.h"
+
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
 	initImGui(window);
@@ -55,8 +57,11 @@ void EuclideInterface::drawFrame() {
 
 }
 
+
+
 void EuclideInterface::createUI()
 {
+	
 	if (hasViewportResized()) {
 		renderer->resizeFrameBuffer(viewportWidth, viewportHeight);
 	}
@@ -124,6 +129,8 @@ void EuclideInterface::createViewport() {
 
 	bool isHovered = ImGui::IsItemHovered();
 
+	
+
 	if (isHovered) {
 
 		ImVec2 dragDelta = ImGui::GetIO().MouseDelta;
@@ -164,11 +171,14 @@ void EuclideInterface::createViewport() {
 	/* END FPS TEXT */
 
 	/* INFO TEXT */
-	std::string pointCountInfo = "Point count: " + std::to_string(renderer->getModel().pointCount());
-	std::string polygonCountInfo = "Polygon count: "+ std::to_string(renderer->getModel().primitiveCount());
+	uint32_t numPoints = renderer->getModel()->pointCount();
+	uint32_t numPrims = renderer->getModel()->primitiveCount();
+	std::string pointCountInfo = "Point count: " + std::to_string(numPoints);
+	std::string polygonCountInfo = "Polygon count: "+ std::to_string(numPrims);
+	
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 0, 255), pointCountInfo.c_str());
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 0, 255), polygonCountInfo.c_str());
-
+	
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 60), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 80), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
 	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 100), IM_COL32(255, 255, 0, 255), "Press W to Hide/Show wireframe");

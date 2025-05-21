@@ -18,11 +18,12 @@ public:
 	void initBuffers();
 
 	void update();
+	void clearBuffers();
 	void updateMesh(Mesh newMesh) { mesh = newMesh; update(); };
 	Mesh* getMesh() { return &mesh; };
 
-	size_t pointCount() const { return mesh.points.size(); };
-	size_t primitiveCount() const { return mesh.primitives.size(); };
+	size_t pointCount() const { return mesh.pointSize; };
+	size_t primitiveCount() const { return mesh.primSize; };
 
 
 private:

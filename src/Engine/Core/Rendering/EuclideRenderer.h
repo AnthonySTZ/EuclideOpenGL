@@ -52,7 +52,7 @@ public:
 	void tooglePointVisibility() { pointShown = !pointShown; };
 	void toogleFaceVisibility() { faceShown = !faceShown; };
 
-	EuclideModel getModel() const { return model; };
+	EuclideModel* getModel() { return &model; };
 
 private:
 	unsigned int facesShaderProgram;
