@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../Utils.h"
+#include <algorithm>
 
 void Mesh::addPrimitives(std::vector<Face> faces)
 {
@@ -12,6 +13,12 @@ void Mesh::addPrimitives(std::vector<Face> faces)
     primitives.reserve(primitives.size() + faces.size());
 
     uint32_t vertexId = vertices.size();
+    uint32_t verticesToAdd = 0;
+    for (const auto& face : faces) {
+        verticesToAdd += face.pointIds.size();
+    }
+
+    vertices.reserve(vertices.size() + verticesToAdd);
 
     for (const auto& face : faces) {
         Primitive prim;
@@ -32,14 +39,8 @@ void Mesh::addPrimitives(std::vector<Face> faces)
             vertexId++;
 
             uint32_t next_pointId = face.pointIds[(i + 1) % numVertices];
-            auto uv = std::make_pair(pointId, next_pointId);
-            auto vu = std::make_pair(next_pointId, pointId);
-            if (edges.find(vu) == edges.end()) {
-                Edge edge{};
-                edge.u = pointId;
-                edge.v = next_pointId;
-                edges[uv] = edge;
-            }
+            auto [u, v] = std::minmax(pointId, next_pointId);
+            edges.try_emplace({u, v}, Edge{ pointId , next_pointId });
 
         }
 
