@@ -18,35 +18,37 @@ Mesh CopyToPoints::processOutput(uint32_t index) {
 }
 
 Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
-
+    
     Timer timer{ nodeName.c_str() };
 
-    /*Mesh::Builder builder;
-    builder.vertices.reserve(mesh_1.vertices.size() * mesh_2.vertices.size());
-    builder.vertices.reserve(mesh_1.faces.size() * mesh_2.vertices.size());
+    Mesh::Builder builder;
+    builder.points.reserve(mesh_1.points.size() * mesh_2.points.size());
+    builder.faces.reserve(mesh_1.primitives.size() * mesh_2.points.size());
 
-    uint32_t vertOffset = (uint32_t)mesh_1.vertices.size();
+    uint32_t pointOffset = (uint32_t)mesh_1.points.size();
 
-    for (size_t i = 0; i < mesh_2.vertices.size(); i++) {
+    for (size_t i = 0; i < mesh_2.points.size(); i++) {
 
-        std::vector<Vertex> vertices = mesh_1.vertices;
-        std::vector<Face> faces = mesh_1.faces;
+        std::vector<Point> points = mesh_1.points;
+        std::vector<Face> faces;
 
-        for (auto& vertex : vertices) {
-            vertex.position += mesh_2.vertices[i].position;
+        for (auto& point : points) {
+            point.position += mesh_2.points[i].position;
         }
 
-        for (auto& face : faces) {
-            for (auto& vertIndex : face.vertexIndices) {
-                vertIndex += vertOffset * (uint32_t)i;
+        for (auto& prim : mesh_1.primitives) {
+            Face face;
+            for (auto& vertIndex : prim.vertexIds) {
+                face.pointIds.push_back(mesh_1.vertices[vertIndex].pointId + pointOffset * (uint32_t)i);
             }
+            faces.push_back(face);
         }
 
-        builder.vertices.insert(builder.vertices.end(), vertices.begin(), vertices.end());
+        builder.points.insert(builder.points.end(), points.begin(), points.end());
         builder.faces.insert(builder.faces.end(), faces.begin(), faces.end());
 
-    }*/
-
-    return Mesh();
+    }
+    
+    return Mesh{ builder };
 
 }
