@@ -137,3 +137,46 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
 
     update();
 }
+
+void Mesh::updateHardNormalPoints()
+{
+
+    hardNormalPoints.clear();
+    hardNormalPoints.reserve(vertices.size());
+    for (auto& prim : primitives) {
+
+        size_t numVertex = prim.vertexIds.size();
+
+        if (numVertex < 3)
+            continue;
+
+        uint32_t u = vertices[prim.vertexIds[0]].pointId;
+        uint32_t v = vertices[prim.vertexIds[1]].pointId;
+        uint32_t w = vertices[prim.vertexIds[2]].pointId;
+        glm::vec3 edge1 = points[v].position - points[u].position;
+        glm::vec3 edge2 = points[w].position - points[u].position;
+        glm::vec3 normal = glm::cross(edge1, edge2);
+
+        for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
+
+            u = vertices[prim.vertexIds[0]].pointId;
+            v = vertices[prim.vertexIds[vertexIndex]].pointId;
+            w = vertices[prim.vertexIds[vertexIndex + 1]].pointId;
+
+            Point pu = points[u];
+            pu.normal = normal;
+            Point pv = points[v];
+            pv.normal = normal;
+            Point pw = points[w];
+            pw.normal = normal;
+
+            hardNormalPoints.push_back(pu);
+            hardNormalPoints.push_back(pv);
+            hardNormalPoints.push_back(pw);
+
+        }
+
+    }
+
+
+}

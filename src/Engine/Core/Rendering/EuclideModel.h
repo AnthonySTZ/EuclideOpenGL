@@ -18,7 +18,6 @@ public:
 	void initBuffers();
 
 	void update();
-	void clearBuffers();
 	void updateMesh(Mesh newMesh) { mesh = newMesh; update(); };
 	Mesh* getMesh() { return &mesh; };
 
@@ -32,7 +31,8 @@ private:
 	GLuint vaoFaces = 0; 
 	GLuint vaoWireframe = 0;
 	GLuint vaoPoints = 0;
-	GLuint VBO = 0;
+	GLuint VBOVertices = 0;
+	GLuint VBOPoints = 0;
 	GLuint faceIndicesBuffer = 0;
 	GLuint wireframeIndicesBuffer = 0;
 

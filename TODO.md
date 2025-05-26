@@ -1,9 +1,6 @@
 Interface :
 	- Upgrade UI
 
-Viewport:
-	- render hard normal
-
 NodeGraph:
 	- Rename nodes
 	- Recenter nodes or on selected

@@ -54,9 +54,11 @@ public:
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
 	void updateMesh(const Mesh::Builder& builder);
+	void updateHardNormalPoints();
 	void update() {
 		triangulateFaces();
 		createWireframeIndices();
+		updateHardNormalPoints();
 		pointSize = points.size();
 		primSize = primitives.size();
 	};
@@ -76,6 +78,7 @@ public:
 
 	std::vector<uint32_t> triangulateIndices;
 	std::vector<uint32_t> wireframeIndices;
+	std::vector<Point> hardNormalPoints;
 	
 
 };

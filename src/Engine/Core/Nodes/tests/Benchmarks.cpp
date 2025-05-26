@@ -33,4 +33,11 @@ void Benchmarks::benchGrid()
 		Timer timer_100x100{ "Benchmark Grid 100x100" };
 		Mesh grid_100x100 = Grid::createGrid(100, 100, 10, 10);
 	}
+
+	std::cout << "\n---- GRID 200x200 ----\n";
+
+	{
+		Timer timer_200x200{ "Benchmark Grid 200x200" };
+		Mesh grid_200x200 = Grid::createGrid(200, 200, 10, 10);
+	}
 }
