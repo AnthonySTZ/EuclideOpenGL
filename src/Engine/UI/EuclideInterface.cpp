@@ -4,12 +4,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include "../Core/Nodes/Cube.h"
-#include "../Core/Nodes/Grid.h"
-#include "../Core/Nodes/Transform.h"
-#include "../Core/Nodes/Null.h"
-#include "../Core/Nodes/Merge.h"
-#include "../Core/Nodes/CopyToPoints.h"
+#include "../Core/Nodes/NodesInfo.h"
 
 #include "../Core/Utils.h"
 
@@ -243,34 +238,11 @@ void EuclideInterface::createNodesMenu() {
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::BeginPopup("node_menu")) {
-		if (ImGui::MenuItem("Cube")) {
-			std::shared_ptr<Node> cubeNode = std::make_shared<Cube>();
-			sceneGraph.addNode(NodeItem(cubeNode, io.MousePos));
-		}
-		if (ImGui::MenuItem("Grid")) {
-			std::shared_ptr<Node> cubeNode = std::make_shared<Grid>();
-			sceneGraph.addNode(NodeItem(cubeNode, io.MousePos));
-		}
-		ImGui::Separator();
-		if (ImGui::MenuItem("Transform")) {
-			std::shared_ptr<Node> transformNode = std::make_shared<Transform>();
-			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
-		}
-		ImGui::Separator();
-		if (ImGui::MenuItem("Merge")) {
-			std::shared_ptr<Node> transformNode = std::make_shared<Merge>();
-			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
-		}
-		ImGui::Separator();
-		if (ImGui::MenuItem("CopyToPoints")) {
-			std::shared_ptr<Node> transformNode = std::make_shared<CopyToPoints>();
-			sceneGraph.addNode(NodeItem(transformNode, io.MousePos));
-		}
-		ImGui::Separator();
-		if (ImGui::MenuItem("Null")) {
-			std::shared_ptr<Node> nullNode = std::make_shared<Null>();
-			sceneGraph.addNode(NodeItem(nullNode, io.MousePos));
-		}
+		for (auto& item : NodesInfo::getMenuItems()) {
+			if (ImGui::MenuItem(item.name)) {
+				sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+			}
+		}		
 		ImGui::EndPopup();
 	}
 

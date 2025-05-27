@@ -173,6 +173,7 @@
     <ClCompile Include="src\Engine\Core\Nodes\Grid.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Merge.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\NodesInfo.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Null.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Scene.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\tests\Benchmarks.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Grid.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Merge.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\NodesInfo.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Null.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Scene.h" />
     <ClInclude Include="src\Engine\Core\Nodes\tests\Benchmarks.h" />

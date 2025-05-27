@@ -139,6 +139,9 @@
     <ClCompile Include="src\Engine\Core\Nodes\tests\Benchmarks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Core\Nodes\NodesInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h">
@@ -223,6 +226,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Core\Nodes\tests\Benchmarks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\Nodes\NodesInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
