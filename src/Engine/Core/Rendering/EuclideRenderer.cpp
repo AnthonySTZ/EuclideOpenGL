@@ -47,7 +47,12 @@ void EuclideRenderer::createGrid() {
 	float sizeX = 10.0f;
 	float sizeZ = 10.0f;
 
-	grid.updateMesh(Grid::createGrid(rows, cols, sizeX, sizeZ));
+	Mesh gridMesh = Grid::createGrid(rows, cols, sizeX, sizeZ);
+	for (auto& point : gridMesh.points) {
+		point.color = { .7f, .7f, .7f };
+	}
+
+	grid.updateMesh(gridMesh);
 
 }
 
