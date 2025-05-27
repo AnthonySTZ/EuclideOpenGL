@@ -193,7 +193,8 @@ void EuclideRenderer::endFrame()  {
 
 void EuclideRenderer::clearFrame()  {
 
-	glClearColor(0.66f, 0.77f, .81f, 1.0f);
+	//glClearColor(0.66f, 0.77f, .81f, 1.0f);
+	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
