@@ -9,9 +9,9 @@
 
 struct Point {
 	uint32_t id;
-	glm::vec3 position;
-	glm::vec3 color;
-	glm::vec3 normal;
+	glm::vec3 position{ 0.0, 0.0, 0.0 };
+	glm::vec3 color{ 0.0, 0.0, 0.0 };
+	glm::vec3 normal{ 0.0, 0.0, 0.0 };
 };
 
 struct Vertex {

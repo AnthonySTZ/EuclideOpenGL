@@ -35,7 +35,7 @@ Mesh Grid::createGrid(int rows, int cols, float sizeX, float sizeZ, glm::vec3 tr
 			glm::vec3 position = { x, 0.0, z };
 			position += translate;
 			glm::vec3 normal = { 0.0f, 1.0f, 0.0f };
-			glm::vec3 color = { 0.8f, 0.8f, 0.8f };
+			glm::vec3 color = { 0.0, 0.0, 0.0 };
 
 			gridBuilder.points.push_back({ pointId, position, color, normal });
 			pointId++;

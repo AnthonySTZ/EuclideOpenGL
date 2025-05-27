@@ -165,10 +165,13 @@ void Mesh::updateHardNormalPoints()
 
             Point pu = points[u];
             pu.normal = normal;
+            pu.color = {.9f, .9f, .9f};
             Point pv = points[v];
             pv.normal = normal;
+            pv.color = { .9f, .9f, .9f };
             Point pw = points[w];
             pw.normal = normal;
+            pw.color = { .9f, .9f, .9f };
 
             hardNormalPoints.push_back(pu);
             hardNormalPoints.push_back(pv);

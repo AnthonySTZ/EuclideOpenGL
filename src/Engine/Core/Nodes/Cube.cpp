@@ -18,16 +18,16 @@ Mesh Cube::createCube(glm::vec3 position, glm::vec3 size) {
 
 	cubeBuilder.points = {
 		// Front face (+X)
-		{0, glm::vec3(0.5f, 0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{1, glm::vec3(0.5f, 0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{2, glm::vec3(0.5f, -0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{3, glm::vec3(0.5f, -0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		{0, glm::vec3(0.5f, 0.5f, -0.5f) * size + position},
+		{1, glm::vec3(0.5f, 0.5f, 0.5f) * size + position},
+		{2, glm::vec3(0.5f, -0.5f, 0.5f) * size + position},
+		{3, glm::vec3(0.5f, -0.5f, -0.5f) * size + position},
 
 		//Back face (-X)
-		{4, glm::vec3(-0.5f, 0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, -0.5f}},
-		{5, glm::vec3(-0.5f, 0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, 0.5f, 0.5f}},
-		{6, glm::vec3(-0.5f, -0.5f, -0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, 0.5f}},
-		{7, glm::vec3(-0.5f, -0.5f, 0.5f) * size + position, {1.0, 1.0, 1.0}, {0.5f, -0.5f, -0.5f}},
+		{4, glm::vec3(-0.5f, 0.5f, 0.5f) * size + position},
+		{5, glm::vec3(-0.5f, 0.5f, -0.5f) * size + position},
+		{6, glm::vec3(-0.5f, -0.5f, -0.5f) * size + position},
+		{7, glm::vec3(-0.5f, -0.5f, 0.5f) * size + position},
 
 	};
 
