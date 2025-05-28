@@ -35,6 +35,7 @@ private:
 	bool viewportResized=false;
 	int viewportWidth = 1200;
 	int viewportHeight = 800;
+	char searchText[99];
 
 	/* FPS */
 	std::chrono::steady_clock::time_point lastTime = clock::now();

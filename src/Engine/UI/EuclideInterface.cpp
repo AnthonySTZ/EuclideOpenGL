@@ -240,9 +240,15 @@ void EuclideInterface::createNodesMenu() {
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushStyleColor(ImGuiCol_PopupBg, IM_COL32(70, 70, 70, 255));
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(5.0f, 5.0f));
 	if (ImGui::BeginPopup("node_menu")) {
 		
 		auto& menuItems = NodesInfo::getMenuItems();
+
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(50, 50, 50, 255));
+		ImGui::SetKeyboardFocusHere();
+		ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText));
+		ImGui::PopStyleColor(1);
 
 		for (auto& [menuName, items] : menuItems) {
 			if (ImGui::BeginMenu(menuName)) {
@@ -262,7 +268,11 @@ void EuclideInterface::createNodesMenu() {
 
 		ImGui::EndPopup();
 	}
+	else {
+		memset(searchText, 0, sizeof(searchText));
+	}
 	ImGui::PopStyleColor(1);
+	ImGui::PopStyleVar(1);
 }
 
 void EuclideInterface::drawParametersTab() {
