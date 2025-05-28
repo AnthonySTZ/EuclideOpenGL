@@ -174,9 +174,6 @@
     <ClInclude Include="src\Engine\Core\Geometry\Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Core\Nodes\NodeScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Core\Nodes\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>

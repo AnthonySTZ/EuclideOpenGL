@@ -218,7 +218,6 @@
     <ClInclude Include="src\Engine\Core\Rendering\EuclideRenderer.h" />
     <ClInclude Include="src\Engine\UI\EuclideWindow.h" />
     <ClInclude Include="src\Engine\Core\Geometry\Geometry.h" />
-    <ClInclude Include="src\Engine\Core\Nodes\NodeScene.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Cube.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Node.h" />
     <ClInclude Include="src\Engine\Core\Rendering\Utils.h" />
