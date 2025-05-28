@@ -156,12 +156,13 @@ void EuclideInterface::createViewport() {
 	viewportHeight = static_cast<int>(viewportSize.y);
 	/* END RENDER IMAGE */
 
+	ImU32 infoColor = IM_COL32(255, 255, 255, 255);
 	/* FPS TEXT */
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	int fpsPadding = 10;
 	ImVec2 fpsPos = ImVec2(imagePos.x + fpsPadding, imagePos.y + fpsPadding);
 	std::string fpsString = "Fps: " + std::to_string(fpsShow);
-	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos, IM_COL32(255, 255, 0, 255), fpsString.c_str());
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos, infoColor, fpsString.c_str());
 	/* END FPS TEXT */
 
 	/* INFO TEXT */
@@ -170,14 +171,15 @@ void EuclideInterface::createViewport() {
 	std::string pointCountInfo = "Point count: " + std::to_string(numPoints);
 	std::string polygonCountInfo = "Polygon count: "+ std::to_string(numPrims);
 	
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 20), IM_COL32(255, 255, 0, 255), pointCountInfo.c_str());
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 40), IM_COL32(255, 255, 0, 255), polygonCountInfo.c_str());
-	
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 60), IM_COL32(255, 255, 0, 255), "Press F to recenter Camera");
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 80), IM_COL32(255, 255, 0, 255), "Press G to Hide/Show grid");
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 100), IM_COL32(255, 255, 0, 255), "Press W to Hide/Show wireframe");
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 120), IM_COL32(255, 255, 0, 255), "Press P to Hide/Show polygons");
-	draw_list->AddText(ImGui::GetFont(), 18.0f, fpsPos + ImVec2(0, 140), IM_COL32(255, 255, 0, 255), "Press V to Hide/Show vertices");
+
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 20), infoColor, pointCountInfo.c_str());
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 40), infoColor, polygonCountInfo.c_str());
+																		
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 60), infoColor, "Press F to recenter Camera");
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 80), infoColor, "Press G to Hide/Show grid");
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 100), infoColor, "Press W to Hide/Show wireframe");
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 120), infoColor, "Press P to Hide/Show polygons");
+	draw_list->AddText(ImGui::GetFont(), 16.0f, fpsPos + ImVec2(0, 140), infoColor, "Press V to Hide/Show vertices");
 	/* END INFO TEXT*/
 
 	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
