@@ -235,6 +235,59 @@ void EuclideInterface::createNodeGraph()
 	
 }
 
+void EuclideInterface::getSearchItems() {
+	searchedItems.clear();
+
+	if (searchText[0] != '\0') {
+		std::string search = std::string(searchText);
+		std::transform(search.begin(), search.end(), search.begin(),
+			[](unsigned char c) { return std::tolower(c); });
+		auto& menuItems = NodesInfo::getMenuItems();
+
+		for (auto& [_, items] : menuItems) {
+			for (auto& item : items) {
+
+				std::string itemName = std::string(item.name);
+				std::transform(itemName.begin(), itemName.end(), itemName.begin(),
+					[](unsigned char c) { return std::tolower(c); });
+
+				if (itemName.find(search) != std::string::npos) {
+					searchedItems.push_back(item);
+				}
+			}
+		}
+
+	}
+}
+
+void EuclideInterface::drawSearchBar() {
+
+	ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(50, 50, 50, 255));
+	if (shouldFocusSearchBar) {
+		ImGui::SetKeyboardFocusHere();
+		shouldFocusSearchBar = false;
+	}
+	if (ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText))) {
+		getSearchItems();
+	}
+	ImGui::PopStyleColor();
+
+}
+
+void EuclideInterface::drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items) {
+
+	for (size_t i = 0; i < items.size(); i++) {
+		auto& item = items[i];
+
+		if (ImGui::MenuItem(item.name)) {
+			sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+		}
+		if (i < items.size() - 1) {
+			ImGui::Separator();
+		}
+	}
+}
+
 void EuclideInterface::createNodesMenu() {
 
 	ImGuiIO& io = ImGui::GetIO();
@@ -245,62 +298,15 @@ void EuclideInterface::createNodesMenu() {
 	if (ImGui::BeginPopup("node_menu")) {
 		auto& menuItems = NodesInfo::getMenuItems();
 
-		// Push frame bg color for InputText
-		ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(50, 50, 50, 255));
-		if (shouldFocusSearchBar) {
-			ImGui::SetKeyboardFocusHere();
-			shouldFocusSearchBar = false;
-		}
-		if (ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText))) {
-		
-			searchedItems.clear();
-
-			if (searchText[0] != '\0') {						
-				std::string search = std::string(searchText);
-				std::transform(search.begin(), search.end(), search.begin(),
-					[](unsigned char c) { return std::tolower(c); });
-
-				for (auto& [_, items] : menuItems) {
-					for (auto& item: items) {
-
-						std::string itemName = std::string(item.name);
-						std::transform(itemName.begin(), itemName.end(), itemName.begin(),
-							[](unsigned char c) { return std::tolower(c); });
-
-						if (itemName.find(search) != std::string::npos) {
-							std::cout << item.name << "\n";
-							searchedItems.push_back(item);
-						}
-					}				
-				}
-
-			}
-
-		}
-		ImVec2 searchPopupPosition = ImGui::GetCursorPos();
-		ImGui::PopStyleColor();
+		drawSearchBar();		
 
 		if (searchedItems.size() > 0) {
-			for (size_t i = 0; i < searchedItems.size(); i++) {
-				auto& item = searchedItems[i];
-				if (ImGui::MenuItem(item.name)) {
-					sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
-				}
-			}
+			drawNodesItems(io, searchedItems);
 		}
 		else {
 			for (auto& [menuName, items] : menuItems) {
 				if (ImGui::BeginMenu(menuName)) {
-					for (size_t i = 0; i < items.size(); i++) {
-						auto& item = items[i];
-
-						if (ImGui::MenuItem(item.name)) {
-							sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
-						}
-						if (i < items.size() - 1) {
-							ImGui::Separator();
-						}
-					}
+					drawNodesItems(io, items);
 					ImGui::EndMenu();
 				}
 			}
