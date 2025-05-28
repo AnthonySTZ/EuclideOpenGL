@@ -274,12 +274,21 @@ void EuclideInterface::drawSearchBar() {
 
 }
 
-void EuclideInterface::drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items) {
+void EuclideInterface::drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items, bool isFirstSelected) {
+
+	bool isSelected = false;
 
 	for (size_t i = 0; i < items.size(); i++) {
 		auto& item = items[i];
 
-		if (ImGui::MenuItem(item.name)) {
+		if (i == 0 && isFirstSelected) {
+			isSelected = true;
+		}
+		else {
+			isSelected = false;
+		}
+
+		if (ImGui::MenuItem(item.name, nullptr, isSelected)) {
 			sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
 		}
 		if (i < items.size() - 1) {
@@ -301,7 +310,13 @@ void EuclideInterface::createNodesMenu() {
 		drawSearchBar();		
 
 		if (searchedItems.size() > 0) {
-			drawNodesItems(io, searchedItems);
+			drawNodesItems(io, searchedItems, true);
+
+			if (ImGui::IsKeyPressed(ImGuiKey_Enter)) {
+				sceneGraph.addNode(NodeItem(searchedItems[0].createNode(), io.MousePos));
+				ImGui::CloseCurrentPopup();
+			}
+
 		}
 		else {
 			for (auto& [menuName, items] : menuItems) {
@@ -316,6 +331,8 @@ void EuclideInterface::createNodesMenu() {
 	}
 	else {
 		memset(searchText, 0, sizeof(searchText));
+		searchedItems.clear();
+		shouldFocusSearchBar = true;
 	}
 
 	ImGui::PopStyleColor();
