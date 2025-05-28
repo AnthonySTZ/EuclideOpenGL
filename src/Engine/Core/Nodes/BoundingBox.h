@@ -11,7 +11,7 @@ public:
 	};
 
 	BoundingBox() : Node("BoundingBox") {
-		inputsNb = 2;
+		inputsNb = 1;
 		outputsNb = 1;
 	};
 

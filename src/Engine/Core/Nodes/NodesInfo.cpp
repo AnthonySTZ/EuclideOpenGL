@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "Merge.h"
 #include "CopyToPoints.h"
+#include "BoundingBox.h"
 #include "Null.h"
 
 
@@ -14,6 +15,7 @@ static const std::vector<NodeMenuItem> nodeMenuItems = {
     {"Transform", []() { return std::make_shared<Transform>(); }},
     {"Merge", []() { return std::make_shared<Merge>(); }},
     {"CopyToPoints", []() { return std::make_shared<CopyToPoints>(); }},
+    {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }},
     {"Null", []() { return std::make_shared<Null>(); }},
 };
 

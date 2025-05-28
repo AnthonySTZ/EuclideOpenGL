@@ -1,5 +1,34 @@
 #include "BoundingBox.h"
 
+#include "Cube.h"
+
+Mesh BoundingBox::processOutput(uint32_t index) {
+
+    auto it_0 = inputs.find(0);
+    if (it_0 == inputs.end()) {
+        return Mesh();
+    }
+
+
+    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
+    BBox bbox = computeBoundingBox(inputMesh_0);
+
+    glm::vec3 position = glm::vec3(
+        (bbox.max.x + bbox.min.x) * 0.5f,
+        (bbox.max.y + bbox.min.y) * 0.5f,
+        (bbox.max.z + bbox.min.z) * 0.5f
+    );
+
+    glm::vec3 size = glm::vec3(
+        (bbox.max.x - bbox.min.x),
+        (bbox.max.y - bbox.min.y),
+        (bbox.max.z - bbox.min.z)
+    );;
+
+
+    return Cube::createCube(position, size);
+}
+
 BoundingBox::BBox BoundingBox::computeBoundingBox(Mesh& mesh)
 {
     BBox bbox;
