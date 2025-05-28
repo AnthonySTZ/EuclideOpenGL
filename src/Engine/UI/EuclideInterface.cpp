@@ -208,9 +208,13 @@ void EuclideInterface::createNodeGraph()
 	ImVec2 regionAvail = ImGui::GetContentRegionAvail();
 	ImVec2 region = ImVec2(std::max(regionAvail.x, 100.0f), std::max(regionAvail.y, 100.0f));
 	ImGui::InvisibleButton("nodegraph_click_area", region, ImGuiButtonFlags_None);
-	if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+	if (
+		(ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) ||
+		(ImGui::IsItemHovered() && ImGui::IsKeyPressed(ImGuiKey_Tab)) ) 
+	{
 		ImGui::OpenPopup("node_menu");
 	}
+
 	ImGui::SetCursorPos(topLeftWindow);
 
 	createNodesMenu();
