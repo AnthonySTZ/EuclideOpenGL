@@ -4,7 +4,7 @@ Euclide is a node-based 3D engine currently in development.
 
 ## Nodes
 
-![Image](./readme/interface.jpg)
+![Image](./readme/interface.jpg?)
 
 You can create new Node by right clicking on the graph (a dropdown list will appear).<br/>
 You can cut node connections by holding the 'Y' key and draging on the connection.<br/>
