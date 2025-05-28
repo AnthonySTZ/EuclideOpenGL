@@ -356,6 +356,8 @@ void EuclideInterface::drawParametersTab() {
 		ImGui::Text("Node Name :");
 		ImGui::SameLine();
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
+		float titleSpacing = 6.0f;
+		ImGui::SetCursorPosY(ImGui::GetCursorPosY() + titleSpacing);
 
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(90, 90, 90, 255));
 		ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, IM_COL32(70, 70, 70, 255));
