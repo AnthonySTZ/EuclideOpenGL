@@ -11,5 +11,5 @@ public:
 	};
 
 	Mesh processOutput(uint32_t index) override;
-	void mergeToMesh(Mesh& mesh1, Mesh& mesh2);
+	static Mesh mergeToMesh(Mesh& mesh_1, Mesh& mesh_2);
 };

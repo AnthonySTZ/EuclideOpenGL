@@ -20,25 +20,40 @@ Mesh Merge::processOutput(uint32_t index) {
     Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
     Mesh inputMesh_1 = it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex());
 
-    mergeToMesh(inputMesh_0, inputMesh_1);
-
-    return inputMesh_0;
+    return mergeToMesh(inputMesh_0, inputMesh_1);
 }
 
-void Merge::mergeToMesh(Mesh& mesh1, Mesh& mesh2) {
+Mesh Merge::mergeToMesh(Mesh& mesh_1, Mesh& mesh_2) {
 
-    Timer timer{ nodeName.c_str() };
+    Mesh::Builder builder;
+    builder.points.reserve(mesh_1.points.size() * mesh_2.points.size());
+    builder.faces.reserve(mesh_1.primitives.size() + mesh_2.primitives.size());
 
-    /*size_t vertexOffset = mesh1.vertices.size();
+    uint32_t pointOffset = (uint32_t)mesh_1.points.size();
 
-    mesh1.vertices.insert(mesh1.vertices.end(), mesh2.vertices.begin(), mesh2.vertices.end());
-    for (auto& face : mesh2.faces) {
-        for (auto& vertex : face.vertexIndices) {
-            vertex += vertexOffset;
+    std::vector<Point> points = mesh_1.points;
+    points.insert(points.end(), mesh_2.points.begin(), mesh_2.points.end());
+    std::vector<Face> faces;
+
+    for (auto& prim : mesh_1.primitives) {
+        Face face;
+        for (auto& vertIndex : prim.vertexIds) {
+            face.pointIds.push_back(mesh_1.vertices[vertIndex].pointId);
         }
+        faces.push_back(face);
     }
-    mesh1.faces.insert(mesh1.faces.end(), mesh2.faces.begin(), mesh2.faces.end());*/
 
-    mesh1.update();
+    for (auto& prim : mesh_2.primitives) {
+        Face face;
+        for (auto& vertIndex : prim.vertexIds) {
+            face.pointIds.push_back(mesh_2.vertices[vertIndex].pointId + pointOffset);
+        }
+        faces.push_back(face);
+    }
+
+    builder.points.insert(builder.points.end(), points.begin(), points.end());
+    builder.faces.insert(builder.faces.end(), faces.begin(), faces.end());
+
+    return Mesh{ builder };
 
 }
