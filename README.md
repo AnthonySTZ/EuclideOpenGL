@@ -10,6 +10,7 @@ Current working nodes: (I will add more over time)<br/>
 - **Transform**<br/>
 - **Merge**<br/>
 - **CopyToPoints**<br/>
+- **BoundingBox**<br/>
 - **Null**<br/>
 
 ![Image](./readme/interface.jpg)
