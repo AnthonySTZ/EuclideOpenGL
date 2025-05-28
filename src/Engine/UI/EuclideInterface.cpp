@@ -102,10 +102,10 @@ void EuclideInterface::beginTab(const char* name, ImVec2 padding, ImU32 bgCol) {
 	endTitleBar.y = titleRectSize.y;
 
 	ImDrawList* draw_list = ImGui::GetForegroundDrawList();
-	draw_list->AddRectFilled(windowPos, windowPos + titleRectSize, IM_COL32(35, 35, 35, 255));
+	draw_list->AddRectFilled(windowPos, windowPos + titleRectSize, IM_COL32(30, 30, 30, 255));
 
 	ImVec2 textPadding{15.0f, 6.0f};
-	draw_list->AddText(windowPos + textPadding, IM_COL32(200, 200, 200, 255), name);
+	draw_list->AddText(windowPos + textPadding, IM_COL32(230, 230, 230, 255), name);
 
 	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
 }
@@ -121,9 +121,7 @@ void EuclideInterface::createViewport() {
 	ImTextureID textureID = (ImTextureID)(intptr_t)renderer->getRenderTexture();
 	ImGui::Image(textureID, ImVec2((float)viewportWidth, (float)viewportHeight));
 
-	bool isHovered = ImGui::IsItemHovered();
-
-	
+	bool isHovered = ImGui::IsItemHovered();	
 
 	if (isHovered) {
 
