@@ -15,9 +15,11 @@ Mesh Transform::processOutput(uint32_t index)
 
     Timer timer{ nodeName.c_str() };
 
-    rotateMesh(inputMesh);
     scaleMesh(inputMesh);
+    rotateMesh(inputMesh);
     translateMesh(inputMesh);
+
+    inputMesh.update();
     
     return inputMesh;
 }
