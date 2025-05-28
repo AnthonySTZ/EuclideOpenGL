@@ -83,9 +83,9 @@ private:
 
 
 	ImVec2 nodePos = ImVec2(0, 0);
-	ImVec2 nodeSize = ImVec2(80, 40);
-	ImVec4 nodeColor = ImVec4(100, 100, 150, 255);
-	ImVec4 nodeRenderColor = ImVec4(181, 72, 94, 255);
+	ImVec2 nodeSize = ImVec2(100, 30);
+	ImVec4 nodeColor = ImVec4(100, 100, 100, 255);
+	ImVec4 nodeRenderColor = ImVec4(146, 63, 80, 255);
 	bool isSelected = false;
 	ImVec4 outlineSelectedColor = ImVec4(255, 178, 102, 255);
 	bool isRender = false;
