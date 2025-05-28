@@ -29,6 +29,8 @@ void EuclideInterface::initImGui(GLFWwindow* window) {
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init();
 
+	myFont = io.Fonts->AddFontFromFileTTF("assets/fonts/Inter/Inter.ttf", 16.0f);
+
 }
 
 void EuclideInterface::createRenderer() {
@@ -51,8 +53,6 @@ void EuclideInterface::drawFrame() {
 
 }
 
-
-
 void EuclideInterface::createUI()
 {
 	
@@ -65,16 +65,19 @@ void EuclideInterface::createUI()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+	
+	ImGui::PushFont(myFont);
 
 	createDockSpace();
 
 	createViewport();
 
 	createNodeGraph();
-	
 
-	ImGuiIO& io = ImGui::GetIO();
+	ImGui::PopFont();
+	
 	ImGui::Render();
+	ImGuiIO& io = ImGui::GetIO();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		ImGui::UpdatePlatformWindows();
@@ -104,7 +107,7 @@ void EuclideInterface::beginTab(const char* name, ImVec2 padding, ImU32 bgCol) {
 	ImDrawList* draw_list = ImGui::GetForegroundDrawList();
 	draw_list->AddRectFilled(windowPos, windowPos + titleRectSize, IM_COL32(30, 30, 30, 255));
 
-	ImVec2 textPadding{15.0f, 6.0f};
+	ImVec2 textPadding{10.0f, 4.5f};
 	draw_list->AddText(windowPos + textPadding, IM_COL32(230, 230, 230, 255), name);
 
 	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
@@ -154,8 +157,8 @@ void EuclideInterface::createViewport() {
 	viewportHeight = static_cast<int>(viewportSize.y);
 	/* END RENDER IMAGE */
 
-	ImU32 infoColor = IM_COL32(255, 255, 255, 255);
-	float infoTextSize = 14.0f;
+	ImU32 infoColor = IM_COL32(200, 200, 200, 255);
+	float infoTextSize = 16.0f;
 	/* FPS TEXT */
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	int fpsPadding = 10;

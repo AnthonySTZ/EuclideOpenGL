@@ -49,6 +49,7 @@ private:
 	int frameCount = 0;
 	float elapsedTime = 0.0f;
 	int fpsShow = 0;
+	ImFont* myFont;
 
 	void createDockSpace();
 	void calcFps();
