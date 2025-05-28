@@ -55,12 +55,6 @@ struct Face {
 };
 
 
-
-struct BoundingBox {
-	glm::vec3 min{ 0.0 };
-	glm::vec3 max{ 0.0 };
-};
-
 class Mesh {
 
 public:
@@ -87,7 +81,6 @@ public:
 	void triangulateFaces();
 	void createWireframeIndices();
 	glm::vec3 getCenterPos();
-	BoundingBox getBoundingBox();
 
 	std::vector<Point> points;
 	size_t pointSize = 0;

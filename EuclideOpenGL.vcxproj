@@ -165,6 +165,7 @@
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_tables.cpp" />
     <ClCompile Include="C:\Users\antho\Documents\Visual Studio 2022\Libraries\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\BoundingBox.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\CopyToPoints.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\Float3Field.cpp" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\BoundingBox.h" />
     <ClInclude Include="src\Engine\Core\Nodes\CopyToPoints.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\Field.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\Float3Field.h" />

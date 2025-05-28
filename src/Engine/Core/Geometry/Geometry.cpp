@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "../Utils.h"
+#include "../Nodes/BoundingBox.h"
 #include <algorithm>
 
 void Mesh::addPrimitives(std::vector<Face> faces)
@@ -94,35 +95,13 @@ void Mesh::createWireframeIndices()
 
 glm::vec3 Mesh::getCenterPos()
 {
-    BoundingBox boundingBox = getBoundingBox();
+    BoundingBox::BBox boundingBox = BoundingBox::computeBoundingBox(*this);
     glm::vec3 center = glm::vec3(
         (boundingBox.max.x + boundingBox.min.x) * 0.5f,
         (boundingBox.max.y + boundingBox.min.y) * 0.5f,
         (boundingBox.max.z + boundingBox.min.z) * 0.5f
         );
     return center;
-}
-
-BoundingBox Mesh::getBoundingBox() {
-    BoundingBox bbox;
-    if (points.size() == 0) return bbox;
-
-    // Init bbox
-    bbox.min = points[0].position;
-    bbox.max = points[0].position;
-
-    for (auto& point : points) {
-
-        if (point.position.x < bbox.min.x) bbox.min.x = point.position.x;
-        if (point.position.y < bbox.min.y) bbox.min.y = point.position.y;
-        if (point.position.z < bbox.min.z) bbox.min.z = point.position.z;
-
-        if (point.position.x > bbox.max.x) bbox.max.x = point.position.x;
-        if (point.position.y > bbox.max.y) bbox.max.y = point.position.y;
-        if (point.position.z > bbox.max.z) bbox.max.z = point.position.z;
-    }
-
-    return bbox;
 }
 
 void Mesh::updateMesh(const Mesh::Builder& builder)
