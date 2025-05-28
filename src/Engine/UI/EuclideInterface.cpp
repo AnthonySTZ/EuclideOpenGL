@@ -239,9 +239,14 @@ void EuclideInterface::createNodesMenu() {
 
 	ImGuiIO& io = ImGui::GetIO();
 	if (ImGui::BeginPopup("node_menu")) {
-		for (auto& item : NodesInfo::getMenuItems()) {
+		std::vector<NodeMenuItem> menuItems = NodesInfo::getMenuItems();
+		for (size_t i = 0; i < menuItems.size(); i++) {
+			auto& item = menuItems[i];
 			if (ImGui::MenuItem(item.name)) {
 				sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+			}
+			if (i < menuItems.size() - 1) {
+				ImGui::Separator();
 			}
 		}		
 		ImGui::EndPopup();
