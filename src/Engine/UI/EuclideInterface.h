@@ -2,6 +2,7 @@
 
 #include "../Core/Rendering/EuclideRenderer.h"
 #include "NodeGraph/SceneGraph.h"
+#include "../Core/Nodes/NodesInfo.h"
 
 #include <chrono>
 #include <memory>
@@ -36,6 +37,8 @@ private:
 	int viewportWidth = 1200;
 	int viewportHeight = 800;
 	char searchText[99];
+	std::vector<NodeMenuItem> searchedItems;
+	bool shouldFocusSearchBar = true;
 
 	/* FPS */
 	std::chrono::steady_clock::time_point lastTime = clock::now();

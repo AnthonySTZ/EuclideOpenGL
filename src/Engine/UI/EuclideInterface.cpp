@@ -3,8 +3,8 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-
-#include "../Core/Nodes/NodesInfo.h"
+#include <algorithm>
+#include <cctype>
 
 #include "../Core/Utils.h"
 
@@ -241,29 +241,69 @@ void EuclideInterface::createNodesMenu() {
 
 	ImGui::PushStyleColor(ImGuiCol_PopupBg, IM_COL32(70, 70, 70, 255));
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(5.0f, 5.0f));
+
 	if (ImGui::BeginPopup("node_menu")) {
-		
 		auto& menuItems = NodesInfo::getMenuItems();
 
+		// Push frame bg color for InputText
 		ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(50, 50, 50, 255));
-		ImGui::SetKeyboardFocusHere();
-		ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText));
-		ImGui::PopStyleColor(1);
+		if (shouldFocusSearchBar) {
+			ImGui::SetKeyboardFocusHere();
+			shouldFocusSearchBar = false;
+		}
+		if (ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText))) {
+		
+			searchedItems.clear();
 
-		for (auto& [menuName, items] : menuItems) {
-			if (ImGui::BeginMenu(menuName)) {
-				for (size_t i = 0; i < items.size(); i++) {
-					auto& item = items[i];
-					if (ImGui::MenuItem(item.name)) {
-						sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
-					}
-					if (i < items.size() - 1) {
-						ImGui::Separator();
-					}
+			if (searchText[0] != '\0') {						
+				std::string search = std::string(searchText);
+				std::transform(search.begin(), search.end(), search.begin(),
+					[](unsigned char c) { return std::tolower(c); });
+
+				for (auto& [_, items] : menuItems) {
+					for (auto& item: items) {
+
+						std::string itemName = std::string(item.name);
+						std::transform(itemName.begin(), itemName.end(), itemName.begin(),
+							[](unsigned char c) { return std::tolower(c); });
+
+						if (itemName.find(search) != std::string::npos) {
+							std::cout << item.name << "\n";
+							searchedItems.push_back(item);
+						}
+					}				
 				}
-				ImGui::EndMenu();
+
 			}
 
+		}
+		ImVec2 searchPopupPosition = ImGui::GetCursorPos();
+		ImGui::PopStyleColor();
+
+		if (searchedItems.size() > 0) {
+			for (size_t i = 0; i < searchedItems.size(); i++) {
+				auto& item = searchedItems[i];
+				if (ImGui::MenuItem(item.name)) {
+					sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+				}
+			}
+		}
+		else {
+			for (auto& [menuName, items] : menuItems) {
+				if (ImGui::BeginMenu(menuName)) {
+					for (size_t i = 0; i < items.size(); i++) {
+						auto& item = items[i];
+
+						if (ImGui::MenuItem(item.name)) {
+							sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+						}
+						if (i < items.size() - 1) {
+							ImGui::Separator();
+						}
+					}
+					ImGui::EndMenu();
+				}
+			}
 		}
 
 		ImGui::EndPopup();
@@ -271,8 +311,9 @@ void EuclideInterface::createNodesMenu() {
 	else {
 		memset(searchText, 0, sizeof(searchText));
 	}
-	ImGui::PopStyleColor(1);
-	ImGui::PopStyleVar(1);
+
+	ImGui::PopStyleColor();
+	ImGui::PopStyleVar();
 }
 
 void EuclideInterface::drawParametersTab() {
