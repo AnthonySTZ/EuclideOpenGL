@@ -10,6 +10,7 @@ public:
 	Scene() = default;
 
 	void addNode(std::shared_ptr<Node> node);
+	void deleteNode(const char* nodeName);
 
 	static std::string incrementName(std::string name);
 

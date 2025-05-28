@@ -12,6 +12,15 @@ void Scene::addNode(std::shared_ptr<Node> node)
 
 }
 
+void Scene::deleteNode(const char* nodeName)
+{
+
+	if (nodes.find(nodeName) == nodes.end()) return;
+
+	nodes.erase(nodeName);
+
+}
+
 std::string Scene::getUntakenName(std::string name) {
 
 	if (nodes.find(name) == nodes.end()) return name;
