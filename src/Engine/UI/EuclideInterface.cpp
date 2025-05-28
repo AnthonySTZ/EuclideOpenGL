@@ -119,7 +119,7 @@ void EuclideInterface::createViewport() {
 	ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 
 	ImTextureID textureID = (ImTextureID)(intptr_t)renderer->getRenderTexture();
-	ImGui::Image(textureID, ImVec2(viewportWidth, viewportHeight));
+	ImGui::Image(textureID, ImVec2((float)viewportWidth, (float)viewportHeight));
 
 	bool isHovered = ImGui::IsItemHovered();
 
@@ -166,8 +166,8 @@ void EuclideInterface::createViewport() {
 	/* END FPS TEXT */
 
 	/* INFO TEXT */
-	uint32_t numPoints = renderer->getModel()->pointCount();
-	uint32_t numPrims = renderer->getModel()->primitiveCount();
+	size_t numPoints = renderer->getModel()->pointCount();
+	size_t numPrims = renderer->getModel()->primitiveCount();
 	std::string pointCountInfo = "Point count: " + std::to_string(numPoints);
 	std::string polygonCountInfo = "Polygon count: "+ std::to_string(numPrims);
 	
@@ -304,7 +304,7 @@ void EuclideInterface::calcFps()
 	elapsedTime += deltaTime;        
 
 	if (elapsedTime >= fpsIntervalInSeconds) {
-		fpsShow = frameCount / elapsedTime;
+		fpsShow = (int)(frameCount / elapsedTime);
 		frameCount = 0;
 		elapsedTime = 0.0f;
 	}

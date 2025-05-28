@@ -7,11 +7,31 @@
 #include <vector>
 #include <map>
 
+struct Attrib {
+	uint32_t size = 1;
+};
+
+struct IntAttrib : public Attrib {
+	uint32_t size = 1;
+	int value = 0;
+};
+
+struct FloatAttrib : public Attrib {
+	uint32_t size = 1;
+	float value = 0.0f;
+};
+
+struct Float3Attrib : public Attrib {
+	uint32_t size = 3;
+	glm::vec3 value{ 0.0f };
+};
+
 struct Point {
 	uint32_t id;
 	glm::vec3 position{ 0.0, 0.0, 0.0 };
 	glm::vec3 color{ 0.0, 0.0, 0.0 };
 	glm::vec3 normal{ 0.0, 0.0, 0.0 };
+	std::map<const char*, Attrib> attribs;
 };
 
 struct Vertex {
