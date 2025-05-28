@@ -357,11 +357,20 @@ void EuclideInterface::drawParametersTab() {
 		ImGui::SameLine();
 		ImGui::Text(selectedNode->getNode()->getName().c_str());
 
+		ImGui::PushStyleColor(ImGuiCol_FrameBg, IM_COL32(90, 90, 90, 255));
+		ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, IM_COL32(70, 70, 70, 255));
+		ImGui::PushStyleColor(ImGuiCol_FrameBgActive, IM_COL32(60, 60, 60, 255));
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 2.0f);
+
 		selectedNode->getNode()->drawParameters();
 		bool hasParamsChanged = selectedNode->getNode()->hasParamsChanged();
 		if (hasParamsChanged) {
 			updateRenderNode();
 		}
+
+		ImGui::PopStyleColor(3);
+		ImGui::PopStyleVar(1);
 
 		ImGui::End();
 
