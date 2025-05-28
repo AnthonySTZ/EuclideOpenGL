@@ -181,20 +181,23 @@ void EuclideInterface::createViewport() {
 	draw_list->AddText(ImGui::GetFont(), infoTextSize, fpsPos + ImVec2(0, 140), infoColor, "Press V to Hide/Show vertices");
 	/* END INFO TEXT*/
 
-	if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
-		renderer->centerCamera();
-	}
-	if (ImGui::IsKeyPressed(ImGuiKey_G)) { // Show/Hide grid
-		renderer->toogleGridVisibility();
-	}
-	if (ImGui::IsKeyPressed(ImGuiKey_W)) { // Show/Hide wireframe
-		renderer->toogleWireframeVisibility();
-	}
-	if (ImGui::IsKeyPressed(ImGuiKey_P)) { // Show/Hide polygons
-		renderer->toogleFaceVisibility();
-	}
-	if (ImGui::IsKeyPressed(ImGuiKey_V)) { // Show/Hide vertices
-		renderer->tooglePointVisibility();
+	if (ImGui::IsItemHovered()) {
+
+		if (ImGui::IsKeyPressed(ImGuiKey_F)) { // Render the selected Node
+			renderer->centerCamera();
+		}
+		if (ImGui::IsKeyPressed(ImGuiKey_G)) { // Show/Hide grid
+			renderer->toogleGridVisibility();
+		}
+		if (ImGui::IsKeyPressed(ImGuiKey_W)) { // Show/Hide wireframe
+			renderer->toogleWireframeVisibility();
+		}
+		if (ImGui::IsKeyPressed(ImGuiKey_P)) { // Show/Hide polygons
+			renderer->toogleFaceVisibility();
+		}
+		if (ImGui::IsKeyPressed(ImGuiKey_V)) { // Show/Hide vertices
+			renderer->tooglePointVisibility();
+		}
 	}
 
 	ImGui::End();
