@@ -9,17 +9,33 @@
 #include "Null.h"
 
 
-static const std::vector<NodeMenuItem> nodeMenuItems = {
-    {"Cube", []() { return std::make_shared<Cube>(); }},
-    {"Grid", []() { return std::make_shared<Grid>(); }},
-    {"Transform", []() { return std::make_shared<Transform>(); }},
-    {"Merge", []() { return std::make_shared<Merge>(); }},
-    {"CopyToPoints", []() { return std::make_shared<CopyToPoints>(); }},
-    {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }},
-    {"Null", []() { return std::make_shared<Null>(); }},
+static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
+    {"Primitive", 
+        {
+            {"Cube", []() { return std::make_shared<Cube>(); }}, 
+            {"Grid", []() { return std::make_shared<Grid>(); }}
+        }
+    },
+    {"Geometry",
+        {
+            {"Transform", []() { return std::make_shared<Transform>(); }},
+            {"Merge", []() { return std::make_shared<Merge>(); }},
+            {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }}
+        }
+    },
+    {"Copying",
+        {
+            {"CopyToPoints", []() { return std::make_shared<CopyToPoints>(); }}
+        }
+    },
+    {"Utility",
+        {
+            {"Null", []() { return std::make_shared<Null>(); }}
+        }
+    }
 };
 
 // Provide access to the internal static vector
-const std::vector<NodeMenuItem>& NodesInfo::getMenuItems() {
+const std::map<const char*, std::vector<NodeMenuItem>>& NodesInfo::getMenuItems() {
     return nodeMenuItems;
 }

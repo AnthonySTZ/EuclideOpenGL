@@ -238,20 +238,31 @@ void EuclideInterface::createNodeGraph()
 void EuclideInterface::createNodesMenu() {
 
 	ImGuiIO& io = ImGui::GetIO();
+
+	ImGui::PushStyleColor(ImGuiCol_PopupBg, IM_COL32(70, 70, 70, 255));
 	if (ImGui::BeginPopup("node_menu")) {
-		std::vector<NodeMenuItem> menuItems = NodesInfo::getMenuItems();
-		for (size_t i = 0; i < menuItems.size(); i++) {
-			auto& item = menuItems[i];
-			if (ImGui::MenuItem(item.name)) {
-				sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+		
+		auto& menuItems = NodesInfo::getMenuItems();
+
+		for (auto& [menuName, items] : menuItems) {
+			if (ImGui::BeginMenu(menuName)) {
+				for (size_t i = 0; i < items.size(); i++) {
+					auto& item = items[i];
+					if (ImGui::MenuItem(item.name)) {
+						sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
+					}
+					if (i < items.size() - 1) {
+						ImGui::Separator();
+					}
+				}
+				ImGui::EndMenu();
 			}
-			if (i < menuItems.size() - 1) {
-				ImGui::Separator();
-			}
-		}		
+
+		}
+
 		ImGui::EndPopup();
 	}
-
+	ImGui::PopStyleColor(1);
 }
 
 void EuclideInterface::drawParametersTab() {
