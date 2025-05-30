@@ -10,7 +10,7 @@ NodeGraph:
 
 Nodes:
 	- Subdivide
-	- More Primitives (Sphere, Tube, ...)
+	- More Primitives (Sphere, ...)
 	- Lights
 	- Cache mesh
 

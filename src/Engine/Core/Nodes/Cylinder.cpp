@@ -69,7 +69,7 @@ Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height
 		std::vector<uint32_t> topIds(divisions);
 		std::vector<uint32_t> bottomIds(divisions);
 		for (uint32_t i = 0; i < divisions; i++) {
-			topIds[i] = i;
+			topIds[i] = divisions - i - 1; // ClockWise for good normal
 			bottomIds[i] = i + divisions;
 		}
 
