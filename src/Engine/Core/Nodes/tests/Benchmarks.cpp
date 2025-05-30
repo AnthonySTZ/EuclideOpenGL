@@ -1,5 +1,6 @@
 #include "Benchmarks.h"
 #include "../Grid.h"
+#include "../Cylinder.h"
 #include "../../Utils.h"
 
 #include <iostream>
@@ -40,4 +41,30 @@ void Benchmarks::benchGrid()
 		Timer timer_200x200{ "Benchmark Grid 200x200" };
 		Mesh grid_200x200 = Grid::createGrid(200, 200, 10, 10);
 	}
+}
+
+void Benchmarks::benchCylinder()
+{
+
+	std::cout << "\n---- CYLINDER Divisions 8 ----\n";
+
+	{
+		Timer timer_8{ "Benchmark CYLINDER Div 8" };
+		Mesh cylinder_8 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 8);
+	}
+
+	std::cout << "\n---- CYLINDER Divisions 5000 ----\n";
+
+	{
+		Timer timer_500{ "Benchmark CYLINDER Div 5000" };
+		Mesh cylinder_500 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 5000);
+	}
+
+	std::cout << "\n---- CYLINDER Divisions 50000 ----\n";
+
+	{
+		Timer timer_5000{ "Benchmark CYLINDER Div 50000" };
+		Mesh cylinder_5000 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 50000);
+	}
+
 }

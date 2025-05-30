@@ -22,40 +22,31 @@ Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height
 	if (divisions < 3) return Mesh();
 
 	Mesh::Builder cylBuilder;
-
-	cylBuilder.points.reserve(divisions * 2);
-
-	for (int topDiv = 0; topDiv < divisions; topDiv++) { // Create top circle points
-
-		float angle = ((float)topDiv / (float)divisions) * 2 * glm::pi<float>();
-
-		Point point;
-		point.id = topDiv;
-		point.position = glm::vec3(
-			glm::cos(angle) * radius.x,
-			height*0.5f,
-			glm::sin(angle) * radius.x);
-		point.position += position;
-		cylBuilder.points.push_back(point);
-	}
-
-	for (int bottomDiv = 0; bottomDiv < divisions; bottomDiv++) { // Create bottom circle points
-
-		// TODO: Try to just duplicate the top part to prevent redo divisions
-
-		float angle = ((float)bottomDiv / (float)divisions) * 2 * glm::pi<float>();
-
-		Point point;
-		point.id = divisions + bottomDiv;
-		point.position = glm::vec3(
-			glm::cos(angle) * radius.y,
-			- height * 0.5f,
-			glm::sin(angle) * radius.y);
-		point.position += position;
-		cylBuilder.points.push_back(point);
-	}
-
+	cylBuilder.points.resize(divisions * 2);
 	cylBuilder.faces.reserve(divisions);
+
+	const float angleStep = glm::two_pi<float>() / static_cast<float>(divisions);
+
+
+	for (uint32_t div = 0; div < divisions; div++) { // Create circles points
+
+		float angle = div * angleStep;
+		float cosAngle = glm::cos(angle);
+		float sinAngle = glm::sin(angle);
+
+		cylBuilder.points[div].id = div;
+		cylBuilder.points[div].position = 
+			glm::vec3(cosAngle * radius.x,
+				height * 0.5f,
+				sinAngle * radius.x) + position;
+
+		cylBuilder.points[div + divisions].id = div + divisions;
+		cylBuilder.points[div + divisions].position =
+			glm::vec3(cosAngle * radius.y,
+				height * -0.5f,
+				sinAngle * radius.y) + position;
+
+	}
 
 	for (int i = 0; i < divisions; i++) {
 
@@ -65,12 +56,11 @@ Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height
 		uint32_t bottomFirstPt = topFirstPt + divisions;
 		uint32_t bottomSecondPt = topSecondPt + divisions;
 
-		Face face;
-		face.pointIds = { topFirstPt , topSecondPt , bottomSecondPt ,  bottomFirstPt };
-		cylBuilder.faces.push_back(face);
+		cylBuilder.faces.emplace_back(Face{
+			{ topFirstPt, topSecondPt, bottomSecondPt, bottomFirstPt }
+		});
 
 	}
-
 
     return Mesh{cylBuilder};
 }

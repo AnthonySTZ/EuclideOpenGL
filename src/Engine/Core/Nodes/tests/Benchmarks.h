@@ -7,8 +7,10 @@ public:
 
 
 	static void benchNodes() {
-		benchGrid();
+		//benchGrid();
+		benchCylinder();
 	}
 	static void benchGrid();
+	static void benchCylinder();
 
 };
