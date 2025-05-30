@@ -109,6 +109,18 @@ glm::vec3 Mesh::getCenterPos()
     return center;
 }
 
+glm::vec3 Mesh::getCenterOfPrimitive(uint32_t primId)
+{
+    glm::vec3 avgPrim{ 0.0f };
+    if (primitives[primId].vertexIds.size() < 1) return avgPrim;
+
+    for (auto& vertexId : primitives[primId].vertexIds) {
+        avgPrim += points[vertices[vertexId].pointId].position;
+    }
+
+    return avgPrim / static_cast<float>(primitives[primId].vertexIds.size());
+}
+
 void Mesh::updateMesh(const Mesh::Builder& builder)
 {
     points = builder.points;

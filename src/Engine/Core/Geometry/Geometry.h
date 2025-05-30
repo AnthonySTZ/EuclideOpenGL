@@ -82,6 +82,7 @@ public:
 	void triangulateFaces();
 	void createWireframeIndices();
 	glm::vec3 getCenterPos();
+	glm::vec3 getCenterOfPrimitive(uint32_t primId);
 
 	std::vector<Point> points;
 	size_t pointSize = 0;
