@@ -40,13 +40,19 @@ Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)
         uint32_t edgePointId = primPoints.size();
         for (auto& [uv, edge] : subdMesh.edges) {
             glm::vec3 avgEdges{ 0.0f };
-
-            for (auto& primId : edge.primIds) // TODO: check if boundary
-                avgEdges += subdMesh.getCenterOfPrimitive(primId);
+            int nPrims = edge.primIds.size();
 
             avgEdges += subdMesh.points[edge.u].position;
             avgEdges += subdMesh.points[edge.v].position;
-            avgEdges /= 4.0f;
+
+            if (nPrims == 2) {
+                avgEdges += subdMesh.getCenterOfPrimitive(edge.primIds[0]);
+                avgEdges += subdMesh.getCenterOfPrimitive(edge.primIds[1]);
+                avgEdges /= 4.0f;
+            }
+            else {
+                avgEdges /= 2.0f;
+            }
             edgePoints[uv] = Point{ edgePointId,  avgEdges };
             edgePointId++;
         }
@@ -73,9 +79,25 @@ Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)
             }
             avgConnectedEdgePoints /= static_cast<float>(nEdges);
 
-            glm::vec3 barycentric =
-                (avgConnectedPrimPoints + avgConnectedEdgePoints * 2.0f + point.position * ((float)nEdges - 3.0f))
-                / (float)nEdges;
+            auto boundaryEdges = subdMesh.getBoundaryEdgesOfPoint(point.id);
+
+            glm::vec3 barycentric{ 0.0f };
+            if (boundaryEdges.size() == 0) {
+                barycentric =
+                    (avgConnectedPrimPoints + avgConnectedEdgePoints * 2.0f + point.position * ((float)nEdges - 3.0f))
+                    / (float)nEdges;
+            }
+            else { // Point in boundary
+                glm::vec3 midPointEdges{ 0.0f };
+                for (auto& boundEdge : boundaryEdges) {
+                    glm::vec3 midPoint = subdMesh.points[boundEdge.u].position;
+                    midPoint += subdMesh.points[boundEdge.v].position;
+                    midPoint *= 0.5f;
+                    midPointEdges += midPoint;
+                }
+                barycentric = (point.position + midPointEdges) / 3.0f;
+            }
+            
             avgPoints.emplace_back(Point{ avgPointsId , barycentric });
             avgPointsId++;
         }

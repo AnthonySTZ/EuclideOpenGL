@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <map>
+#include <set>
 
 struct Attrib {
 	uint32_t size = 1;
@@ -33,7 +34,7 @@ struct Point {
 	glm::vec3 normal{ 0.0, 0.0, 0.0 };
 	std::map<const char*, Attrib> attribs;
 	std::vector<uint32_t> vertices;
-	std::vector<std::pair<uint32_t, uint32_t>> edges;
+	std::set<std::pair<uint32_t, uint32_t>> edges;
 };
 
 struct Vertex {
@@ -88,6 +89,7 @@ public:
 	Point& getPointFromVertexId(uint32_t vertexId) {
 		return points[vertices[vertexId].pointId];
 	};
+	std::vector<Edge> getBoundaryEdgesOfPoint(uint32_t pointId);
 
 	std::vector<Point> points;
 	size_t pointSize = 0;

@@ -49,7 +49,8 @@ void Mesh::addPrimitives(std::vector<Face> faces)
                 edges[{u, v}].primIds.push_back(primId);
             }
 
-            points[pointId].edges.push_back({ u, v });
+            points[pointId].edges.insert({ u, v });
+            points[next_pointId].edges.insert({ u, v });
 
         }
 
@@ -122,6 +123,21 @@ glm::vec3 Mesh::getCenterOfPrimitive(uint32_t primId)
     }
 
     return avgPrim / static_cast<float>(primitives[primId].vertexIds.size());
+}
+
+std::vector<Edge> Mesh::getBoundaryEdgesOfPoint(uint32_t pointId)
+{
+    std::vector<Edge> boundaryEdges;
+
+    for (auto& edgeuv : points[pointId].edges) {
+
+        if (edges[edgeuv].primIds.size() < 2) {
+            boundaryEdges.push_back(edges[edgeuv]);
+        }
+
+    }
+
+    return boundaryEdges;
 }
 
 void Mesh::updateMesh(const Mesh::Builder& builder)
