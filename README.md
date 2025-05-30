@@ -16,6 +16,7 @@ Current working nodes: (I will add more over time)<br/>
 - **Cylinder**<br/>
 - **Transform**<br/>
 - **Merge**<br/>
+- **Subdivide**<br/>
 - **CopyToPoints**<br/>
 - **BoundingBox**<br/>
 - **Null**<br/>
