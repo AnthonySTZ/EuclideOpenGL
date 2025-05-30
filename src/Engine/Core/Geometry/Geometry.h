@@ -43,6 +43,7 @@ struct Vertex {
 struct Edge {
 	uint32_t u;
 	uint32_t v;
+	std::vector<uint32_t> primIds;
 };
 
 struct Primitive {

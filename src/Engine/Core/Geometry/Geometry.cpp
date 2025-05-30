@@ -41,7 +41,12 @@ void Mesh::addPrimitives(std::vector<Face> faces)
 
             uint32_t next_pointId = face.pointIds[(i + 1) % numVertices];
             auto [u, v] = std::minmax(pointId, next_pointId);
-            edges.try_emplace({u, v}, Edge{ pointId , next_pointId });
+            if (edges.find({ u, v }) == edges.end()) {
+                edges[{u, v}] = Edge{ pointId , next_pointId, {primId} };
+            }
+            else {
+                edges[{u, v}].primIds.push_back(primId);
+            }
 
         }
 
