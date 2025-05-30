@@ -3,6 +3,8 @@
 #include <chrono>
 #include <iostream>
 
+#define ENABLE_TIMING
+
 class Timer {
 
 public:
@@ -15,6 +17,9 @@ public:
 	}
 
 	void Stop() {
+		#ifndef ENABLE_TIMING
+			return;
+		#endif	
 		if (stopped) return;
 
 		stopped = true;
