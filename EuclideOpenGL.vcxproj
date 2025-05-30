@@ -168,6 +168,7 @@
     <ClCompile Include="src\Engine\Core\Nodes\BoundingBox.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\CopyToPoints.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Cylinder.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\Float3Field.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\FloatField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\IntField.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="src\Engine\Core\Nodes\Scene.h" />
     <ClInclude Include="src\Engine\Core\Nodes\tests\Benchmarks.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Transform.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Cylinder.h" />
     <ClInclude Include="src\Engine\Core\Rendering\EuclideCamera.h" />
     <ClInclude Include="src\Engine\Core\Utils.h" />
     <ClInclude Include="src\Engine\UI\EuclideEngine.h" />

@@ -9,5 +9,10 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
-	- make all real node process static
+	- Subdivide
+	- More Primitives (Sphere, Tube, ...)
+	- Lights
 	- Cache mesh
+
+Viewport:
+	- RayTracing/PBR

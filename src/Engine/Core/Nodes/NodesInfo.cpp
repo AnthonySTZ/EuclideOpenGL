@@ -2,6 +2,7 @@
 
 #include "Cube.h"
 #include "Grid.h"
+#include "Cylinder.h"
 #include "Transform.h"
 #include "Merge.h"
 #include "CopyToPoints.h"
@@ -13,7 +14,8 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
     {"Primitive", 
         {
             {"Cube", []() { return std::make_shared<Cube>(); }}, 
-            {"Grid", []() { return std::make_shared<Grid>(); }}
+            {"Grid", []() { return std::make_shared<Grid>(); }},
+            {"Cylinder", []() { return std::make_shared<Cylinder>(); }}
         }
     },
     {"Geometry",
