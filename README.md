@@ -13,6 +13,7 @@ You can delete nodes by selecting it and press 'Delete'.<br/>
 Current working nodes: (I will add more over time)<br/>
 - **Cube**<br/>
 - **Grid**<br/>
+- **Cylinder**<br/>
 - **Transform**<br/>
 - **Merge**<br/>
 - **CopyToPoints**<br/>
