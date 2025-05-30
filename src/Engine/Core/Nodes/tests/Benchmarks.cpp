@@ -50,21 +50,21 @@ void Benchmarks::benchCylinder()
 
 	{
 		Timer timer_8{ "Benchmark CYLINDER Div 8" };
-		Mesh cylinder_8 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 8);
+		Mesh cylinder_8 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 8, false);
 	}
 
 	std::cout << "\n---- CYLINDER Divisions 5000 ----\n";
 
 	{
 		Timer timer_500{ "Benchmark CYLINDER Div 5000" };
-		Mesh cylinder_500 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 5000);
+		Mesh cylinder_500 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 5000, false);
 	}
 
 	std::cout << "\n---- CYLINDER Divisions 50000 ----\n";
 
 	{
 		Timer timer_5000{ "Benchmark CYLINDER Div 50000" };
-		Mesh cylinder_5000 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 50000);
+		Mesh cylinder_5000 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 50000, false);
 	}
 
 }

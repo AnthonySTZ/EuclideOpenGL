@@ -4,6 +4,8 @@
 
 #include <glm/gtc/constants.hpp>
 
+#include <numeric>
+
 Mesh Cylinder::processOutput(uint32_t index)
 {
 	Timer timer{ nodeName.c_str() };
@@ -12,12 +14,13 @@ Mesh Cylinder::processOutput(uint32_t index)
 	float radiusBottom = getParam<FloatField>("RadiusBottom")->getValue();
 	float height = getParam<FloatField>("Height")->getValue();
 	int divisions = getParam<IntField>("Divisions")->getValue();
+	int capped = getParam<BooleanField>("Capped")->getValue();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
-	return createCylinder(translate, glm::vec2(radiusTop, radiusBottom), height, divisions);
+	return createCylinder(translate, glm::vec2(radiusTop, radiusBottom), height, divisions, capped);
 }
 
-Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height, int divisions)
+Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height, int divisions, bool capped)
 {
 	if (divisions < 3) return Mesh();
 
@@ -60,6 +63,18 @@ Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height
 			{ topFirstPt, topSecondPt, bottomSecondPt, bottomFirstPt }
 		});
 
+	}
+
+	if (capped) {
+		std::vector<uint32_t> topIds(divisions);
+		std::vector<uint32_t> bottomIds(divisions);
+		for (uint32_t i = 0; i < divisions; i++) {
+			topIds[i] = i;
+			bottomIds[i] = i + divisions;
+		}
+
+		cylBuilder.faces.emplace_back(Face{ topIds });
+		cylBuilder.faces.emplace_back(Face{ bottomIds });
 	}
 
     return Mesh{cylBuilder};
