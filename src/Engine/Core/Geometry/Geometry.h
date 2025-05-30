@@ -83,6 +83,9 @@ public:
 	void createWireframeIndices();
 	glm::vec3 getCenterPos();
 	glm::vec3 getCenterOfPrimitive(uint32_t primId);
+	Point& getPointFromVertexId(uint32_t vertexId) {
+		return points[vertices[vertexId].pointId];
+	};
 
 	std::vector<Point> points;
 	size_t pointSize = 0;

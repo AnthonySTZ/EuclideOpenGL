@@ -115,7 +115,7 @@ glm::vec3 Mesh::getCenterOfPrimitive(uint32_t primId)
     if (primitives[primId].vertexIds.size() < 1) return avgPrim;
 
     for (auto& vertexId : primitives[primId].vertexIds) {
-        avgPrim += points[vertices[vertexId].pointId].position;
+        avgPrim += getPointFromVertexId(vertexId).position;
     }
 
     return avgPrim / static_cast<float>(primitives[primId].vertexIds.size());
