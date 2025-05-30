@@ -32,6 +32,8 @@ struct Point {
 	glm::vec3 color{ 0.0, 0.0, 0.0 };
 	glm::vec3 normal{ 0.0, 0.0, 0.0 };
 	std::map<const char*, Attrib> attribs;
+	std::vector<uint32_t> vertices;
+	std::vector<std::pair<uint32_t, uint32_t>> edges;
 };
 
 struct Vertex {

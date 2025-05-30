@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Cylinder.h"
 #include "Transform.h"
+#include "Subdivide.h"
 #include "Merge.h"
 #include "CopyToPoints.h"
 #include "BoundingBox.h"
@@ -21,6 +22,7 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
     {"Geometry",
         {
             {"Transform", []() { return std::make_shared<Transform>(); }},
+            {"Subdivide", []() { return std::make_shared<Subdivide>(); }},
             {"Merge", []() { return std::make_shared<Merge>(); }},
             {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }}
         }

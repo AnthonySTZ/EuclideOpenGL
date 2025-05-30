@@ -37,6 +37,7 @@ void Mesh::addPrimitives(std::vector<Face> faces)
             vertex.primitiveId = primId;
             vertices.push_back(vertex);
             prim.vertexIds.push_back(vertexId);
+            points[pointId].vertices.push_back(vertexId);
             vertexId++;
 
             uint32_t next_pointId = face.pointIds[(i + 1) % numVertices];
@@ -47,6 +48,8 @@ void Mesh::addPrimitives(std::vector<Face> faces)
             else {
                 edges[{u, v}].primIds.push_back(primId);
             }
+
+            points[pointId].edges.push_back({ u, v });
 
         }
 
