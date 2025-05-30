@@ -11,7 +11,7 @@ public:
 		inputsNb = 1;
 		outputsNb = 1;
 
-		parameters["Subdivisions"] = std::make_unique<IntField>("Subdivisions");
+		parameters["Subdivisions"] = std::make_unique<IntField>("Subdivisions", 1, 0);
 
 		paramOrder.push_back("Subdivisions");
 	};

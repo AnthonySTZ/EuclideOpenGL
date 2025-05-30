@@ -1,6 +1,7 @@
 #include "Subdivide.h"
 
 #include "../Utils.h"
+#include <algorithm>
 
 Mesh Subdivide::processOutput(uint32_t index)
 {
@@ -25,7 +26,7 @@ Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)
         primPoints.emplace_back(Point{ i,  centerPointOfPrim });
     }
 
-    std::vector<Point> edgePoints;
+    std::map<std::pair<uint32_t, uint32_t>, Point> edgePoints;
     uint32_t edgePointId = primPoints.size();
     for (auto& [uv, edge]: mesh.edges) {
         glm::vec3 avgEdges{ 0.0f };
@@ -36,7 +37,7 @@ Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)
         avgEdges += mesh.points[edge.u].position;
         avgEdges += mesh.points[edge.v].position;
         avgEdges /= 4.0f;
-        edgePoints.emplace_back(Point{ edgePointId,  avgEdges });
+        edgePoints[uv] = Point{ edgePointId,  avgEdges };
         edgePointId++;
     }
 
@@ -70,17 +71,31 @@ Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)
     }
 
 
-
-
-
-
-
     Mesh::Builder subdBuilder;
-    std::vector<Point> subdPoints;
-    subdPoints.insert(subdPoints.end(), primPoints.begin(), primPoints.end());
-    subdPoints.insert(subdPoints.end(), edgePoints.begin(), edgePoints.end());
-    subdPoints.insert(subdPoints.end(), avgPoints.begin(), avgPoints.end());
-    subdBuilder.points = subdPoints;
+    subdBuilder.points.insert(subdBuilder.points.end(), primPoints.begin(), primPoints.end());
+    for (const auto& [_, pt] : edgePoints) subdBuilder.points.push_back(pt);
+    subdBuilder.points.insert(subdBuilder.points.end(), avgPoints.begin(), avgPoints.end());
+
+    for (uint32_t primId = 0; primId < mesh.primitives.size(); ++primId) {
+        const auto& prim = mesh.primitives[primId];
+        const Point& facePoint = primPoints[primId];
+
+        size_t nVertices = prim.vertexIds.size();
+        for (size_t i = 0; i < nVertices; ++i) {
+
+            uint32_t firstPointCornerId = mesh.vertices[prim.vertexIds[(i - 1) % nVertices]].pointId;
+            uint32_t secondPointCornerId = mesh.vertices[prim.vertexIds[i]].pointId;
+            uint32_t thirdPointCornerId = mesh.vertices[prim.vertexIds[(i + 1) % nVertices]].pointId;
+            auto edgeuv = std::minmax(firstPointCornerId, secondPointCornerId);
+            auto edgevw = std::minmax(secondPointCornerId, thirdPointCornerId);
+            const Point& edgeAvgPoint0 = edgePoints[edgeuv];
+            const Point& edgeAvgPoint1 = edgePoints[edgevw];
+            const Point& avgCornerPoint = avgPoints[secondPointCornerId];
+
+            Face face{ {facePoint.id, edgeAvgPoint0.id, avgCornerPoint.id, edgeAvgPoint1.id} };
+            subdBuilder.faces.push_back(face);
+        }
+    }
 
     return Mesh{ subdBuilder };
 
