@@ -127,7 +127,7 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
 
 void Mesh::updateRenderVertices()
 {
-    Float3Attrib wireframeColor{ {.8f, .8f, .8f} };
+    Float3Attrib wireframeColor{ {.1f, .1f, .1f} };
     Float3Attrib defaultColor{ {.9f, .9f, .9f} };
     Float3Attrib noNormal{{0.0f, 0.0f, 0.0f}};
 
