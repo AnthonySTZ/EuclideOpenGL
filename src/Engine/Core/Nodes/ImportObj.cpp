@@ -31,6 +31,37 @@ glm::vec3 stringToVec3(std::string string){
     return glm::vec3(output[0], output[1], output[2]);
 }
 
+std::vector<uint32_t> getPointIdsFromFaceString(std::string string){
+
+    std::vector<uint32_t> ids;
+
+    std::vector<std::string> facesInfo;
+
+    size_t leftPointer = 0;
+    for (size_t i=0; i<string.length(); i++){
+
+        if (i == string.length() - 1 || string[i] == ' ') {
+            std::string token = string.substr(leftPointer, i - leftPointer);
+            facesInfo.push_back(token);
+            leftPointer = i+1;
+        }
+
+    }
+
+    ids.reserve(facesInfo.size());
+
+    for (auto& faceInfo: facesInfo){
+        std::string currId = "";
+        for(auto& c: faceInfo){
+            if (c == '/') break;
+            currId += c;
+        }
+        ids.push_back(static_cast<uint32_t>(std::stoi(currId) - 1));
+    }
+
+    return ids;
+}
+
 Mesh ImportObj::readObj(std::string filename)
 {
     if (!doesFileExists(filename)) return Mesh();
@@ -44,10 +75,20 @@ Mesh ImportObj::readObj(std::string filename)
     uint32_t pointId = 0;
     while (getline(file, line)) {
         std::cout << line << "\n";
-        if (line.substr(0, 2) == "v ") {
+        if (line.substr(0, 2) == "v ") { // Add vertex
             glm::vec3 pos = stringToVec3(line.substr(2, line.length() - 2));
             builder.points.emplace_back(Point{pointId, pos});
-            pointId++;            
+            pointId++; 
+            continue;           
+        }
+
+        if (line.substr(0, 2) == "f ") {
+            std::vector<uint32_t> pointIds = getPointIdsFromFaceString(line.substr(2, line.length() - 2));
+            for (auto& id: pointIds) std::cout << id << " ";
+            std::cout << "\n";
+            Face face;
+            face.pointIds = pointIds;
+            builder.faces.push_back(face);      
         }
     }
 
