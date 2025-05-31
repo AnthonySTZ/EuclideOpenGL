@@ -5,6 +5,8 @@
 Mesh ImportObj::processOutput(uint32_t index)
 {
 
+    Timer timer{nodeName.c_str()};
+
     std::string filename = getParam<FileField>("Filename")->getValue();
 
     return readObj(filename);
@@ -74,7 +76,6 @@ Mesh ImportObj::readObj(std::string filename)
 
     uint32_t pointId = 0;
     while (getline(file, line)) {
-        std::cout << line << "\n";
         if (line.substr(0, 2) == "v ") { // Add vertex
             glm::vec3 pos = stringToVec3(line.substr(2, line.length() - 2));
             builder.points.emplace_back(Point{pointId, pos});
@@ -84,11 +85,7 @@ Mesh ImportObj::readObj(std::string filename)
 
         if (line.substr(0, 2) == "f ") {
             std::vector<uint32_t> pointIds = getPointIdsFromFaceString(line.substr(2, line.length() - 2));
-            for (auto& id: pointIds) std::cout << id << " ";
-            std::cout << "\n";
-            Face face;
-            face.pointIds = pointIds;
-            builder.faces.push_back(face);      
+            builder.faces.emplace_back(Face{pointIds});      
         }
     }
 
