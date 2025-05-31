@@ -88,29 +88,7 @@ std::string FileDialog::drawDialog()
     if (ImGui::BeginPopup("BrowseFile")) {
         
         drawTopBar(label, padding, bgCol);
-        if (ImGui::BeginTable("MyTable", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
-            ImGui::TableSetupColumn("Name");
-            ImGui::TableSetupColumn("Type");
-            ImGui::TableSetupColumn("Size");
-            ImGui::TableHeadersRow();
-        
-
-            for (auto& file: files) {
-                ImGui::TableNextRow();
-
-                ImGui::TableSetColumnIndex(0);
-                ImGui::Text(file.name.c_str());
-
-                ImGui::TableSetColumnIndex(1);
-                ImGui::Text(file.extension.c_str());
-
-                ImGui::TableSetColumnIndex(2);
-                ImGui::Text(file.fileSize.c_str());
-            }
-
-            ImGui::EndTable();
-
-        }
+        drawFileTable();
         ImGui::EndPopup();
     }
 
@@ -151,6 +129,33 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
     }
 
     ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
+}
+
+void FileDialog::drawFileTable(){
+
+    if (ImGui::BeginTable("MyTable", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+        ImGui::TableSetupColumn("Name");
+        ImGui::TableSetupColumn("Type");
+        ImGui::TableSetupColumn("Size");
+        ImGui::TableHeadersRow();    
+
+        for (auto& file: files) {
+            ImGui::TableNextRow();
+
+            ImGui::TableSetColumnIndex(0);
+            ImGui::Text(file.name.c_str());
+
+            ImGui::TableSetColumnIndex(1);
+            ImGui::Text(file.extension.c_str());
+
+            ImGui::TableSetColumnIndex(2);
+            ImGui::Text(file.fileSize.c_str());
+        }
+
+        ImGui::EndTable();
+
+    }
+
 }
 
 void FileDialog::drawCross(ImVec2 position, float length, ImU32 color, float thickness){
