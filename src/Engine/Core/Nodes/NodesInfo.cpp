@@ -1,5 +1,6 @@
 #include "NodesInfo.h"
 
+#include "ImportObj.h"
 #include "Cube.h"
 #include "Grid.h"
 #include "Cylinder.h"
@@ -12,6 +13,11 @@
 
 
 static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
+    {"Import",
+        {
+            {"ImportObj", []() { return std::make_shared<ImportObj>(); }}
+        }
+    },
     {"Primitive", 
         {
             {"Cube", []() { return std::make_shared<Cube>(); }}, 

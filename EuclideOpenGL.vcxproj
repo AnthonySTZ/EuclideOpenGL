@@ -170,10 +170,12 @@
     <ClCompile Include="src\Engine\Core\Nodes\Cube.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Cylinder.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\BooleanField.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\Fields\FileField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\Float3Field.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\FloatField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Fields\IntField.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Grid.cpp" />
+    <ClCompile Include="src\Engine\Core\Nodes\ImportObj.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Merge.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\Node.cpp" />
     <ClCompile Include="src\Engine\Core\Nodes\NodesInfo.cpp" />
@@ -203,10 +205,12 @@
     <ClInclude Include="src\Engine\Core\Nodes\CopyToPoints.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\BooleanField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\Field.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\Fields\FileField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\Float3Field.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\FloatField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Fields\IntField.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Grid.h" />
+    <ClInclude Include="src\Engine\Core\Nodes\ImportObj.h" />
     <ClInclude Include="src\Engine\Core\Nodes\Merge.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodeConnection.h" />
     <ClInclude Include="src\Engine\Core\Nodes\NodesInfo.h" />
