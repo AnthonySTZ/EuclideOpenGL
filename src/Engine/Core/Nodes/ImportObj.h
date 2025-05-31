@@ -10,7 +10,7 @@ public:
 		inputsNb = 0;
 		outputsNb = 1;
 
-		parameters["Filename"] = std::make_unique<FileField>("File Name");
+		parameters["Filename"] = std::make_unique<FileField>("File Name", std::set<std::string>{".obj"}, "");
 
 		paramOrder.push_back("Filename");
 	}

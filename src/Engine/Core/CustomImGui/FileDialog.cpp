@@ -33,18 +33,10 @@ std::string formatTime(time_t t) {
     return oss.str();
 }
 
-FileDialog::FileDialog(std::string label, std::set<std::string> type, std::string path)
- :	label{label}, extensionsFilter{type}, path{path}
+FileDialog::FileDialog(std::string label, std::set<std::string> extensions, std::string path)
+ :	label{label}, path{path}
 {
-    std::set<std::string> lowercasedFilter;
-    for (const auto& ext : extensionsFilter) {
-        std::string lower = ext;
-        std::transform(lower.begin(), lower.end(), lower.begin(),
-                    [](unsigned char c) { return std::tolower(c); });
-        lowercasedFilter.insert(lower);
-    }
-    extensionsFilter = std::move(lowercasedFilter);
-    updateFiles();
+    setExtensionsFilter(extensions);
 }
 
 void FileDialog::updateFiles(){
@@ -135,6 +127,20 @@ std::string FileDialog::drawDialog()
     ImGui::PopStyleColor(1);
 
     return std::string();
+}
+
+void FileDialog::setExtensionsFilter(std::set<std::string> extensions)
+{
+    std::set<std::string> lowercasedFilter;
+    extensionsFilter = extensions;
+    for (const auto& ext : extensionsFilter) {
+        std::string lower = ext;
+        std::transform(lower.begin(), lower.end(), lower.begin(),
+                    [](unsigned char c) { return std::tolower(c); });
+        lowercasedFilter.insert(lower);
+    }
+    extensionsFilter = std::move(lowercasedFilter);
+    updateFiles();
 }
 
 void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)

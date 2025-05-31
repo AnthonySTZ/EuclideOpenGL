@@ -22,9 +22,15 @@ struct FileItem {
 
 class FileDialog {
 public:
-	FileDialog(std::string label, std::set<std::string> type, std::string path);
+	FileDialog(std::string label, std::set<std::string> extensions, std::string path);
     void updateFiles();
     std::string drawDialog();
+
+	void setExtensionsFilter(std::set<std::string> extensions);
+	void setPath(std::string newPath) {
+		path = newPath;
+		updateFiles();
+	}
 
     void drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol);
     void drawFilesTable();

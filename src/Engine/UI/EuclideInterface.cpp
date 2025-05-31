@@ -75,14 +75,6 @@ void EuclideInterface::createUI()
 
 	createNodeGraph();
 
-	ImGui::Begin("Tmp");
-	if (ImGui::Button("OpenFileDialog")) {
-    	ImGui::OpenPopup("BrowseFile");
-	}
-	fileDialog.drawDialog();
-	ImGui::End();
-
-
 	ImGui::PopFont();
 	
 	ImGui::Render();
