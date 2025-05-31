@@ -46,10 +46,10 @@ Mesh ImportObj::readObj(std::string filename)
         std::cout << line << "\n";
         if (line.substr(0, 2) == "v ") {
             glm::vec3 pos = stringToVec3(line.substr(2, line.length() - 2));
-            std::cout << "x: " << pos.x << " y: " << pos.y << " z: " << pos.z << "\n";
-            
+            builder.points.emplace_back(Point{pointId, pos});
+            pointId++;            
         }
     }
 
-    return Mesh();
+    return Mesh{builder};
 }
