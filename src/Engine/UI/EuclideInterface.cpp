@@ -7,6 +7,7 @@
 #include <cctype>
 
 #include "../Core/Utils.h"
+#include "../Core/CustomImGui/ImGuiUtils.h"
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 

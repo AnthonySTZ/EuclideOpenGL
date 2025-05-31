@@ -264,6 +264,12 @@
     <ClInclude Include="src\Engine\Core\Nodes\Fields\FileField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Core\CustomImGui\FileDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core\CustomImGui\ImGuiUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="readme\interface.jpg">
