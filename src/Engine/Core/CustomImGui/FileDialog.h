@@ -3,6 +3,7 @@
 #include "ImGuiUtils.h"
 
 #include <vector>
+#include <set>
 
 enum FileType {
 	File,
@@ -21,7 +22,7 @@ struct FileItem {
 
 class FileDialog {
 public:
-	FileDialog(std::string label, std::string type, std::string path);
+	FileDialog(std::string label, std::set<std::string> type, std::string path);
     void updateFiles();
     std::string drawDialog();
 
@@ -33,8 +34,10 @@ public:
 
 private:
 	std::string label;
-	std::string type;
+	std::set<std::string> extensionsFilter;
 	std::string path;
+	std::string fileChoosed;
+
 
 	std::vector<FileItem> files;
 

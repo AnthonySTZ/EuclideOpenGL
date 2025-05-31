@@ -5,6 +5,8 @@
 #include <sys/stat.h>
 #include <windows.h>
 
+#include <algorithm>
+
 
 std::vector<std::string> getSystemDrives() {
     std::vector<std::string> drives;
@@ -31,9 +33,17 @@ std::string formatTime(time_t t) {
     return oss.str();
 }
 
-FileDialog::FileDialog(std::string label, std::string type, std::string path)
- :	label{label}, type{type}, path{path}
+FileDialog::FileDialog(std::string label, std::set<std::string> type, std::string path)
+ :	label{label}, extensionsFilter{type}, path{path}
 {
+    std::set<std::string> lowercasedFilter;
+    for (const auto& ext : extensionsFilter) {
+        std::string lower = ext;
+        std::transform(lower.begin(), lower.end(), lower.begin(),
+                    [](unsigned char c) { return std::tolower(c); });
+        lowercasedFilter.insert(lower);
+    }
+    extensionsFilter = std::move(lowercasedFilter);
     updateFiles();
 }
 
@@ -65,19 +75,28 @@ void FileDialog::updateFiles(){
     for (const auto & entry : std::filesystem::directory_iterator(path)){
         if (stat(entry.path().string().c_str(), &fileInfo) != 0) continue;
 
-        FileItem fi;
-        fi.name = entry.path().filename().string();
-        fi.extension = entry.path().extension().string();
-        fi.fullPath = entry.path().string();
-
-        if ((fileInfo.st_mode & S_IFMT) == S_IFDIR) { // From sys/types.h
+        if ((fileInfo.st_mode & S_IFMT) == S_IFDIR) {
+            FileItem fi;
             fi.type = Directory;
-        } else {
-            fi.type = File;
-            fi.fileSize = std::to_string(fileInfo.st_size);
-            fi.createdAt = formatTime(fileInfo.st_ctime);
-            fi.modifiedAt = formatTime(fileInfo.st_mtime);
+            fi.name = entry.path().filename().string();
+            fi.fullPath = entry.path().string();
+            files.push_back(fi);
+            continue;
         }
+
+        std::string extension = entry.path().extension().string();
+        std::transform(extension.begin(), extension.end(), extension.begin(),
+			[](unsigned char c) { return std::tolower(c); });
+        if (extensionsFilter.find(extension) == extensionsFilter.end()) continue;
+        
+        FileItem fi;
+        fi.type = File;
+        fi.name = entry.path().filename().string();
+        fi.extension = extension;
+        fi.fullPath = entry.path().string();
+        fi.fileSize = std::to_string(fileInfo.st_size);
+        fi.createdAt = formatTime(fileInfo.st_ctime);
+        fi.modifiedAt = formatTime(fileInfo.st_mtime);    
 
         files.push_back(fi);
     }
@@ -149,6 +168,7 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
         } 
     }
 
+    /* Handle Window Dragging */
     ImGuiIO& io = ImGui::GetIO();
     if (ImGui::IsMouseHoveringRect(windowPos, endTitleBar) && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
         lastMousePos = io.MousePos;
@@ -198,6 +218,11 @@ void FileDialog::drawFilesTable(){
                         }
                         std::cout << path << "\n";
                         updateFiles();
+                    } else {
+                        fileChoosed = file.fullPath;
+                        ImGui::EndTable();
+                        ImGui::CloseCurrentPopup();
+                        return;
                     }
 
                     ImGui::EndTable();
