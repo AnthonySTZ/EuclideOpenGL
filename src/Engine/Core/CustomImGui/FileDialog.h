@@ -25,6 +25,7 @@ public:
 
     void drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol);
     void drawFilesTable();
+    std::string goBackOneFolder(std::string &currentPath);
     bool isRowHovered();
     void drawCross(ImVec2 position, float length, ImU32 color, float thickness);
 

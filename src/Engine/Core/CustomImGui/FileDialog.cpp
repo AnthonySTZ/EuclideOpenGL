@@ -29,6 +29,11 @@ FileDialog::FileDialog(std::string label, std::string type, std::string path)
 void FileDialog::updateFiles(){
 
     files.clear();
+    FileItem returnFile;
+    returnFile.name = "..";
+    returnFile.type = Directory;
+    files.push_back(returnFile);
+    
     struct stat fileInfo;
 
     if (stat(path.c_str(), &fileInfo) != 0) { // Path is invalid
@@ -127,6 +132,7 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
         ImGuiIO& io = ImGui::GetIO();
         if (io.MousePos.x > closeBtnPos.x && io.MousePos.y < endTitleBar.y){
             ImGui::CloseCurrentPopup();
+            path = "";
         } 
     }
 
@@ -139,18 +145,23 @@ void FileDialog::drawFilesTable(){
         ImGui::TableSetupColumn("Name");
         ImGui::TableSetupColumn("Type");
         ImGui::TableSetupColumn("Size");
-        ImGui::TableHeadersRow();    
-
+        ImGui::TableHeadersRow();
         int row = 0;
+
         for (auto& file: files) {
             ImGui::TableNextRow();
             ImGui::TableSetColumnIndex(0);
 
             if (isRowHovered()){
 
-                if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
+                if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)){ // User clicked on current Row
                     if (file.type == Directory){
-                        path = file.fullPath;
+                        if (file.name == ".."){ // Go back one folder
+                            path = goBackOneFolder(path);
+                        } else {
+                            path = file.fullPath;
+                        }
+                        std::cout << path << "\n";
                         updateFiles();
                     }
 
@@ -179,6 +190,31 @@ void FileDialog::drawFilesTable(){
         ImGui::EndTable();
 
     }
+
+}
+
+std::string FileDialog::goBackOneFolder(std::string &currentPath){
+
+    if (currentPath == "") return currentPath;
+
+    std::string newPath = "";
+    size_t endIndex = currentPath.size() - 1;
+    if (currentPath[endIndex] == '\\' || currentPath[endIndex] == '/') endIndex -= 1; // Last character was a slash or backslash
+
+    size_t charToCopy = 0;
+    for (int i = endIndex; i >= 0; i--){
+        if (currentPath[i] == '\\' || currentPath[i] == '/'){
+            charToCopy = i + 1;
+            break;
+        }
+    }
+
+    for (size_t i=0; i < charToCopy; i++){
+        newPath += currentPath[i];
+    }
+
+    return newPath;
+
 
 }
 
