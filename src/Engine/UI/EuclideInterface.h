@@ -59,6 +59,6 @@ private:
 	std::unique_ptr<EuclideRenderer> renderer;
 	SceneGraph sceneGraph;
 
-	FileDialog fileDialog{"Open File", "", "."};
+	FileDialog fileDialog{"Open File", "", ""};
 
 };

@@ -1,6 +1,69 @@
 #include "FileDialog.h"
 
 #include <iostream>
+#include <filesystem>
+#include <sys/stat.h>
+#include <windows.h>
+
+std::vector<std::string> getSystemDrives() {
+    std::vector<std::string> drives;
+    char szDrives[256] = {0};
+
+    if (GetLogicalDriveStringsA(sizeof(szDrives), szDrives)) {
+        char* drive = szDrives;
+        while (*drive) {
+            drives.emplace_back(drive);
+            drive += strlen(drive) + 1;
+        }
+    }
+
+    return drives;
+}
+
+FileDialog::FileDialog(std::string label, std::string type, std::string path)
+ :	label{label}, type{type}, path{path}
+{
+    updateFiles();
+}
+
+void FileDialog::updateFiles(){
+
+    files.clear();
+    struct stat fileInfo;
+
+    if (stat(path.c_str(), &fileInfo) != 0) { // Path is invalid
+
+        auto drives = getSystemDrives();
+        for (const auto& d : drives) {
+            FileItem fi;
+            fi.name = d;
+            fi.type = Directory;
+            files.push_back(fi);
+        }
+        return;
+    }; 
+
+    // Path is valid !
+
+    for (const auto & entry : std::filesystem::directory_iterator(path)){
+        if (stat(entry.path().string().c_str(), &fileInfo) != 0) continue;
+
+        FileItem fi;
+        fi.name = entry.path().filename().string();
+        fi.extension = entry.path().extension().string();
+
+        if ((fileInfo.st_mode & S_IFMT) == S_IFDIR) { // From sys/types.h
+            fi.type = Directory;
+        } else {
+            fi.type = File;
+            fi.fileSize = std::to_string(fileInfo.st_size);
+        }
+
+        files.push_back(fi);
+    }
+
+
+}
 
 std::string FileDialog::drawDialog()
 {
@@ -30,13 +93,7 @@ std::string FileDialog::drawDialog()
             ImGui::TableSetupColumn("Type");
             ImGui::TableSetupColumn("Size");
             ImGui::TableHeadersRow();
-            
-            std::vector<FileItem> files = {
-
-                { Folder, "myFolder", "", ""},
-                { File, "meshObj", "obj", "156 Kb"},
-                { File, "meshBGEO", "bgeo", "1.4 Mb"},
-            };
+        
 
             for (auto& file: files) {
                 ImGui::TableNextRow();
