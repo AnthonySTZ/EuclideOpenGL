@@ -1,5 +1,5 @@
 #include "EuclideRenderer.h"
-#include "Utils.h"
+#include "../Utils.h"
 
 #include <iostream>
 
@@ -67,8 +67,8 @@ void EuclideRenderer::centerCamera()
 
 void EuclideRenderer::createShaderProgram(unsigned int& facesShaderProgram, std::string vertexFile, std::string fragmentFile) {
 
-	std::string vertCode = Utils::readFile(vertexFile);
-	std::string fragCode = Utils::readFile(fragmentFile);
+	std::string vertCode = readFile(vertexFile);
+	std::string fragCode = readFile(fragmentFile);
 
 	unsigned int vertexShader = createShader(vertCode.c_str(), GL_VERTEX_SHADER);
 	unsigned int fragmentShader = createShader(fragCode.c_str(), GL_FRAGMENT_SHADER);
