@@ -127,13 +127,14 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
 
 void Mesh::updateRenderVertices()
 {
+    Float3Attrib wireframeColor{ {.8f, .8f, .8f} };
     Float3Attrib defaultColor{ {.9f, .9f, .9f} };
     Float3Attrib noNormal{{0.0f, 0.0f, 0.0f}};
 
     renderPoints.clear();
     renderPoints.reserve(points.size());
     for (auto& point: points){
-        RenderVertex v = pointToRenderVertex(point, defaultColor, noNormal);
+        RenderVertex v = pointToRenderVertex(point, wireframeColor, noNormal);
         renderPoints.push_back(v);
     }
 
@@ -178,8 +179,8 @@ void Mesh::updateRenderVertices()
 RenderVertex Mesh::pointToRenderVertex(Point& point, Float3Attrib& defaultColor, Float3Attrib& defaultNormal){
     RenderVertex vertex;
     vertex.position = point.position;
-    vertex.color = point.getAttrib<Float3Attrib>(std::string("Color"), &defaultColor)->getValue();
-    vertex.normal = point.getAttrib<Float3Attrib>(std::string("Normal"), &defaultNormal)->getValue();
+    vertex.color = point.getAttrib<Float3Attrib>("Color", &defaultColor)->getValue();
+    vertex.normal = point.getAttrib<Float3Attrib>("Normal", &defaultNormal)->getValue();
 
     return vertex;
 }

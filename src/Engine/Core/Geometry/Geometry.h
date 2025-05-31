@@ -143,6 +143,15 @@ public:
 
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
+	Mesh& operator=(const Mesh& other) {
+		points = other.points;
+		vertices = other.vertices;
+		edges = other.edges;
+		primitives = other.primitives;
+		update();
+		return *this;
+	}
+
 	void updateMesh(const Mesh::Builder& builder);
 	void updateRenderVertices();
 	void update() {
