@@ -39,4 +39,6 @@ private:
 	std::vector<FileItem> files;
 
 	float rowHeight = 30.0f;
+	ImVec2 lastMousePos;
+	bool isDragging = false;
 };

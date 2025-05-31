@@ -105,7 +105,7 @@ std::string FileDialog::drawDialog()
     ImGui::PushStyleColor(ImGuiCol_WindowBg, bgCol);
     ImGui::SetNextWindowSize(ImVec2(800, 600));
 
-    if (ImGui::BeginPopup("BrowseFile")) {
+    if (ImGui::BeginPopup("BrowseFile", ImGuiWindowFlags_NoMove)) {
         
         drawTopBar(label, padding, bgCol);
         drawFilesTable();
@@ -149,12 +149,27 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
         } 
     }
 
+    ImGuiIO& io = ImGui::GetIO();
+    if (ImGui::IsMouseHoveringRect(windowPos, endTitleBar) && ImGui::IsMouseClicked(ImGuiMouseButton_Left)) {
+        lastMousePos = io.MousePos;
+        isDragging = true;
+    }
+
+    if (isDragging) {
+        if (ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
+            ImVec2 dragOffset = io.MousePos - lastMousePos;
+            ImGui::SetWindowPos(ImGui::GetWindowPos() + dragOffset);
+            lastMousePos = io.MousePos;
+        }
+        else {
+            isDragging = false;
+        }
+    }
+
     ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
 }
 
 void FileDialog::drawFilesTable(){
-
-    
 
     if (ImGui::BeginTable("MyTable", 5, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
         ImGui::TableSetupColumn("Name");
@@ -174,7 +189,7 @@ void FileDialog::drawFilesTable(){
 
             if (isRowHovered()){
 
-                if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)){ // User clicked on current Row
+                if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)){ // User clicked on current Row
                     if (file.type == Directory){
                         if (file.name == ".."){ // Go back one folder
                             path = goBackOneFolder(path);
