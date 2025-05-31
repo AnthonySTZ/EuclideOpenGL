@@ -4,6 +4,8 @@
 #include "NodeGraph/SceneGraph.h"
 #include "../Core/Nodes/NodesInfo.h"
 
+#include "../Core/CustomImGui/FileDialog.h"
+
 #include <chrono>
 #include <memory>
 
@@ -56,5 +58,7 @@ private:
 
 	std::unique_ptr<EuclideRenderer> renderer;
 	SceneGraph sceneGraph;
+
+	FileDialog fileDialog{"Open File", "", "."};
 
 };

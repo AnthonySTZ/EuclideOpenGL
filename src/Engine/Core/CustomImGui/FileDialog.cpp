@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-std::string FileDialog::openDialog(std::string label, std::string type, std::string path)
+std::string FileDialog::drawDialog()
 {
     /*
         Open a file explorer to choose a file.
@@ -25,6 +25,35 @@ std::string FileDialog::openDialog(std::string label, std::string type, std::str
     if (ImGui::BeginPopup("BrowseFile")) {
         
         drawTopBar(label, padding, bgCol);
+        if (ImGui::BeginTable("MyTable", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+            ImGui::TableSetupColumn("Name");
+            ImGui::TableSetupColumn("Type");
+            ImGui::TableSetupColumn("Size");
+            ImGui::TableHeadersRow();
+            
+            std::vector<FileItem> files = {
+
+                { Folder, "myFolder", "", ""},
+                { File, "meshObj", "obj", "156 Kb"},
+                { File, "meshBGEO", "bgeo", "1.4 Mb"},
+            };
+
+            for (auto& file: files) {
+                ImGui::TableNextRow();
+
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text(file.name.c_str());
+
+                ImGui::TableSetColumnIndex(1);
+                ImGui::Text(file.extension.c_str());
+
+                ImGui::TableSetColumnIndex(2);
+                ImGui::Text(file.fileSize.c_str());
+            }
+
+            ImGui::EndTable();
+
+        }
         ImGui::EndPopup();
     }
 
@@ -34,7 +63,8 @@ std::string FileDialog::openDialog(std::string label, std::string type, std::str
     return std::string();
 }
 
-void FileDialog::drawTopBar(std::string& label, ImVec2 &padding, ImU32& bgCol){
+void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
+{
     ImVec2 windowPos = ImGui::GetWindowPos();
     ImVec2 windowSize = ImGui::GetWindowSize();
     ImVec2 titleRectSize = ImVec2(windowSize.x, 25.0f);
