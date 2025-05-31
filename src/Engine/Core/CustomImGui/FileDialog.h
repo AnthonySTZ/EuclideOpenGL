@@ -14,6 +14,7 @@ struct FileItem {
 	std::string name;
 	std::string extension;
 	std::string fileSize;
+	std::string fullPath;
 };
 
 class FileDialog {

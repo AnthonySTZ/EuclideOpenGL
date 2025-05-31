@@ -37,6 +37,7 @@ void FileDialog::updateFiles(){
         for (const auto& d : drives) {
             FileItem fi;
             fi.name = d;
+            fi.fullPath = d;
             fi.type = Directory;
             files.push_back(fi);
         }
@@ -51,6 +52,7 @@ void FileDialog::updateFiles(){
         FileItem fi;
         fi.name = entry.path().filename().string();
         fi.extension = entry.path().extension().string();
+        fi.fullPath = entry.path().string();
 
         if ((fileInfo.st_mode & S_IFMT) == S_IFDIR) { // From sys/types.h
             fi.type = Directory;
@@ -145,6 +147,18 @@ void FileDialog::drawFilesTable(){
             ImGui::TableSetColumnIndex(0);
 
             if (isRowHovered()){
+
+                if (ImGui::IsMouseClicked(ImGuiMouseButton_Left)){
+                    if (file.type == Directory){
+                        path = file.fullPath;
+                        updateFiles();
+                    }
+
+                    ImGui::EndTable();
+                    return;
+                    
+                }
+
                 ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 50, 100, 100));
             } else {
                 ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 0, 0, 0));
