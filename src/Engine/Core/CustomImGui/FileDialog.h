@@ -32,12 +32,21 @@ public:
 		updateFiles();
 	}
 
+	bool hasChooseFile() {
+		if (isClosed) {
+			isClosed = false;
+			return true;
+		}
+		return false;
+	}
+
     void drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol);
     void drawFilesTable();
     std::string goBackOneFolder(std::string &currentPath);
     bool isRowHovered();
     void drawCross(ImVec2 position, float length, ImU32 color, float thickness);
 
+	std::string getChoosedFile() { return fileChoosed; };
 private:
 	std::string label;
 	std::set<std::string> extensionsFilter;
@@ -50,4 +59,5 @@ private:
 	float rowHeight = 30.0f;
 	ImVec2 lastMousePos;
 	bool isDragging = false;
+	bool isClosed = false;
 };

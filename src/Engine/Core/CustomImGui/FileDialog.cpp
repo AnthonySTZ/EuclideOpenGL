@@ -228,6 +228,7 @@ void FileDialog::drawFilesTable(){
                         fileChoosed = file.fullPath;
                         ImGui::EndTable();
                         ImGui::CloseCurrentPopup();
+                        isClosed = true;
                         return;
                     }
 
