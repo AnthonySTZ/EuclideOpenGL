@@ -80,7 +80,7 @@ void EuclideInterface::createUI()
 	if (ImGui::Button("OpenFileDialog")) {
     	ImGui::OpenPopup("BrowseFile");
 	}
-	FileDialog::openDialog("BrowseFile", "Open File", "", ".");
+	FileDialog::openDialog("Open File", "", ".");
 	ImGui::End();
 
 
