@@ -24,12 +24,13 @@ void EuclideModel::drawFaces() const
 
 void EuclideModel::drawWireframe() const
 {
-	glBindVertexArray(vaoFaces);
+	glBindVertexArray(vaoWireframe);
 
-	glDrawArrays(
-		GL_POINT,
-		0,
-		mesh.renderVertices.size()
+	glDrawElements(
+		GL_LINES,
+		mesh.wireframeIndices.size(),
+		GL_UNSIGNED_INT,
+		(void*)0
 	);
 
 	glBindVertexArray(0);
@@ -42,7 +43,7 @@ void EuclideModel::drawPoints() const
 	glDrawArrays(
 		GL_POINTS, 
 		0,
-		mesh.points.size()
+		mesh.renderPoints.size()
 	);
 
 	glBindVertexArray(0);
@@ -79,7 +80,7 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload index data
 	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
-	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(RenderVertex), mesh.points.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.renderPoints.size() * sizeof(RenderVertex), mesh.renderPoints.data(), GL_DYNAMIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, position));
 	glEnableVertexAttribArray(0);
@@ -91,6 +92,19 @@ void EuclideModel::initBuffers()
 
 	// Unbind the VAO, VBOVertices, AND INDEX BUFFER
 	glBindVertexArray(0);
+
+	/* ------------ VAO POINTS -------------- */
+	glGenVertexArrays(1, &vaoPoints);
+	glBindVertexArray(vaoPoints);
+	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
+
+	// Bind and upload index data
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, position));
+	glEnableVertexAttribArray(0);
+
+	// Unbind the VAO, VBOVertices, AND INDEX BUFFER
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void EuclideModel::update() {
@@ -101,6 +115,10 @@ void EuclideModel::updateBuffers() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBOVertices);
 	glBufferData(GL_ARRAY_BUFFER, mesh.renderVertices.size() * sizeof(RenderVertex), mesh.renderVertices.data(), GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
+	glBufferData(GL_ARRAY_BUFFER, mesh.renderPoints.size() * sizeof(RenderVertex), mesh.renderPoints.data(), GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);

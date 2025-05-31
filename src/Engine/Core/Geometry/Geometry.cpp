@@ -60,34 +60,6 @@ void Mesh::addPrimitives(std::vector<Face> faces)
 
 }
 
-void Mesh::triangulateFaces()
-{
-    Timer timer{ "triangulateFaces" };
-
-    triangulateIndices.clear();
-    for (auto const& prim : primitives) {
-
-        size_t numVertex = prim.vertexIds.size();
-
-        if (numVertex < 3)
-            continue;
-
-        for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
-
-            uint32_t u = vertices[prim.vertexIds[0]].pointId;
-            uint32_t v = vertices[prim.vertexIds[vertexIndex]].pointId;
-            uint32_t w = vertices[prim.vertexIds[vertexIndex + 1]].pointId;
-
-            triangulateIndices.push_back(u);
-            triangulateIndices.push_back(v);
-            triangulateIndices.push_back(w);
-
-        }
-
-    }
-
-}
-
 void Mesh::createWireframeIndices()
 {
     Timer timer{ "createWireframeIndices" };
@@ -153,12 +125,20 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
     update();
 }
 
-void Mesh::updateHardNormalRenderVertices()
+void Mesh::updateRenderVertices()
 {
+    Float3Attrib defaultColor{ {.9f, .9f, .9f} };
+    Float3Attrib noNormal{{0.0f, 0.0f, 0.0f}};
+
+    renderPoints.clear();
+    renderPoints.reserve(points.size());
+    for (auto& point: points){
+        RenderVertex v = pointToRenderVertex(point, defaultColor, noNormal);
+        renderPoints.push_back(v);
+    }
 
     renderVertices.clear();
     renderVertices.reserve(vertices.size());
-    Float3Attrib defaultColor{ {.9f, .9f, .9f} };
 
     for (auto& prim : primitives) {
 

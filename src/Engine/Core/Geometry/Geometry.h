@@ -144,17 +144,15 @@ public:
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
 	void updateMesh(const Mesh::Builder& builder);
-	void updateHardNormalRenderVertices();
+	void updateRenderVertices();
 	void update() {
-		triangulateFaces();
 		createWireframeIndices();
-		updateHardNormalRenderVertices();
+		updateRenderVertices();
 		pointSize = points.size();
 		primSize = primitives.size();
 	};
 
 	void addPrimitives(std::vector<Face> faces);
-	void triangulateFaces();
 	void createWireframeIndices();
 	RenderVertex pointToRenderVertex(Point& point, Float3Attrib& defaultColor, Float3Attrib& defaultNormal);
 	glm::vec3 getCenterPos();
@@ -171,8 +169,8 @@ public:
 	std::vector<Primitive> primitives;
 	size_t primSize = 0;
 
-	std::vector<uint32_t> triangulateIndices;
 	std::vector<uint32_t> wireframeIndices;
+	std::vector<RenderVertex> renderPoints;
 	std::vector<RenderVertex> renderVertices;
 	
 
