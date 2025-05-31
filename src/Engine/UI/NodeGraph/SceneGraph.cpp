@@ -1,7 +1,7 @@
 #include "SceneGraph.h"
 
 #include <iostream>
-
+#include <algorithm>
 
 void SceneGraph::addNode(NodeItem nodeItem)
 {
@@ -123,9 +123,10 @@ void SceneGraph::deleteSelectedNode() {
 		}
 	}
 	nodeSelected->deleteNode();
-	nodeItems.erase(
-		std::remove(nodeItems.begin(), nodeItems.end(), nodeSelected), nodeItems.end()
-	);
+	auto it = std::find(nodeItems.begin(), nodeItems.end(), nodeSelected);
+if (it != nodeItems.end()) {
+    nodeItems.erase(it);
+}
 	scene.deleteNode(nodeSelected->getNode()->getName().c_str());
 	renderNode = nullptr;
 	nodeSelected = nullptr;

@@ -50,7 +50,7 @@ void EuclideRenderer::createGrid() {
 
 	Mesh gridMesh = Grid::createGrid(rows, cols, sizeX, sizeZ);
 	for (auto& point : gridMesh.points) {
-		point.color = { .5f, .5f, .5f };
+		point.attribs["Color"] = std::make_unique<Float3Attrib>(glm::vec3(.5f, .5f, .5f));
 	}
 
 	grid.updateMesh(gridMesh);

@@ -16,7 +16,7 @@ void EuclideModel::drawFaces() const
 	glDrawArrays(
 		GL_TRIANGLES,
 		0,
-		mesh.hardNormalPoints.size()
+		mesh.renderVertices.size()
 	);
 
 	glBindVertexArray(0);
@@ -24,13 +24,12 @@ void EuclideModel::drawFaces() const
 
 void EuclideModel::drawWireframe() const
 {
-	glBindVertexArray(vaoWireframe);
+	glBindVertexArray(vaoFaces);
 
-	glDrawElements(
-		GL_LINES,
-		mesh.wireframeIndices.size(),
-		GL_UNSIGNED_INT,
-		(void*)0
+	glDrawArrays(
+		GL_POINT,
+		0,
+		mesh.renderVertices.size()
 	);
 
 	glBindVertexArray(0);
@@ -59,13 +58,13 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload vertex data
 	glBindBuffer(GL_ARRAY_BUFFER, VBOVertices);
-	glBufferData(GL_ARRAY_BUFFER, mesh.hardNormalPoints.size() * sizeof(Point), mesh.hardNormalPoints.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.renderVertices.size() * sizeof(RenderVertex), mesh.renderVertices.data(), GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, position));
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, color));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, color));
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, normal));
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, normal));
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
@@ -80,11 +79,11 @@ void EuclideModel::initBuffers()
 
 	// Bind and upload index data
 	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
-	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(Point), mesh.points.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(RenderVertex), mesh.points.data(), GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, position));
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, color));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(RenderVertex), (void*)offsetof(RenderVertex, color));
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);
@@ -92,19 +91,6 @@ void EuclideModel::initBuffers()
 
 	// Unbind the VAO, VBOVertices, AND INDEX BUFFER
 	glBindVertexArray(0);
-
-	/* ------------ VAO POINTS -------------- */
-	glGenVertexArrays(1, &vaoPoints);
-	glBindVertexArray(vaoPoints);
-	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
-
-	// Bind and upload index data
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Point), (void*)offsetof(Point, position));
-	glEnableVertexAttribArray(0);
-
-	// Unbind the VAO, VBOVertices, AND INDEX BUFFER
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void EuclideModel::update() {
@@ -114,11 +100,7 @@ void EuclideModel::update() {
 void EuclideModel::updateBuffers() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBOVertices);
-	glBufferData(GL_ARRAY_BUFFER, mesh.hardNormalPoints.size() * sizeof(Point), mesh.hardNormalPoints.data(), GL_DYNAMIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBOPoints);
-	glBufferData(GL_ARRAY_BUFFER, mesh.points.size() * sizeof(Point), mesh.points.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, mesh.renderVertices.size() * sizeof(RenderVertex), mesh.renderVertices.data(), GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wireframeIndicesBuffer);

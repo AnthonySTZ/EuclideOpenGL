@@ -44,7 +44,7 @@ private:
 	bool shouldFocusSearchBar = true;
 
 	/* FPS */
-	std::chrono::steady_clock::time_point lastTime = clock::now();
+	std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
 	float fpsIntervalInSeconds = 0.5f;
 	int frameCount = 0;
 	float elapsedTime = 0.0f;

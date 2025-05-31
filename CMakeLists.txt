@@ -40,7 +40,7 @@ add_custom_command(
 # IMPORT GLFW
 if(DEFINED ENV{GLFW})
     target_include_directories(Euclide PRIVATE $ENV{GLFW}/include)
-    target_link_directories(Euclide PRIVATE $ENV{GLFW}/lib-vc2022)
+    target_link_directories(Euclide PRIVATE $ENV{GLFW}/lib-mingw-w64)
     target_link_libraries(Euclide PRIVATE glfw3.lib)
     message(STATUS "Using GLFW include directory: $ENV{GLFW}/include")
 else()

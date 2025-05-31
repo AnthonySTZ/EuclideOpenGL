@@ -153,11 +153,13 @@ void Mesh::updateMesh(const Mesh::Builder& builder)
     update();
 }
 
-void Mesh::updateHardNormalPoints()
+void Mesh::updateHardNormalRenderVertices()
 {
 
-    hardNormalPoints.clear();
-    hardNormalPoints.reserve(vertices.size());
+    renderVertices.clear();
+    renderVertices.reserve(vertices.size());
+    Float3Attrib defaultColor{ {.9f, .9f, .9f} };
+
     for (auto& prim : primitives) {
 
         size_t numVertex = prim.vertexIds.size();
@@ -170,7 +172,7 @@ void Mesh::updateHardNormalPoints()
         uint32_t w = vertices[prim.vertexIds[2]].pointId;
         glm::vec3 edge1 = points[v].position - points[u].position;
         glm::vec3 edge2 = points[w].position - points[u].position;
-        glm::vec3 normal = glm::cross(edge1, edge2);
+        Float3Attrib normal { glm::cross(edge1, edge2) };
 
         for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
 
@@ -178,23 +180,26 @@ void Mesh::updateHardNormalPoints()
             v = vertices[prim.vertexIds[vertexIndex]].pointId;
             w = vertices[prim.vertexIds[vertexIndex + 1]].pointId;
 
-            Point pu = points[u];
-            pu.normal = normal;
-            pu.color = {.9f, .9f, .9f};
-            Point pv = points[v];
-            pv.normal = normal;
-            pv.color = { .9f, .9f, .9f };
-            Point pw = points[w];
-            pw.normal = normal;
-            pw.color = { .9f, .9f, .9f };
+            RenderVertex pu = pointToRenderVertex(points[u], defaultColor, normal);
+            RenderVertex pv = pointToRenderVertex(points[v], defaultColor, normal);
+            RenderVertex pw = pointToRenderVertex(points[w], defaultColor, normal);
 
-            hardNormalPoints.push_back(pu);
-            hardNormalPoints.push_back(pv);
-            hardNormalPoints.push_back(pw);
+            renderVertices.push_back(pu);
+            renderVertices.push_back(pv);
+            renderVertices.push_back(pw);
 
         }
 
     }
 
 
+}
+
+RenderVertex Mesh::pointToRenderVertex(Point& point, Float3Attrib& defaultColor, Float3Attrib& defaultNormal){
+    RenderVertex vertex;
+    vertex.position = point.position;
+    vertex.color = point.getAttrib<Float3Attrib>(std::string("Color"), &defaultColor)->getValue();
+    vertex.normal = point.getAttrib<Float3Attrib>(std::string("Normal"), &defaultNormal)->getValue();
+
+    return vertex;
 }

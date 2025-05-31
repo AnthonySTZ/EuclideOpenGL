@@ -32,12 +32,11 @@ Mesh Grid::createGrid(int rows, int cols, float sizeX, float sizeZ, glm::vec3 tr
 			float x = col * colSpacing - colsOffset;
 			float z = row * rowSpacing - rowsOffset;
 			
-			glm::vec3 position = { x, 0.0, z };
-			position += translate;
-			glm::vec3 normal = { 0.0f, 1.0f, 0.0f };
-			glm::vec3 color = { 0.0, 0.0, 0.0 };
+			Point point{pointId, { x, 0.0, z }};
+			point.position += translate;
+			point.attribs["Normal"] = std::make_unique<Float3Attrib>(glm::vec3(0.0f, 1.0f, 0.0f));
 
-			gridBuilder.points.push_back({ pointId, position, color, normal });
+			gridBuilder.points.push_back(point);
 			pointId++;
 		}
 	}

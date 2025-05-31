@@ -411,7 +411,7 @@ void EuclideInterface::renderUI() {
 
 void EuclideInterface::calcFps()
 {
-	auto currentTime = clock::now();
+	auto currentTime = std::chrono::steady_clock::now();
 	std::chrono::duration<float> delta = currentTime - lastTime;
 	lastTime = currentTime;
 
