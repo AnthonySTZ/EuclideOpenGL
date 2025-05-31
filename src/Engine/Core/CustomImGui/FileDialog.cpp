@@ -9,7 +9,12 @@ std::string FileDialog::openDialog(std::string name, std::string label, std::str
         type : type a choosing files, separated by comma : e.g ".cpp,.txt,.h"
         path : starting path folder    
     */
-
-
+    if (ImGui::BeginPopup("BrowseFile")) {
+        ImGui::Text("Hello from the popup!");
+        if (ImGui::Button("Close"))
+            ImGui::CloseCurrentPopup();
+        ImGui::EndPopup();
+    }
+    
     return std::string();
 }

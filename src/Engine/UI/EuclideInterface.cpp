@@ -8,6 +8,7 @@
 
 #include "../Core/Utils.h"
 #include "../Core/CustomImGui/ImGuiUtils.h"
+#include "../Core/CustomImGui/FileDialog.h"
 
 EuclideInterface::EuclideInterface(GLFWwindow* window) {
 
@@ -74,6 +75,14 @@ void EuclideInterface::createUI()
 	createViewport();
 
 	createNodeGraph();
+
+	ImGui::Begin("Tmp");
+	if (ImGui::Button("OpenFileDialog")) {
+    	ImGui::OpenPopup("BrowseFile");
+	}
+	FileDialog::openDialog("BrowseFile", "Open File", "", ".");
+	ImGui::End();
+
 
 	ImGui::PopFont();
 	
