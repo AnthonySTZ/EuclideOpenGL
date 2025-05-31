@@ -111,7 +111,11 @@ void EuclideInterface::beginTab(const char* name, ImVec2 padding, ImU32 bgCol) {
 	ImVec2 textPadding{10.0f, 4.5f};
 	draw_list->AddText(windowPos + textPadding, IM_COL32(230, 230, 230, 255), name);
 
-	ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
+
+	ImVec2 newCursorPos = ImVec2(0.0, titleRectSize.y) + padding;
+	ImGui::GetWindowDrawList()->PushClipRect(windowPos + newCursorPos, windowPos + windowSize);
+
+	ImGui::SetCursorPos(newCursorPos);
 }
 
 void EuclideInterface::createViewport() {
@@ -204,6 +208,8 @@ void EuclideInterface::createViewport() {
 		}
 	}
 
+	ImGui::GetWindowDrawList()->PopClipRect();
+
 	ImGui::End();
 }
 
@@ -241,6 +247,8 @@ void EuclideInterface::createNodeGraph()
 		updateRenderNode();
 
 	}
+
+	ImGui::GetWindowDrawList()->PopClipRect();
 
 	ImGui::End();
 	
@@ -382,6 +390,8 @@ void EuclideInterface::drawParametersTab() {
 
 		ImGui::PopStyleColor(6);
 		ImGui::PopStyleVar(1);
+
+		ImGui::GetWindowDrawList()->PopClipRect();
 
 		ImGui::End();
 
