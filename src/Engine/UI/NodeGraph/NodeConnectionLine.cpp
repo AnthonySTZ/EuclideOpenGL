@@ -37,7 +37,7 @@ bool NodeConnectionLine::ccw(ImVec2 A, ImVec2 B, ImVec2 C) {
 }
 
 bool NodeConnectionLine::intersect(ImVec2 A, ImVec2 B, ImVec2 C, ImVec2 D) {
-	return ccw(A, C, D) != ccw(B, C, D) and ccw(A, B, C) != ccw(A, B, D);
+	return ccw(A, C, D) != ccw(B, C, D) && ccw(A, B, C) != ccw(A, B, D);
 }
 
 bool NodeConnectionLine::intersectWithLine(ImVec2 lineStart, ImVec2 lineEnd)

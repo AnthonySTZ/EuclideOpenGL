@@ -429,3 +429,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 benchmarks.md
+
+build
