@@ -39,7 +39,7 @@ private:
 	bool viewportResized=false;
 	int viewportWidth = 1200;
 	int viewportHeight = 800;
-	char searchText[99];
+	std::string searchText;
 	std::vector<NodeMenuItem> searchedItems;
 	bool shouldFocusSearchBar = true;
 

@@ -249,8 +249,7 @@ void EuclideInterface::getSearchItems() {
 	searchedItems.clear();
 
 	if (searchText[0] != '\0') {
-		std::string search = std::string(searchText);
-		std::transform(search.begin(), search.end(), search.begin(),
+		std::transform(searchText.begin(), searchText.end(), searchText.begin(),
 			[](unsigned char c) { return std::tolower(c); });
 		auto& menuItems = NodesInfo::getMenuItems();
 
@@ -261,7 +260,7 @@ void EuclideInterface::getSearchItems() {
 				std::transform(itemName.begin(), itemName.end(), itemName.begin(),
 					[](unsigned char c) { return std::tolower(c); });
 
-				if (itemName.find(search) != std::string::npos) {
+				if (itemName.find(searchText) != std::string::npos) {
 					searchedItems.push_back(item);
 				}
 			}
@@ -277,7 +276,7 @@ void EuclideInterface::drawSearchBar() {
 		ImGui::SetKeyboardFocusHere();
 		shouldFocusSearchBar = false;
 	}
-	if (ImGui::InputTextWithHint("##searchBar", "Search", searchText, IM_ARRAYSIZE(searchText))) {
+	if (ImGui::InputTextWithHint("##searchBar", "Search", (char*)searchText.c_str(), searchText.capacity() + 1, ImGuiInputTextFlags_CallbackResize, StringImGuiCallBack, (void*)&searchText)) {
 		getSearchItems();
 	}
 	ImGui::PopStyleColor();
@@ -342,7 +341,7 @@ void EuclideInterface::createNodesMenu() {
 		ImGui::EndPopup();
 	}
 	else {
-		memset(searchText, 0, sizeof(searchText));
+		searchText.clear();
 		searchedItems.clear();
 		shouldFocusSearchBar = true;
 	}
