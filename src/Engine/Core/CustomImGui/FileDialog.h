@@ -15,6 +15,8 @@ struct FileItem {
 	std::string extension;
 	std::string fileSize;
 	std::string fullPath;
+	std::string createdAt;
+	std::string modifiedAt;
 };
 
 class FileDialog {
@@ -35,4 +37,6 @@ private:
 	std::string path;
 
 	std::vector<FileItem> files;
+
+	float rowHeight = 30.0f;
 };

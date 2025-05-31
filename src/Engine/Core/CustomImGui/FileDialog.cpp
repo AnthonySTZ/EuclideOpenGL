@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include <windows.h>
 
+
 std::vector<std::string> getSystemDrives() {
     std::vector<std::string> drives;
     char szDrives[256] = {0};
@@ -18,6 +19,16 @@ std::vector<std::string> getSystemDrives() {
     }
 
     return drives;
+}
+
+std::string formatTime(time_t t) {
+    std::ostringstream oss;
+    std::tm* tm = std::localtime(&t); // Or std::gmtime(&t) for UTC
+    if (tm)
+        oss << std::put_time(tm, "%Y-%m-%d %H:%M:%S");
+    else
+        oss << "Invalid Time";
+    return oss.str();
 }
 
 FileDialog::FileDialog(std::string label, std::string type, std::string path)
@@ -64,6 +75,8 @@ void FileDialog::updateFiles(){
         } else {
             fi.type = File;
             fi.fileSize = std::to_string(fileInfo.st_size);
+            fi.createdAt = formatTime(fileInfo.st_ctime);
+            fi.modifiedAt = formatTime(fileInfo.st_mtime);
         }
 
         files.push_back(fi);
@@ -141,15 +154,22 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
 
 void FileDialog::drawFilesTable(){
 
-    if (ImGui::BeginTable("MyTable", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+    
+
+    if (ImGui::BeginTable("MyTable", 5, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
         ImGui::TableSetupColumn("Name");
         ImGui::TableSetupColumn("Type");
         ImGui::TableSetupColumn("Size");
+        ImGui::TableSetupColumn("Modified");
+        ImGui::TableSetupColumn("Created");
         ImGui::TableHeadersRow();
         int row = 0;
 
+        float textHeight = ImGui::CalcTextSize("").y;
+        float offsetY = (rowHeight - textHeight) * 0.5f;
+
         for (auto& file: files) {
-            ImGui::TableNextRow();
+            ImGui::TableNextRow(ImGuiTableRowFlags_None, rowHeight);
             ImGui::TableSetColumnIndex(0);
 
             if (isRowHovered()){
@@ -175,6 +195,9 @@ void FileDialog::drawFilesTable(){
                 ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 0, 0, 0));
             }
 
+            ImVec2 cursorPos = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPos.y + offsetY);
+
             ImGui::TableSetColumnIndex(0);
             ImGui::Text(file.name.c_str());
 
@@ -183,6 +206,12 @@ void FileDialog::drawFilesTable(){
 
             ImGui::TableSetColumnIndex(2);
             ImGui::Text(file.fileSize.c_str());
+
+            ImGui::TableSetColumnIndex(3);
+            ImGui::Text(file.modifiedAt.c_str());
+
+            ImGui::TableSetColumnIndex(4);
+            ImGui::Text(file.createdAt.c_str());
 
             row++;
         }
@@ -222,7 +251,6 @@ bool FileDialog::isRowHovered() {
 
     ImVec2 topLeftCorner = ImGui::GetCursorScreenPos();
     ImVec2 topRightCorner = topLeftCorner + ImVec2(ImGui::GetWindowContentRegionMax().x, 0.0f);
-    float rowHeight = ImGui::GetTextLineHeight();
     ImVec2 bottomLeftCorner = topLeftCorner + ImVec2(0.0f, rowHeight);
 
     ImGuiIO& io = ImGui::GetIO();
