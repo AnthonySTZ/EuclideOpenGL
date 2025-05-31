@@ -4,6 +4,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <string>
+#include <iostream>
 
 inline ImVec2 operator+(const ImVec2& lvec, const ImVec2& rvec) {
 	return ImVec2(lvec.x + rvec.x, lvec.y + rvec.y);
@@ -37,4 +38,8 @@ static int StringImGuiCallBack(ImGuiInputTextCallbackData* data) {
 		data->Buf = (char*)str->c_str();
 	}
 	return 0;
+}
+
+static void printImVec2(const char* name, ImVec2& vec){
+	std::cout << name << " | X: " << vec.x << " | Y: " << vec.y << "\n";
 }
