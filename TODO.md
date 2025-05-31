@@ -9,7 +9,9 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
-	- Subdivide
+	- Import Obj
+	- Duplicate
+	- Scatter
 	- More Primitives (Sphere, ...)
 	- Lights
 	- Cache mesh
