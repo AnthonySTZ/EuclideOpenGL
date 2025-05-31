@@ -88,7 +88,7 @@ std::string FileDialog::drawDialog()
     if (ImGui::BeginPopup("BrowseFile")) {
         
         drawTopBar(label, padding, bgCol);
-        drawFileTable();
+        drawFilesTable();
         ImGui::EndPopup();
     }
 
@@ -131,7 +131,7 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
     ImGui::SetCursorPos(ImVec2(0.0, titleRectSize.y) + padding);
 }
 
-void FileDialog::drawFileTable(){
+void FileDialog::drawFilesTable(){
 
     if (ImGui::BeginTable("MyTable", 3, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
         ImGui::TableSetupColumn("Name");
@@ -139,8 +139,16 @@ void FileDialog::drawFileTable(){
         ImGui::TableSetupColumn("Size");
         ImGui::TableHeadersRow();    
 
+        int row = 0;
         for (auto& file: files) {
             ImGui::TableNextRow();
+            ImGui::TableSetColumnIndex(0);
+
+            if (isRowHovered()){
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 50, 100, 100));
+            } else {
+                ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 0, 0, 0));
+            }
 
             ImGui::TableSetColumnIndex(0);
             ImGui::Text(file.name.c_str());
@@ -150,12 +158,31 @@ void FileDialog::drawFileTable(){
 
             ImGui::TableSetColumnIndex(2);
             ImGui::Text(file.fileSize.c_str());
+
+            row++;
         }
 
         ImGui::EndTable();
 
     }
 
+}
+
+bool FileDialog::isRowHovered() {
+
+    ImVec2 topLeftCorner = ImGui::GetCursorScreenPos();
+    ImVec2 topRightCorner = topLeftCorner + ImVec2(ImGui::GetWindowContentRegionMax().x, 0.0f);
+    float rowHeight = ImGui::GetTextLineHeight();
+    ImVec2 bottomLeftCorner = topLeftCorner + ImVec2(0.0f, rowHeight);
+
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (io.MousePos.x > topLeftCorner.x &&  io.MousePos.x < topRightCorner.x &&
+        io.MousePos.y > topLeftCorner.y && io.MousePos.y < bottomLeftCorner.y) 
+    {
+        return true;
+    }
+    return false;
 }
 
 void FileDialog::drawCross(ImVec2 position, float length, ImU32 color, float thickness){

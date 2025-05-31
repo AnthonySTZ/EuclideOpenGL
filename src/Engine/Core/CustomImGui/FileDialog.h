@@ -23,7 +23,8 @@ public:
     std::string drawDialog();
 
     void drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol);
-    void drawFileTable();
+    void drawFilesTable();
+    bool isRowHovered();
     void drawCross(ImVec2 position, float length, ImU32 color, float thickness);
 
 private:
