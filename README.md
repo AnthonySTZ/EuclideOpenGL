@@ -19,6 +19,8 @@ Current working nodes: (I will add more over time)<br/>
 - **Merge**<br/>
 - **Subdivide**<br/>
 - **CopyToPoints**<br/>
+- **SmoothNormals**<br/>
+- **HardenNormals**<br/>
 - **BoundingBox**<br/>
 - **Null**<br/>
 
