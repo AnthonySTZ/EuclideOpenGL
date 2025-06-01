@@ -6,6 +6,7 @@
 #include <windows.h>
 
 #include <algorithm>
+#include <cmath>
 
 
 std::vector<std::string> getSystemDrives() {
@@ -31,6 +32,44 @@ std::string formatTime(time_t t) {
     else
         oss << "Invalid Time";
     return oss.str();
+}
+
+double round(double num, int decimals){
+    double power = pow(10, decimals);
+    return std::round(num * power) / power;
+}
+
+std::string convertDoubleToString(double num, int precision){
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(precision) << num;
+    std::string s = out.str();
+
+    if (precision > 0) {
+        s.erase(s.find_last_not_of('0') + 1, std::string::npos);
+        if (s.back() == '.') {
+            s.pop_back();
+        }
+    }
+
+    return s;
+}
+
+std::string bytesReformat(int bytes){
+
+    std::string output = "";
+    if (!bytes) return output;
+
+    size_t orderMax = 4;
+    const char* orderNames[orderMax] = {"B", "KB", "MB", "GB"};
+    output = std::to_string(bytes);
+    int order = std::min(((int)output.length() - 1) / 3, (int)orderMax-1);
+    
+    float formatBytes = (float)bytes / pow(10, order * 3);
+    int decimals = 2;
+    double rounded = round(formatBytes, decimals);
+
+    return convertDoubleToString(rounded, decimals) + " " + orderNames[order];
+
 }
 
 FileDialog::FileDialog(std::string label, std::set<std::string> extensions, std::string path)
@@ -86,7 +125,7 @@ void FileDialog::updateFiles(){
         fi.name = entry.path().filename().string();
         fi.extension = extension;
         fi.fullPath = entry.path().string();
-        fi.fileSize = std::to_string(fileInfo.st_size);
+        fi.fileSize = bytesReformat(fileInfo.st_size);
         fi.createdAt = formatTime(fileInfo.st_ctime);
         fi.modifiedAt = formatTime(fileInfo.st_mtime);    
 
@@ -94,7 +133,16 @@ void FileDialog::updateFiles(){
     }
 
 
+    bytesReformat(1);
+    bytesReformat(100);
+    bytesReformat(1000);
+    bytesReformat(10000);
+    bytesReformat(100000);
+    bytesReformat(1000000);
+
 }
+
+
 
 std::string FileDialog::drawDialog()
 {

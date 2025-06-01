@@ -1,5 +1,5 @@
 Interface :
-	- Upgrade UI
+	- FileDialog rework UI
 
 NodeGraph:
 	- Rename nodes
@@ -9,9 +9,9 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
-	- Import Obj
 	- Duplicate
 	- Scatter
+	- optimize transform
 	- More Primitives (Sphere, ...)
 	- Lights
 	- Cache mesh
