@@ -256,11 +256,13 @@ void FileDialog::drawFilesTable(){
         int row = 0;
 
         float textHeight = ImGui::CalcTextSize("").y;
-        float offsetY = (rowHeight - textHeight) * 0.5f;
+        float textOffsetY = (rowHeight - textHeight) * 0.5f;
 
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec2 oldCellPadding = style.CellPadding;
         style.CellPadding = ImVec2(3.0f, 0);
+
+        ImVec2 cursorPosText = ImGui::GetCursorPos();
 
         for (auto& file: files) {
             ImGui::TableNextRow(ImGuiTableRowFlags_None, rowHeight);
@@ -303,23 +305,28 @@ void FileDialog::drawFilesTable(){
             }
 
             ImGui::TableSetColumnIndex(1);
-            ImGui::AlignTextToFramePadding();
+            cursorPosText = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPosText.y + textOffsetY);
             ImGui::Text(file.name.c_str());
 
             ImGui::TableSetColumnIndex(2);
-            ImGui::AlignTextToFramePadding();
+            cursorPosText = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPosText.y + textOffsetY);
             ImGui::Text(file.extension.c_str());
 
             ImGui::TableSetColumnIndex(3);
-            ImGui::AlignTextToFramePadding();
+            cursorPosText = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPosText.y + textOffsetY);
             ImGui::Text(file.fileSize.c_str());
 
             ImGui::TableSetColumnIndex(4);
-            ImGui::AlignTextToFramePadding();
+            cursorPosText = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPosText.y + textOffsetY);
             ImGui::Text(file.modifiedAt.c_str());
 
             ImGui::TableSetColumnIndex(5);
-            ImGui::AlignTextToFramePadding();
+            cursorPosText = ImGui::GetCursorPos();
+            ImGui::SetCursorPosY(cursorPosText.y + textOffsetY);
             ImGui::Text(file.createdAt.c_str());
 
             row++;
