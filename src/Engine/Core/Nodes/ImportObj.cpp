@@ -1,6 +1,10 @@
 #include "ImportObj.h"
 
+#include <filesystem>
+
 #include "../Utils.h"
+
+
 
 Mesh ImportObj::processOutput(uint32_t index)
 {
@@ -67,7 +71,8 @@ std::vector<uint32_t> getPointIdsFromFaceString(std::string string){
 Mesh ImportObj::readObj(std::string filename)
 {
     if (!doesFileExists(filename)) return Mesh();
-
+    std::filesystem::path filePath(filename);
+    if (filePath.extension().string() != ".obj") return Mesh();
 
     Mesh::Builder builder;
     std::ifstream file = getFile(filename);

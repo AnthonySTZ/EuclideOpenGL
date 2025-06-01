@@ -9,12 +9,12 @@ NodeGraph:
 	- Big refactor Betwenn Core Node and UI, Core Node should be abstract from UI Node
 
 Nodes:
+	- Cache mesh and reload only necessary nodes
 	- Duplicate
 	- Scatter
 	- optimize transform
 	- More Primitives (Sphere, ...)
 	- Lights
-	- Cache mesh
 
 Viewport:
 	- RayTracing/PBR
