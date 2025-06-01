@@ -153,7 +153,8 @@ void Mesh::updateRenderVertices()
         uint32_t w = vertices[prim.vertexIds[2]].pointId;
         glm::vec3 edge1 = points[v].position - points[u].position;
         glm::vec3 edge2 = points[w].position - points[u].position;
-        Float3Attrib normal { glm::cross(edge1, edge2) };
+        glm::vec3 normal = glm::cross(edge1, edge2);
+        Float3Attrib normalField { normal };
 
         for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
 
@@ -161,14 +162,18 @@ void Mesh::updateRenderVertices()
             v = vertices[prim.vertexIds[vertexIndex]].pointId;
             w = vertices[prim.vertexIds[vertexIndex + 1]].pointId;
 
-            RenderVertex pu = pointToRenderVertex(points[u], defaultColor, normal);
-            RenderVertex pv = pointToRenderVertex(points[v], defaultColor, normal);
-            RenderVertex pw = pointToRenderVertex(points[w], defaultColor, normal);
+            RenderVertex pu = pointToRenderVertex(points[u], defaultColor, normalField);            
+            RenderVertex pv = pointToRenderVertex(points[v], defaultColor, normalField);
+            RenderVertex pw = pointToRenderVertex(points[w], defaultColor, normalField);
 
             renderVertices.push_back(pu);
             renderVertices.push_back(pv);
             renderVertices.push_back(pw);
 
+        }
+
+        for (auto& vertexId: prim.vertexIds){
+            vertices[vertexId].normal = normal;
         }
 
     }

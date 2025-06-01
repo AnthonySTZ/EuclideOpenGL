@@ -107,12 +107,22 @@ struct Point {
 
     Point(Point&&) noexcept = default;
     Point& operator=(Point&&) noexcept = default;
+
+
+	std::vector<uint32_t> getNeighboursIds(){
+		std::vector<uint32_t> ids;
+		for (auto& [u, v]: edges){
+			ids.push_back(u == id ? v : u);
+		}
+		return ids;
+	}
 };
 
 struct Vertex {
 	uint32_t id;
 	uint32_t pointId;
 	uint32_t primitiveId;
+	glm::vec3 normal{0.0f};
 };
 
 struct Edge {

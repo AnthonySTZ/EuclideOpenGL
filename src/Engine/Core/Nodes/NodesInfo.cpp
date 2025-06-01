@@ -6,6 +6,7 @@
 #include "Cylinder.h"
 #include "Transform.h"
 #include "Subdivide.h"
+#include "SmoothNormals.h"
 #include "Merge.h"
 #include "CopyToPoints.h"
 #include "BoundingBox.h"
@@ -30,6 +31,7 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
             {"Transform", []() { return std::make_shared<Transform>(); }},
             {"Subdivide", []() { return std::make_shared<Subdivide>(); }},
             {"Merge", []() { return std::make_shared<Merge>(); }},
+            {"SmoothNormals", []() { return std::make_shared<SmoothNormals>(); }},
             {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }}
         }
     },
