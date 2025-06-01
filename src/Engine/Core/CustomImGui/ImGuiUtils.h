@@ -47,9 +47,11 @@ static void printImVec2(const char* name, ImVec2& vec){
 	std::cout << name << " | X: " << vec.x << " | Y: " << vec.y << "\n";
 }
 
-static GLuint loadTextureFromFile(const char* filename, int* out_width, int* out_height) {
+static GLuint loadTextureFromFile(const char* filename) {
     int channels;
-    unsigned char* data = stbi_load(filename, out_width, out_height, &channels, 4); // force RGBA
+	int out_width;
+	int out_height;
+    unsigned char* data = stbi_load(filename, &out_width, &out_height, &channels, 4); // force RGBA
     if (data == NULL)
         return 0;
 
@@ -57,10 +59,10 @@ static GLuint loadTextureFromFile(const char* filename, int* out_width, int* out
     glGenTextures(1, &texture_id);
     glBindTexture(GL_TEXTURE_2D, texture_id);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // good for icons
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, *out_width, *out_height, 0,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, out_width, out_height, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE, data);
 
     stbi_image_free(data);

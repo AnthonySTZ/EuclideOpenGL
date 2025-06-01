@@ -56,8 +56,13 @@ private:
 
 	std::vector<FileItem> files;
 
-	float rowHeight = 30.0f;
+	float rowHeight = 40.0f;
 	ImVec2 lastMousePos;
 	bool isDragging = false;
 	bool isClosed = false;
+
+	/* ICONS */
+	ImVec2 iconSize = ImVec2(rowHeight, rowHeight);
+	GLuint folderIcon = loadTextureFromFile("assets/icons/folder.png");
+	GLuint objIcon = loadTextureFromFile("assets/icons/cube.png");
 };

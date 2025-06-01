@@ -245,7 +245,8 @@ void FileDialog::drawTopBar(std::string &label, ImVec2 &padding, ImU32 &bgCol)
 
 void FileDialog::drawFilesTable(){
 
-    if (ImGui::BeginTable("MyTable", 5, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+    if (ImGui::BeginTable("MyTable", 6, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+        ImGui::TableSetupColumn(""); // Icon
         ImGui::TableSetupColumn("Name");
         ImGui::TableSetupColumn("Type");
         ImGui::TableSetupColumn("Size");
@@ -256,6 +257,10 @@ void FileDialog::drawFilesTable(){
 
         float textHeight = ImGui::CalcTextSize("").y;
         float offsetY = (rowHeight - textHeight) * 0.5f;
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImVec2 oldCellPadding = style.CellPadding;
+        style.CellPadding = ImVec2(3.0f, 0);
 
         for (auto& file: files) {
             ImGui::TableNextRow(ImGuiTableRowFlags_None, rowHeight);
@@ -290,22 +295,31 @@ void FileDialog::drawFilesTable(){
                 ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, IM_COL32(0, 0, 0, 0));
             }
 
-            ImVec2 cursorPos = ImGui::GetCursorPos();
-            ImGui::SetCursorPosY(cursorPos.y + offsetY);
-
             ImGui::TableSetColumnIndex(0);
-            ImGui::Text(file.name.c_str());
+            if (file.type == Directory) {
+                ImGui::Image((ImTextureID)(intptr_t)folderIcon, iconSize);            
+            } else if (file.extension == ".obj"){
+                ImGui::Image((ImTextureID)(intptr_t)objIcon, iconSize);
+            }
 
             ImGui::TableSetColumnIndex(1);
-            ImGui::Text(file.extension.c_str());
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text(file.name.c_str());
 
             ImGui::TableSetColumnIndex(2);
-            ImGui::Text(file.fileSize.c_str());
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text(file.extension.c_str());
 
             ImGui::TableSetColumnIndex(3);
-            ImGui::Text(file.modifiedAt.c_str());
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text(file.fileSize.c_str());
 
             ImGui::TableSetColumnIndex(4);
+            ImGui::AlignTextToFramePadding();
+            ImGui::Text(file.modifiedAt.c_str());
+
+            ImGui::TableSetColumnIndex(5);
+            ImGui::AlignTextToFramePadding();
             ImGui::Text(file.createdAt.c_str());
 
             row++;
