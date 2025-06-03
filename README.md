@@ -11,18 +11,28 @@ You can cut node connections by holding the 'Y' key and draging on the connectio
 You can delete nodes by selecting it and press 'Delete'.<br/>
 
 Current working nodes: (I will add more over time)<br/>
-- **Cube**<br/>
-- **Grid**<br/>
-- **Cylinder**<br/>
-- **ImportObj**<br/>
-- **Transform**<br/>
-- **Merge**<br/>
-- **Subdivide**<br/>
-- **CopyToPoints**<br/>
-- **SmoothNormals**<br/>
-- **HardenNormals**<br/>
-- **BoundingBox**<br/>
-- **Null**<br/>
+- **Primitive:**<br/>
+    - **Cube**<br/>
+    - **Grid**<br/>
+    - **Cylinder**<br/>
+    - **Line**<br/>
+
+- **Import:**<br/>
+    - **ImportObj**<br/>
+
+- **Geometry:**<br/>
+    - **Transform**<br/>
+    - **Merge**<br/>
+    - **Subdivide**<br/>
+    - **SmoothNormals**<br/>
+    - **HardenNormals**<br/>
+    - **BoundingBox**<br/>
+
+- **Copying:**<br/>
+    - **CopyToPoints**<br/>
+
+- **Utility:**<br/>
+    - **Null**<br/>
 
 ## Viewport
 
