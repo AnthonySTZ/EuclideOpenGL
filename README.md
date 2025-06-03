@@ -16,6 +16,7 @@ Current working nodes: (I will add more over time)<br/>
     - **Grid**<br/>
     - **Cylinder**<br/>
     - **Line**<br/>
+    - **Circle**<br/>
 
 - **Import:**<br/>
     - **ImportObj**<br/>
