@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "Grid.h"
 #include "Cylinder.h"
+#include "Line.h"
 #include "Transform.h"
 #include "Subdivide.h"
 #include "SmoothNormals.h"
@@ -24,7 +25,8 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
         {
             {"Cube", []() { return std::make_shared<Cube>(); }}, 
             {"Grid", []() { return std::make_shared<Grid>(); }},
-            {"Cylinder", []() { return std::make_shared<Cylinder>(); }}
+            {"Cylinder", []() { return std::make_shared<Cylinder>(); }},
+            {"Line", []() { return std::make_shared<Line>(); }}
         }
     },
     {"Geometry",
