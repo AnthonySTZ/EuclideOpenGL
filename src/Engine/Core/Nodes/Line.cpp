@@ -26,9 +26,13 @@ Mesh Line::createLine(glm::vec3 axis, int divisions, float length)
 	glm::vec3 nDir = glm::normalize(axis);
 	float stepSize = length / (float)(divisions - 1);
 
-	for(uint32_t i=0; i<divisions; i++){
+	for(uint32_t i=0; i<divisions; i++){ // Create points
 		Point point {i, nDir * (stepSize * static_cast<float>(i))};
 		builder.points.push_back(point);
+	}
+
+	for(uint32_t i=0; i<divisions-1; i++){ // Create faces
+		builder.faces.emplace_back(Face{ {i, i+1} });
 	}
 
 
