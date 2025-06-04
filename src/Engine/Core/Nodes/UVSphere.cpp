@@ -1,21 +1,21 @@
-#include "Sphere.h"
+#include "UVSphere.h"
 
 #include "../Utils.h"
 
 #include <glm/gtc/constants.hpp>
 
-Mesh Sphere::processOutput(uint32_t index)
+Mesh UVSphere::processOutput(uint32_t index)
 {
 	Timer timer{ nodeName.c_str() };
 
 	int rows = getParam<IntField>("Rows")->getValue();
 	int columns = getParam<IntField>("Columns")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
-	
+
 	return createUVSphere(rows, columns, radius);
 }
 
-Mesh Sphere::createUVSphere(int rows, int columns, float radius)
+Mesh UVSphere::createUVSphere(int rows, int columns, float radius)
 {
 
     if (columns < 3) return Mesh();

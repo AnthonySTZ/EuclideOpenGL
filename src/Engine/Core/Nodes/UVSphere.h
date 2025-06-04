@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Node.h"
+#include "Fields/ComboField.h"
 #include "Fields/IntField.h"
 #include "Fields/FloatField.h"
 
-class Sphere : public Node {
+class UVSphere : public Node {
 
 public:
-	Sphere() : Node("Sphere") {
+	UVSphere() : Node("UVSphere") {
 		inputsNb = 0;
 		outputsNb = 1;
 
