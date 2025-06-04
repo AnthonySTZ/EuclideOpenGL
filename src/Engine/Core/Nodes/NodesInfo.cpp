@@ -16,6 +16,7 @@
 #include "Merge.h"
 #include "CopyToPoints.h"
 #include "BoundingBox.h"
+#include "VisualizeNormals.h"
 #include "Null.h"
 
 
@@ -54,7 +55,8 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
     },
     {"Utility",
         {
-            {"Null", []() { return std::make_shared<Null>(); }}
+            {"Null", []() { return std::make_shared<Null>(); }},
+            {"VisualizeNormals", []() { return std::make_shared<VisualizeNormals>(); }}
         }
     }
 };

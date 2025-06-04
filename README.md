@@ -36,6 +36,7 @@ Current working nodes: (I will add more over time)<br/>
     - **Duplicate**<br/>
 
 - **Utility:**<br/>
+    - **VisualizeNormals**<br/>
     - **Null**<br/>
 
 ## Viewport

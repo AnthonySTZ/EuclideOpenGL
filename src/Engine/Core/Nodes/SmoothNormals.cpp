@@ -28,7 +28,7 @@ Mesh SmoothNormals::smoothNormals(Mesh mesh)
         }
 
         normal /= nVertex;
-        point.attribs["Normal"] = std::make_unique<Float3Attrib>(normal);
+        point.attribs["Normal"] = std::make_unique<Float3Attrib>(glm::normalize(normal));
     }
 
     mesh.updateRenderVertices();
