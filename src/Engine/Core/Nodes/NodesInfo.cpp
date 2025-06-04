@@ -3,6 +3,7 @@
 #include "ImportObj.h"
 #include "Cube.h"
 #include "UVSphere.h"
+#include "QuadSphere.h"
 #include "Grid.h"
 #include "Cylinder.h"
 #include "Line.h"
@@ -27,6 +28,7 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
         {
             {"Cube", []() { return std::make_shared<Cube>(); }}, 
             {"UVSphere", []() { return std::make_shared<UVSphere>(); }}, 
+            {"QuadSphere", []() { return std::make_shared<QuadSphere>(); }}, 
             {"Grid", []() { return std::make_shared<Grid>(); }},
             {"Cylinder", []() { return std::make_shared<Cylinder>(); }},
             {"Line", []() { return std::make_shared<Line>(); }},

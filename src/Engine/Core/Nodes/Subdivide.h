@@ -17,5 +17,5 @@ public:
 	};
 
 	Mesh processOutput(uint32_t index) override;
-	Mesh subdivide(Mesh& mesh, int subdivisions);
+	static Mesh subdivide(Mesh& mesh, int subdivisions);
 };
