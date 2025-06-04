@@ -328,10 +328,6 @@ void EuclideInterface::createNodesMenu() {
 		drawSearchBar();		
 
 		if (ImGui::IsKeyPressed(ImGuiKey_Enter)) {
-			if (searchedItems.size() > 0) {
-				sceneGraph.addNode(NodeItem(searchedItems[0].createNode(), io.MousePos));
-				ImGui::CloseCurrentPopup();
-			}
 			shouldFocusSearchBar = true;
 		}
 
