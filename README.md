@@ -14,6 +14,8 @@ Current working nodes: (I will add more over time)<br/>
 - **Primitive:**<br/>
     - **Cube**<br/>
     - **Grid**<br/>
+    - **UvSphere**<br/>
+    - **QuadSphere**<br/>
     - **Cylinder**<br/>
     - **Line**<br/>
     - **Circle**<br/>
