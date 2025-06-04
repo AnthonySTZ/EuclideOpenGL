@@ -155,7 +155,7 @@ public:
 			return id;
 		}
 
-		uint32_t addFace(std::vector<uint32_t> pointIds) {
+		void addFace(std::vector<uint32_t> pointIds) {
 			faces.emplace_back(Face{pointIds});
 		}
 
