@@ -14,7 +14,7 @@ Nodes:
 	- Scatter
 	- Bend
 	- optimize transform
-	- More Primitives (Sphere, ...)
+	- More Primitives (Sphere, Torus)
 	- Lights
 	- Animation/Timeline
 
