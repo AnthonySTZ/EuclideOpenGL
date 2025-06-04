@@ -292,21 +292,14 @@ void EuclideInterface::drawSearchBar() {
 
 }
 
-void EuclideInterface::drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items, bool isFirstSelected) {
+void EuclideInterface::drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items) {
 
 	bool isSelected = false;
 
 	for (size_t i = 0; i < items.size(); i++) {
 		auto& item = items[i];
 
-		if (i == 0 && isFirstSelected) {
-			isSelected = true;
-		}
-		else {
-			isSelected = false;
-		}
-
-		if (ImGui::MenuItem(item.name, nullptr, isSelected)) {
+		if (ImGui::MenuItem(item.name, nullptr)) {
 			sceneGraph.addNode(NodeItem(item.createNode(), io.MousePos));
 		}
 		if (i < items.size() - 1) {
@@ -332,7 +325,7 @@ void EuclideInterface::createNodesMenu() {
 		}
 
 		if (searchedItems.size() > 0) {
-			drawNodesItems(io, searchedItems, true);
+			drawNodesItems(io, searchedItems);
 		}
 		else {
 			for (auto& [menuName, items] : menuItems) {

@@ -24,7 +24,7 @@ public:
 	void createNodeGraph();
 	void getSearchItems();
 	void drawSearchBar();
-	void drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items, bool isFirstSelected=false);
+	void drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items);
 	void createNodesMenu();
 	void updateRenderNode();
 	void drawParametersTab();
