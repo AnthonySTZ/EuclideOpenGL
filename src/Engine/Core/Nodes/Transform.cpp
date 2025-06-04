@@ -19,45 +19,45 @@ Mesh Transform::processOutput(uint32_t index)
     glm::vec3 scale = getParam<Float3Field>("Scale")->toVec3();
     glm::vec3 translation = getParam<Float3Field>("Translate")->toVec3();
 
-    scaleMesh(inputMesh, scale);
-    rotateMesh(inputMesh, rotation);
-    translateMesh(inputMesh, translation);
-
-    inputMesh.update();
+    Mesh transformedMesh = scaleMesh(inputMesh, scale);
+    transformedMesh = rotateMesh(transformedMesh, rotation);
+    transformedMesh = translateMesh(transformedMesh, translation);
     
-    return inputMesh;
+    return transformedMesh;
 }
 
 bool isVec3Null(glm::vec3 vec) {
     return (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f);
 }
 
-void Transform::translateMesh(Mesh& mesh, glm::vec3 translation) {
+Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
     Timer timer{"translate"};
     
-    if (isVec3Null(translation)) return;
+    if (isVec3Null(translation)) return mesh;
     
     for (auto& point : mesh.points) {
         point.position += translation;
     }
     
+    return mesh;
 }
 
-void Transform::scaleMesh(Mesh& mesh, glm::vec3 scale) {
+Mesh Transform::scaleMesh(Mesh mesh, glm::vec3 scale) {
     Timer timer{"scale"};
     
-    if (isVec3Null(scale)) return;
+    if (isVec3Null(scale)) return mesh;
 
     for (auto& point : mesh.points) {
         point.position *= scale;
     }
     
+    return mesh;
 }
 
-void Transform::rotateMesh(Mesh& mesh, glm::vec3 rotation) {
+Mesh Transform::rotateMesh(Mesh mesh, glm::vec3 rotation) {
     Timer timer{"rotate"};
 
-    if (isVec3Null(rotation)) return;
+    if (isVec3Null(rotation)) return mesh;
     
     glm::vec3 xAxis{1.0, 0.0, 0.0};
     glm::vec3 yAxis{0.0, 1.0, 0.0};
@@ -72,6 +72,8 @@ void Transform::rotateMesh(Mesh& mesh, glm::vec3 rotation) {
     for (auto& point : mesh.points) {
         point.position = glm::vec3(rotMat * glm::vec4(point.position, 1.0));
     }
+
+    return mesh;
 
 }
 
