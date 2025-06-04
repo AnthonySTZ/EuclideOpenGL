@@ -149,6 +149,10 @@ public:
 		std::vector<Face> faces;
 		std::vector<Point> points;
 
+		void addPoint(glm::vec3 position) {
+			points.emplace_back(Point{points.size(), position});
+		}
+
 	};
 
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
