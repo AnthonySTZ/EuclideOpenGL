@@ -128,7 +128,9 @@ if (it != nodeItems.end()) {
     nodeItems.erase(it);
 }
 	scene.deleteNode(nodeSelected->getNode()->getName().c_str());
-	renderNode = nullptr;
+	if (nodeSelected->getNode()->getName() == renderNode->getNode()->getName()){
+		renderNode = nullptr;
+	}
 	nodeSelected = nullptr;
 	shouldUpdate = true;
 }
