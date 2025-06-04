@@ -11,8 +11,8 @@ public:
 		inputsNb = 0;
 		outputsNb = 1;
 
-		parameters["Rows"] = std::make_unique<IntField>("Rows", 8, 0);
-		parameters["Columns"] = std::make_unique<IntField>("Columns", 16, 0);
+		parameters["Rows"] = std::make_unique<IntField>("Rows", 8, 3);
+		parameters["Columns"] = std::make_unique<IntField>("Columns", 16, 3);
 		parameters["Radius"] = std::make_unique<FloatField>("Radius", 1.0f, 0.0f);
 
 		paramOrder.push_back("Rows");
@@ -21,5 +21,5 @@ public:
 	}
 
 	Mesh processOutput(uint32_t index) override;
-	static Mesh createSphere(int rows, int columns, float radius);
+	static Mesh createUVSphere(int rows, int columns, float radius);
 };
