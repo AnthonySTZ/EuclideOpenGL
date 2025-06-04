@@ -39,7 +39,6 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
     {"Geometry",
         {
             {"Transform", []() { return std::make_shared<Transform>(); }},
-            {"Duplicate", []() { return std::make_shared<Duplicate>(); }},
             {"Subdivide", []() { return std::make_shared<Subdivide>(); }},
             {"Merge", []() { return std::make_shared<Merge>(); }},
             {"SmoothNormals", []() { return std::make_shared<SmoothNormals>(); }},
@@ -49,7 +48,8 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
     },
     {"Copying",
         {
-            {"CopyToPoints", []() { return std::make_shared<CopyToPoints>(); }}
+            {"CopyToPoints", []() { return std::make_shared<CopyToPoints>(); }},
+            {"Duplicate", []() { return std::make_shared<Duplicate>(); }}
         }
     },
     {"Utility",

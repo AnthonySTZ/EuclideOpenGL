@@ -25,7 +25,6 @@ Current working nodes: (I will add more over time)<br/>
 
 - **Geometry:**<br/>
     - **Transform**<br/>
-    - **Duplicate**<br/>
     - **Merge**<br/>
     - **Subdivide**<br/>
     - **SmoothNormals**<br/>
@@ -34,6 +33,7 @@ Current working nodes: (I will add more over time)<br/>
 
 - **Copying:**<br/>
     - **CopyToPoints**<br/>
+    - **Duplicate**<br/>
 
 - **Utility:**<br/>
     - **Null**<br/>
