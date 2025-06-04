@@ -21,7 +21,7 @@ public:
 	};
 
 	Mesh processOutput(uint32_t index) override;
-	void translateMesh(Mesh& mesh);
-	void scaleMesh(Mesh& mesh);
-	void rotateMesh(Mesh& mesh);
+	static void translateMesh(Mesh& mesh, glm::vec3 translation);
+	static void scaleMesh(Mesh& mesh, glm::vec3 scale);
+	static void rotateMesh(Mesh& mesh, glm::vec3 rotation);
 };
