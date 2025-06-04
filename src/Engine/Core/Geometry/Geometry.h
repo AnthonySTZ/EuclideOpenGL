@@ -149,8 +149,14 @@ public:
 		std::vector<Face> faces;
 		std::vector<Point> points;
 
-		void addPoint(glm::vec3 position) {
-			points.emplace_back(Point{points.size(), position});
+		uint32_t addPoint(glm::vec3 position) {
+			uint32_t id = static_cast<uint32_t>(points.size());
+			points.emplace_back(Point{id, position});
+			return id;
+		}
+
+		uint32_t addFace(std::vector<uint32_t> pointIds) {
+			faces.emplace_back(Face{pointIds});
 		}
 
 	};
