@@ -25,7 +25,7 @@ Mesh Sphere::createUVSphere(int rows, int columns, float radius)
 
     Mesh::Builder builder;
 
-    uint32_t topPointId = builder.addPoint( {0, 1, 0} ); // Add top point
+    uint32_t topPointId = builder.addPoint( {0, radius, 0} ); // Add top point
 
     for (int i=0; i<rows-1; i++){
 
@@ -37,12 +37,13 @@ Mesh Sphere::createUVSphere(int rows, int columns, float radius)
                 glm::cos(phi),
                 glm::sin(phi) * glm::sin(theta)
             };
+            pos *= radius;
             builder.addPoint(pos);
         }
 
     }
 
-    uint32_t bottomPointId = builder.addPoint({0, -1, 0}); // Add bottom point
+    uint32_t bottomPointId = builder.addPoint({0, -radius, 0}); // Add bottom point
 
     // add top / bottom triangles
     for (int i=0; i < columns; i++){
