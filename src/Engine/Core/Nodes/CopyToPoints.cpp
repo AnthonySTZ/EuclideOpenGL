@@ -4,17 +4,30 @@
 
 Mesh CopyToPoints::processOutput(uint32_t index, bool *updateDirty) {
 
+    Timer timer{ nodeName.c_str() };
+
     auto it_0 = inputs.find(0);
     auto it_1 = inputs.find(1);
     if (it_0 == inputs.end() || it_1 == inputs.end()) {
         return Mesh();
     }
 
+    bool isInput0Dirty = false;
+    bool isInput1Dirty = false;
+    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex(), &isInput0Dirty);
+    Mesh inputMesh_1 = it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex(), &isInput1Dirty);
 
-    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
-    Mesh inputMesh_1 = it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex());
+    if (!isDirty() && !isInput0Dirty && !isInput1Dirty){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
-    return copyToPoints(inputMesh_0, inputMesh_1);
+    if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    cachedMesh = copyToPoints(inputMesh_0, inputMesh_1);
+
+    return cachedMesh;
 }
 
 Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {

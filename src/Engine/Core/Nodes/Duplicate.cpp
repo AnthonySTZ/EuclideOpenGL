@@ -15,8 +15,13 @@ Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
     auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();
 
+    bool isInputDirty = false;
+    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
 
-    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
+    if (!isDirty() && !isInputDirty){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
     int nCopies = getParam<IntField>("nCopies")->getValue();
     glm::vec3 rotation = getParam<Float3Field>("Rotate")->toVec3();
@@ -25,7 +30,9 @@ Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
 
     if (nCopies < 1) return Mesh();
 
-    Mesh outputMesh{inputMesh};
+    Timer timer{ nodeName.c_str() };
+
+    cachedMesh = inputMesh;
     Mesh transformedMesh{};
 
     for (int i=0; i<nCopies-1; i++){
@@ -34,10 +41,13 @@ Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
         transformedMesh = Transform::rotateMesh(transformedMesh, rotation * (float)i);
         transformedMesh = Transform::translateMesh(transformedMesh, translation * (float)i);
 
-        outputMesh = Merge::mergeToMesh(outputMesh, transformedMesh);
+        cachedMesh = Merge::mergeToMesh(cachedMesh, transformedMesh);
 
     }
 
-    return outputMesh;
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
 

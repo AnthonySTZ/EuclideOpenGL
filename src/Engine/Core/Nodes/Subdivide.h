@@ -18,4 +18,6 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh subdivide(Mesh& mesh, int subdivisions);
+private: 
+	Mesh cachedMesh;
 };

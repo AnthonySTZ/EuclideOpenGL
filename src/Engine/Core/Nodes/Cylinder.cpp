@@ -10,6 +10,11 @@ Mesh Cylinder::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
+
 	float radiusTop = getParam<FloatField>("RadiusTop")->getValue();
 	float radiusBottom = getParam<FloatField>("RadiusBottom")->getValue();
 	float height = getParam<FloatField>("Height")->getValue();
@@ -17,7 +22,12 @@ Mesh Cylinder::processOutput(uint32_t index, bool *updateDirty)
 	int capped = getParam<BooleanField>("Capped")->getValue();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
-	return createCylinder(translate, glm::vec2(radiusTop, radiusBottom), height, divisions, capped);
+	cachedMesh = createCylinder(translate, glm::vec2(radiusTop, radiusBottom), height, divisions, capped);
+
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+	return cachedMesh;
 }
 
 Mesh Cylinder::createCylinder(glm::vec3 position, glm::vec2 radius, float height, int divisions, bool capped)

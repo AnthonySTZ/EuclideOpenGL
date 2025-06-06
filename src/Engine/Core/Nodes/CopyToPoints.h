@@ -12,4 +12,6 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	Mesh copyToPoints(Mesh& mesh_1, Mesh& mesh_2);
+private: 
+	Mesh cachedMesh;
 };

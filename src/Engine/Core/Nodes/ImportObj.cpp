@@ -9,11 +9,21 @@
 Mesh ImportObj::processOutput(uint32_t index, bool *updateDirty)
 {
 
-    Timer timer{nodeName.c_str()};
+    if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
     std::string filename = getParam<FileField>("Filename")->getValue();
 
-    return readObj(filename);
+    Timer timer{nodeName.c_str()};
+
+    cachedMesh = readObj(filename);
+
+    if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
 
 glm::vec3 stringToVec3(std::string string){

@@ -8,12 +8,22 @@ Mesh Subdivide::processOutput(uint32_t index, bool *updateDirty)
     auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();
 
+    bool isInputDirty = false;
+    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
 
-    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
+    if (!isDirty() && !isInputDirty){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
     int subd = getParam<IntField>("Subdivisions")->getValue();
 
-    return subdivide(inputMesh, subd);
+    cachedMesh = subdivide(inputMesh, subd);
+
+    if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
 
 Mesh Subdivide::subdivide(Mesh& mesh, int subdivisions)

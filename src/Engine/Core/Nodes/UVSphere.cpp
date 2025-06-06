@@ -6,13 +6,23 @@
 
 Mesh UVSphere::processOutput(uint32_t index, bool *updateDirty)
 {
-	Timer timer{ nodeName.c_str() };
 
-	int rows = getParam<IntField>("Rows")->getValue();
+    if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
+    
+    int rows = getParam<IntField>("Rows")->getValue();
 	int columns = getParam<IntField>("Columns")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
+    
+	Timer timer{ nodeName.c_str() };
+    cachedMesh = createUVSphere(rows, columns, radius);
 
-	return createUVSphere(rows, columns, radius);
+    if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+	return cachedMesh;
 }
 
 Mesh UVSphere::createUVSphere(int rows, int columns, float radius)

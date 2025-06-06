@@ -30,4 +30,6 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createCylinder(glm::vec3 position, glm::vec2 radius, float height, int divisions, bool capped);
+private: 
+	Mesh cachedMesh;
 };

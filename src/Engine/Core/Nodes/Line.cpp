@@ -4,14 +4,24 @@
 
 Mesh Line::processOutput(uint32_t index, bool *updateDirty)
 {
-	Timer timer{ nodeName.c_str() };
+	
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
 	glm::vec3 axis = getParam<Float3Field>("Axis")->toVec3();
 	int divisions = getParam<IntField>("Divisions")->getValue();
 	float length = getParam<FloatField>("Length")->getValue();
 	
+	Timer timer{ nodeName.c_str() };
 
-	return createLine(axis, divisions, length);
+	cachedMesh = createLine(axis, divisions, length);
+
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+	return cachedMesh;
 }
 
 Mesh Line::createLine(glm::vec3 axis, int divisions, float length)

@@ -4,14 +4,26 @@
 
 Mesh Grid::processOutput(uint32_t index, bool *updateDirty)
 {	
+	
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
+	
 	int rows = getParam<IntField>("Rows")->getValue();
 	int cols = getParam<IntField>("Columns")->getValue();
 	float sizeX = getParam<FloatField>("SizeX")->getValue();
 	float sizeZ = getParam<FloatField>("SizeZ")->getValue();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
-
+	
 	Timer timer{ nodeName.c_str() };
-    return createGrid(rows, cols, sizeX, sizeZ, translate);
+
+	cachedMesh = createGrid(rows, cols, sizeX, sizeZ, translate);
+
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
 
 Mesh Grid::createGrid(int rows, int cols, float sizeX, float sizeZ, glm::vec3 translate) {

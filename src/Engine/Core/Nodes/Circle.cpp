@@ -8,10 +8,20 @@ Mesh Circle::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
+
 	int divisions = getParam<IntField>("Divisions")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
 	
-	return createCircle(divisions, radius);
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+	cachedMesh = createCircle(divisions, radius);
+
+	return cachedMesh;
 }
 
 Mesh Circle::createCircle(int divisions, float radius)

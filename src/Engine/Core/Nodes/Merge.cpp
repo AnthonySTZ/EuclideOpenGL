@@ -16,11 +16,23 @@ Mesh Merge::processOutput(uint32_t index, bool *updateDirty) {
         return it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
     }
 
+    bool isInput0Dirty = false;
+    bool isInput1Dirty = false;
+    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex(), &isInput0Dirty);
+    Mesh inputMesh_1 = it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex(), &isInput1Dirty);
 
-    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
-    Mesh inputMesh_1 = it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex());
+    if (!isDirty() && !isInput0Dirty && !isInput1Dirty){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	}
 
-    return mergeToMesh(inputMesh_0, inputMesh_1);
+    Timer timer{ nodeName.c_str() };
+    cachedMesh = mergeToMesh(inputMesh_0, inputMesh_1);
+
+    if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
 
 Mesh Merge::mergeToMesh(Mesh& mesh_1, Mesh& mesh_2) {

@@ -21,4 +21,6 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createCircle(int divisions, float radius);
+private: 
+	Mesh cachedMesh;
 };

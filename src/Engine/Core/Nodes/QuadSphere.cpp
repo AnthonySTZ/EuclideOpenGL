@@ -8,16 +8,16 @@
 
 Mesh QuadSphere::processOutput(uint32_t index, bool *updateDirty)
 {
-	Timer timer{ nodeName.c_str() };
-
+	
 	if (!isDirty()){
 		if (updateDirty != nullptr) *updateDirty = false;
 		return cachedMesh;
 	} 
-
+	
 	int subd = getParam<IntField>("Subdivisions")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
-
+	
+	Timer timer{ nodeName.c_str() };
 	cachedMesh = createQuadSphere(subd, radius);
 
 	if (updateDirty != nullptr) *updateDirty = true;

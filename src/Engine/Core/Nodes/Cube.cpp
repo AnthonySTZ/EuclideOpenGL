@@ -6,10 +6,20 @@ Mesh Cube::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
+
 	glm::vec3 size = getParam<Float3Field>("Size")->toVec3();
 	glm::vec3 translate = getParam<Float3Field>("Translate")->toVec3();
 
-	return createCube(translate, size);
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+	cachedMesh = createCube(translate, size);
+
+	return cachedMesh;
 }
 
 Mesh Cube::createCube(glm::vec3 position, glm::vec3 size) {

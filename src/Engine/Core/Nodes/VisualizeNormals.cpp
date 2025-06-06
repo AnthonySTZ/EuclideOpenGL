@@ -5,7 +5,13 @@ Mesh VisualizeNormals::processOutput(uint32_t index, bool *updateDirty)
     auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();
 
-    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
+    bool isInputDirty = false;
+    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
+
+    if (!isDirty() && !isInputDirty){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
     for (auto& point: inputMesh.points){
 
@@ -25,5 +31,10 @@ Mesh VisualizeNormals::processOutput(uint32_t index, bool *updateDirty)
         
     }
 
-    return inputMesh;
+	cachedMesh = inputMesh;
+
+	if (updateDirty != nullptr) *updateDirty = true;
+	dirty = false;
+
+    return cachedMesh;
 }
