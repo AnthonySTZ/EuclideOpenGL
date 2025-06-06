@@ -5,6 +5,11 @@
 
 #include "../Utils.h"
 
+bool isVec3Null(glm::vec3 vec) {
+    return (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f);
+}
+
+
 Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
 {
     
@@ -24,9 +29,16 @@ Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
     glm::vec3 translation = getParam<Float3Field>("Translate")->toVec3();
     
     Timer timer{ nodeName.c_str() };
-    cachedMesh = scaleMesh(inputMesh, scale);
-    cachedMesh = rotateMesh(cachedMesh, rotation);
-    cachedMesh = translateMesh(cachedMesh, translation);
+    cachedMesh = inputMesh;
+    if (scale.x != 1.0f || scale.y != 1.0f || scale.z != 1.0f){
+        cachedMesh = scaleMesh(cachedMesh, scale);
+    }
+    if (!isVec3Null(rotation)){
+        cachedMesh = rotateMesh(cachedMesh, rotation);
+    }
+    if (!isVec3Null(translation)){
+        cachedMesh = translateMesh(cachedMesh, translation);
+    }    
 
     if (updateDirty != nullptr) *updateDirty = true;
     dirty = false;
@@ -34,9 +46,6 @@ Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
     return cachedMesh;
 }
 
-bool isVec3Null(glm::vec3 vec) {
-    return (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f);
-}
 
 Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
     Timer timer{"translate"};
@@ -53,7 +62,7 @@ Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
 Mesh Transform::scaleMesh(Mesh mesh, glm::vec3 scale) {
     Timer timer{"scale"};
     
-    if (isVec3Null(scale)) return mesh;
+    if (scale.x == 1.0f && scale.y == 1.0f && scale.z == 1.0f) return mesh;
 
     for (auto& point : mesh.points) {
         point.position *= scale;

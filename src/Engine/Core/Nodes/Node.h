@@ -49,6 +49,7 @@ public:
 
 	bool hasParamsChanged();
 	bool isDirty() {return dirty; }
+	bool setDirty(bool nodeDirty) {return dirty = nodeDirty; }
 
 	template<typename T>
 	T* getParam(const std::string& name) {

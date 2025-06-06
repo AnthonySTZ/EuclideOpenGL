@@ -26,6 +26,7 @@ void Node::setInput(uint32_t inputIndex, std::shared_ptr<Node> inputNode, uint32
 		inputNode->outputs[inputIndex].push_back(conn);
 	}
 	
+	dirty = true;
 
 }
 
