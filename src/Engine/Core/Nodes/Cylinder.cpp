@@ -6,7 +6,7 @@
 
 #include <numeric>
 
-Mesh Cylinder::processOutput(uint32_t index)
+Mesh Cylinder::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 

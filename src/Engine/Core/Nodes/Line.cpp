@@ -2,7 +2,7 @@
 
 #include "../Utils.h"
 
-Mesh Line::processOutput(uint32_t index)
+Mesh Line::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 

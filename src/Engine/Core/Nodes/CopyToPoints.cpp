@@ -2,7 +2,7 @@
 
 #include "../Utils.h"
 
-Mesh CopyToPoints::processOutput(uint32_t index) {
+Mesh CopyToPoints::processOutput(uint32_t index, bool *updateDirty) {
 
     auto it_0 = inputs.find(0);
     auto it_1 = inputs.find(1);

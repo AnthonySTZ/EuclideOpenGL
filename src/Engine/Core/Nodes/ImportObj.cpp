@@ -6,7 +6,7 @@
 
 
 
-Mesh ImportObj::processOutput(uint32_t index)
+Mesh ImportObj::processOutput(uint32_t index, bool *updateDirty)
 {
 
     Timer timer{nodeName.c_str()};

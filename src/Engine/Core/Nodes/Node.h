@@ -41,7 +41,7 @@ public:
 		return it->second->getInputNode();
 	};
 
-	virtual Mesh processOutput(uint32_t index) {
+	virtual Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) {
 		throw std::runtime_error("process not implemented!");
 	};
 
@@ -71,4 +71,5 @@ protected:
 	std::vector<std::string> paramOrder;
 
 	void* updateRender = nullptr;
+	bool isDirty = false;
 };

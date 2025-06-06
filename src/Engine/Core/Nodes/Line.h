@@ -21,6 +21,6 @@ public:
 		paramOrder.push_back("Length");
 	}
 
-	Mesh processOutput(uint32_t index) override;
+	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createLine(glm::vec3 axis, int divisions, float length);
 };

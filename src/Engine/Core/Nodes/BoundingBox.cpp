@@ -2,7 +2,7 @@
 
 #include "Cube.h"
 
-Mesh BoundingBox::processOutput(uint32_t index) {
+Mesh BoundingBox::processOutput(uint32_t index, bool *updateDirty) {
 
     auto it_0 = inputs.find(0);
     if (it_0 == inputs.end()) {

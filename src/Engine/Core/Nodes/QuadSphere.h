@@ -19,6 +19,6 @@ public:
 		paramOrder.push_back("Radius");
 	}
 
-	Mesh processOutput(uint32_t index) override;
+	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createQuadSphere(int subdivisions, float radius);
 };

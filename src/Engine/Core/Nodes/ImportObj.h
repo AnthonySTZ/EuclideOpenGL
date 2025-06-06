@@ -15,6 +15,6 @@ public:
 		paramOrder.push_back("Filename");
 	}
 
-	Mesh processOutput(uint32_t index) override;
+	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh readObj(std::string filename);
 };

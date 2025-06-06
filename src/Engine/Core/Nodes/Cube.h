@@ -17,6 +17,6 @@ public:
 		paramOrder.push_back("Translate");
 	}
 
-	Mesh processOutput(uint32_t index) override;
+	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createCube(glm::vec3 position, glm::vec3 size);
 };

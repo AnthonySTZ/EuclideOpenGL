@@ -6,7 +6,7 @@
 #include "Subdivide.h"
 
 
-Mesh QuadSphere::processOutput(uint32_t index)
+Mesh QuadSphere::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 

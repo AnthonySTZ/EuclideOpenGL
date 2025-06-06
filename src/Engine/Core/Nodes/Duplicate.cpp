@@ -10,7 +10,7 @@ glm::vec3 vec3Pow(glm::vec3 vec, float power){
     return glm::vec3(glm::pow(vec.x, power), glm::pow(vec.y, power), glm::pow(vec.z, power));    
 }
 
-Mesh Duplicate::processOutput(uint32_t index)
+Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
 {
     auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();

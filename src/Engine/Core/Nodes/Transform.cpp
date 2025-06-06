@@ -5,7 +5,7 @@
 
 #include "../Utils.h"
 
-Mesh Transform::processOutput(uint32_t index)
+Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
 {
     Timer timer{ nodeName.c_str() };
 

@@ -2,7 +2,7 @@
 
 #include "../Utils.h"
 
-Mesh Grid::processOutput(uint32_t index)
+Mesh Grid::processOutput(uint32_t index, bool *updateDirty)
 {	
 	int rows = getParam<IntField>("Rows")->getValue();
 	int cols = getParam<IntField>("Columns")->getValue();
