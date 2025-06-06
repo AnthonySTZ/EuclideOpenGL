@@ -21,4 +21,7 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createQuadSphere(int subdivisions, float radius);
+
+private: 
+	Mesh cachedMesh;
 };

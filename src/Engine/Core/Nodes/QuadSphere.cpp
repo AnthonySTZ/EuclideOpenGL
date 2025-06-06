@@ -10,10 +10,14 @@ Mesh QuadSphere::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 
+	if (!hasParamsChanged()) return cachedMesh;
+
 	int subd = getParam<IntField>("Subdivisions")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
 
-	return createQuadSphere(subd, radius);
+	cachedMesh = createQuadSphere(subd, radius);
+
+	return cachedMesh;
 }
 
 
