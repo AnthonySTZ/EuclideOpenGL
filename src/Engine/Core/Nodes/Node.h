@@ -48,6 +48,7 @@ public:
 	void drawParameters();
 
 	bool hasParamsChanged();
+	bool isDirty() {return dirty; }
 
 	template<typename T>
 	T* getParam(const std::string& name) {
@@ -71,5 +72,5 @@ protected:
 	std::vector<std::string> paramOrder;
 
 	void* updateRender = nullptr;
-	bool isDirty = false;
+	bool dirty = true;
 };
