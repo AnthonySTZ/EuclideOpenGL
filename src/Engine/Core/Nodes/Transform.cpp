@@ -27,8 +27,6 @@ Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
     cachedMesh = scaleMesh(inputMesh, scale);
     cachedMesh = rotateMesh(cachedMesh, rotation);
     cachedMesh = translateMesh(cachedMesh, translation);
-    
-    cachedMesh.update();
 
     if (updateDirty != nullptr) *updateDirty = true;
     dirty = false;
