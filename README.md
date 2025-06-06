@@ -10,6 +10,8 @@ You can create new Node by right clicking on the graph (a dropdown list will app
 You can cut node connections by holding the 'Y' key and draging on the connection.<br/>
 You can delete nodes by selecting it and press 'Delete'.<br/>
 
+I also add a caching system to prevent recompute every node each time you update a node, but only the ones that are necessary.
+
 Current working nodes: (I will add more over time)<br/>
 - **Primitive:**<br/>
     - **Cube**<br/>
