@@ -7,14 +7,13 @@
 
 Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
 {
-    Timer timer{ nodeName.c_str() };
     
     auto it = inputs.find(0);
     if (it == inputs.end()) return Mesh();    
     
     bool isInputDirty = false;
     Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
-
+    
     if (!isInputDirty && !isDirty()){
         if (updateDirty != nullptr) *updateDirty = false;
         return cachedMesh;
@@ -23,11 +22,14 @@ Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
     glm::vec3 rotation = getParam<Float3Field>("Rotate")->toVec3();
     glm::vec3 scale = getParam<Float3Field>("Scale")->toVec3();
     glm::vec3 translation = getParam<Float3Field>("Translate")->toVec3();
-
+    
+    Timer timer{ nodeName.c_str() };
     cachedMesh = scaleMesh(inputMesh, scale);
     cachedMesh = rotateMesh(cachedMesh, rotation);
     cachedMesh = translateMesh(cachedMesh, translation);
     
+    cachedMesh.update();
+
     if (updateDirty != nullptr) *updateDirty = true;
     dirty = false;
 
@@ -38,7 +40,7 @@ bool isVec3Null(glm::vec3 vec) {
     return (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f);
 }
 
-Mesh Transform::translateMesh(Mesh &mesh, glm::vec3 translation) {
+Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
     Timer timer{"translate"};
     
     if (isVec3Null(translation)) return mesh;
@@ -50,7 +52,7 @@ Mesh Transform::translateMesh(Mesh &mesh, glm::vec3 translation) {
     return mesh;
 }
 
-Mesh Transform::scaleMesh(Mesh &mesh, glm::vec3 scale) {
+Mesh Transform::scaleMesh(Mesh mesh, glm::vec3 scale) {
     Timer timer{"scale"};
     
     if (isVec3Null(scale)) return mesh;
@@ -62,7 +64,7 @@ Mesh Transform::scaleMesh(Mesh &mesh, glm::vec3 scale) {
     return mesh;
 }
 
-Mesh Transform::rotateMesh(Mesh &mesh, glm::vec3 rotation) {
+Mesh Transform::rotateMesh(Mesh mesh, glm::vec3 rotation) {
     Timer timer{"rotate"};
 
     if (isVec3Null(rotation)) return mesh;
