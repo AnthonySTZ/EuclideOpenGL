@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+#include "../Utils.h"
+
 struct Attrib {
 	virtual ~Attrib() = default;
 	virtual std::unique_ptr<Attrib> clone() const = 0;
@@ -163,18 +165,20 @@ public:
 
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
-	Mesh& operator=(const Mesh& other) {
-		points = other.points;
-		vertices = other.vertices;
-		edges = other.edges;
-		primitives = other.primitives;
-		update();
-		return *this;
-	}
+
+	// Mesh& operator=(const Mesh& other) { // I don't know if this was useful but the update() slowed everything.
+	// 	points = other.points;
+	// 	vertices = other.vertices;
+	// 	edges = other.edges;
+	// 	primitives = other.primitives;
+	// 	update();
+	// 	return *this;
+	// }
 
 	void updateMesh(const Mesh::Builder& builder);
 	void updateRenderVertices();
 	void update() {
+		Timer timer{"Update Mesh"};
 		createWireframeIndices();
 		updateRenderVertices();
 		pointSize = points.size();

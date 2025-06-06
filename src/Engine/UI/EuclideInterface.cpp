@@ -399,7 +399,8 @@ void EuclideInterface::updateRenderNode() {
 
 	}
 	else {
-		renderer->updateMesh(Mesh());
+		Mesh emptyMesh = Mesh();
+		renderer->updateMesh(emptyMesh);
 	}
 
 }

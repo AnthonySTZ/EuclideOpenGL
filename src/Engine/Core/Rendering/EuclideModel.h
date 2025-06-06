@@ -18,7 +18,7 @@ public:
 	void initBuffers();
 
 	void update();
-	void updateMesh(Mesh newMesh) { mesh = newMesh; update(); };
+	void updateMesh(Mesh &newMesh) { mesh = newMesh; update(); };
 	Mesh* getMesh() { return &mesh; };
 
 	size_t pointCount() const { return mesh.pointSize; };
