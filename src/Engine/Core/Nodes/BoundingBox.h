@@ -17,4 +17,6 @@ public:
 
 	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static BBox computeBoundingBox(Mesh& mesh);
+private:
+	Mesh cachedMesh;
 };

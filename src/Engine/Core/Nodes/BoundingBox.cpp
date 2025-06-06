@@ -9,8 +9,15 @@ Mesh BoundingBox::processOutput(uint32_t index, bool *updateDirty) {
         return Mesh();
     }
 
+    bool isInputDirty = false;
+    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex(), &isInputDirty);
 
-    Mesh inputMesh_0 = it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
+    if (!isInputDirty && !isDirty())
+    {
+        if (updateDirty != nullptr) *updateDirty = false;
+        return cachedMesh;
+    } 
+
     BBox bbox = computeBoundingBox(inputMesh_0);
 
     glm::vec3 position = glm::vec3(
@@ -25,8 +32,12 @@ Mesh BoundingBox::processOutput(uint32_t index, bool *updateDirty) {
         (bbox.max.z - bbox.min.z)
     );;
 
+    if (updateDirty != nullptr) *updateDirty = true;
+    dirty = false;
 
-    return Cube::createCube(position, size);
+    cachedMesh = Cube::createCube(position, size);
+
+    return cachedMesh;
 }
 
 BoundingBox::BBox BoundingBox::computeBoundingBox(Mesh& mesh)

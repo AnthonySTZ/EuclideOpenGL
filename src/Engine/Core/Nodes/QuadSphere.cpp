@@ -10,13 +10,17 @@ Mesh QuadSphere::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 
-	if (!isDirty()) return cachedMesh;
+	if (!isDirty()){
+		if (updateDirty != nullptr) *updateDirty = false;
+		return cachedMesh;
+	} 
 
 	int subd = getParam<IntField>("Subdivisions")->getValue();
 	float radius = getParam<FloatField>("Radius")->getValue();
 
 	cachedMesh = createQuadSphere(subd, radius);
 
+	if (updateDirty != nullptr) *updateDirty = true;
 	dirty = false;
 
 	return cachedMesh;

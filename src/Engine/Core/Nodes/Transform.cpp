@@ -8,22 +8,30 @@
 Mesh Transform::processOutput(uint32_t index, bool *updateDirty)
 {
     Timer timer{ nodeName.c_str() };
-
+    
     auto it = inputs.find(0);
-    if (it == inputs.end()) return Mesh();
+    if (it == inputs.end()) return Mesh();    
+    
+    bool isInputDirty = false;
+    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
 
-
-    Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex());
-
+    if (!isInputDirty && !isDirty()){
+        if (updateDirty != nullptr) *updateDirty = false;
+        return cachedMesh;
+    } 
+    
     glm::vec3 rotation = getParam<Float3Field>("Rotate")->toVec3();
     glm::vec3 scale = getParam<Float3Field>("Scale")->toVec3();
     glm::vec3 translation = getParam<Float3Field>("Translate")->toVec3();
 
-    Mesh transformedMesh = scaleMesh(inputMesh, scale);
-    transformedMesh = rotateMesh(transformedMesh, rotation);
-    transformedMesh = translateMesh(transformedMesh, translation);
+    cachedMesh = scaleMesh(inputMesh, scale);
+    cachedMesh = rotateMesh(cachedMesh, rotation);
+    cachedMesh = translateMesh(cachedMesh, translation);
     
-    return transformedMesh;
+    if (updateDirty != nullptr) *updateDirty = true;
+    dirty = false;
+
+    return cachedMesh;
 }
 
 bool isVec3Null(glm::vec3 vec) {
