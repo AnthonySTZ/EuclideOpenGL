@@ -30,7 +30,7 @@ bool isVec3Null(glm::vec3 vec) {
     return (vec.x == 0.0f && vec.y == 0.0f && vec.z == 0.0f);
 }
 
-Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
+Mesh Transform::translateMesh(Mesh &mesh, glm::vec3 translation) {
     Timer timer{"translate"};
     
     if (isVec3Null(translation)) return mesh;
@@ -42,7 +42,7 @@ Mesh Transform::translateMesh(Mesh mesh, glm::vec3 translation) {
     return mesh;
 }
 
-Mesh Transform::scaleMesh(Mesh mesh, glm::vec3 scale) {
+Mesh Transform::scaleMesh(Mesh &mesh, glm::vec3 scale) {
     Timer timer{"scale"};
     
     if (isVec3Null(scale)) return mesh;
@@ -54,7 +54,7 @@ Mesh Transform::scaleMesh(Mesh mesh, glm::vec3 scale) {
     return mesh;
 }
 
-Mesh Transform::rotateMesh(Mesh mesh, glm::vec3 rotation) {
+Mesh Transform::rotateMesh(Mesh &mesh, glm::vec3 rotation) {
     Timer timer{"rotate"};
 
     if (isVec3Null(rotation)) return mesh;
