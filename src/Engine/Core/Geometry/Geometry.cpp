@@ -31,27 +31,29 @@ void Mesh::addPrimitives(std::vector<Face> faces)
         for (size_t i = 0; i < numVertices; i++) {
 
             uint32_t pointId = face.pointIds[i];
-            Vertex vertex{};
-            vertex.id = vertexId;
-            vertex.pointId = pointId;
-            vertex.primitiveId = primId;
-            vertices.push_back(vertex);
+            vertices.emplace_back(Vertex{
+                vertexId, 
+                pointId,
+                primId 
+            });
             prim.vertexIds.push_back(vertexId);
-            points[pointId].vertices.push_back(vertexId);
-            vertexId++;
 
+            auto& point = points[pointId]; 
+            point.vertices.push_back(vertexId);
+            
             uint32_t next_pointId = face.pointIds[(i + 1) % numVertices];
+
             auto [u, v] = std::minmax(pointId, next_pointId);
-            if (edges.find({ u, v }) == edges.end()) {
-                edges[{u, v}] = Edge{ pointId , next_pointId, {primId} };
+            auto edgeKey = std::make_pair(u, v);
+            auto [it, inserted] = edges.try_emplace(edgeKey, Edge{ pointId, next_pointId, {primId} });
+            if (!inserted) {
+                it->second.primIds.push_back(primId);
             }
-            else {
-                edges[{u, v}].primIds.push_back(primId);
-            }
-
-            points[pointId].edges.insert({ u, v });
-            points[next_pointId].edges.insert({ u, v });
-
+            
+            point.edges.insert(edgeKey);
+            points[next_pointId].edges.insert(edgeKey);
+            
+            vertexId++;
         }
 
         primitives.push_back(std::move(prim));
