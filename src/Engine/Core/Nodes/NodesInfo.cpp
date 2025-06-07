@@ -6,6 +6,7 @@
 #include "QuadSphere.h"
 #include "Grid.h"
 #include "Cylinder.h"
+#include "Torus.h"
 #include "Line.h"
 #include "Circle.h"
 #include "Transform.h"
@@ -33,6 +34,7 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
             {"QuadSphere", []() { return std::make_shared<QuadSphere>(); }}, 
             {"Grid", []() { return std::make_shared<Grid>(); }},
             {"Cylinder", []() { return std::make_shared<Cylinder>(); }},
+            {"Torus", []() { return std::make_shared<Torus>(); }},
             {"Line", []() { return std::make_shared<Line>(); }},
             {"Circle", []() { return std::make_shared<Circle>(); }}
         }
