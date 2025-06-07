@@ -1,6 +1,7 @@
 #include "Benchmarks.h"
 #include "../Grid.h"
 #include "../Cylinder.h"
+#include "../QuadSphere.h"
 #include "../../Utils.h"
 
 #include <iostream>
@@ -65,6 +66,25 @@ void Benchmarks::benchCylinder()
 	{
 		Timer timer_5000{ "Benchmark CYLINDER Div 50000" };
 		Mesh cylinder_5000 = Cylinder::createCylinder({ 0, 0, 0 }, { 10.0f, 10.0f }, 10.0f, 50000, false);
+	}
+
+}
+
+void Benchmarks::benchMeshCreation()
+{
+
+	std::cout << "\n---- QUADSPHERE Divisions 4 ----\n";
+
+	{
+		Timer timer_8{ "Benchmark QUADSPHERE Div 4" };
+		Mesh quad4 = QuadSphere::createQuadSphere(4, 1.0f);
+	}
+
+	std::cout << "\n---- QUADSPHERE Divisions 8 ----\n";
+
+	{
+		Timer timer_500{ "Benchmark QUADSPHERE Div 8" };
+		Mesh quad8 = QuadSphere::createQuadSphere(8, 1.0f);
 	}
 
 }

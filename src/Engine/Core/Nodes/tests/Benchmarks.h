@@ -8,9 +8,11 @@ public:
 
 	static void benchNodes() {
 		//benchGrid();
-		benchCylinder();
+		// benchCylinder();
+		benchMeshCreation();
 	}
 	static void benchGrid();
 	static void benchCylinder();
+	static void benchMeshCreation();
 
 };
