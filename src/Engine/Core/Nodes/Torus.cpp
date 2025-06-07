@@ -14,11 +14,11 @@ Mesh Torus::processOutput(uint32_t index, bool *updateDirty)
 
     int nRings = getParam<IntField>("nRings")->getValue();
     int ringSubd = getParam<IntField>("ringSubd")->getValue();
-    float innerRadius = getParam<FloatField>("innerRadius")->getValue();
-    float outerRadius = getParam<FloatField>("outerRadius")->getValue();
+    float ringRadius = getParam<FloatField>("ringRadius")->getValue();
+    float torusRadius = getParam<FloatField>("torusRadius")->getValue();
     
 	Timer timer{ nodeName.c_str() };
-    cachedMesh = createTorus(nRings, ringSubd, innerRadius, outerRadius);
+    cachedMesh = createTorus(nRings, ringSubd, ringRadius, torusRadius);
 
     if (updateDirty != nullptr) *updateDirty = true;
 	dirty = false;
@@ -26,7 +26,32 @@ Mesh Torus::processOutput(uint32_t index, bool *updateDirty)
 	return cachedMesh;
 }
 
-Mesh Torus::createTorus(int nRings, int ringSubd, float innerRadius, float outerRadius)
+Mesh Torus::createTorus(int nRings, int ringSubd, float ringRadius, float torusRadius)
 {
-    return Mesh();
+    float phi = 0.0f;
+    float dp = (2*glm::pi<float>()) / ringSubd;
+
+    float theta = 0.0f;
+    float dt = (2*glm::pi<float>()) / nRings;
+
+    Mesh::Builder builder;
+
+    for (int stack=0; stack<nRings; stack++){
+
+        theta = dt * stack;
+        for (int slice=0; slice < ringSubd; slice++){
+
+            phi = dp * slice;
+            glm::vec3 position {
+                glm::cos(theta) * (torusRadius + glm::cos(phi) * ringRadius),
+                glm::sin(theta) * (torusRadius + glm::cos(phi) * ringRadius),
+                glm::sin(phi) * ringRadius
+            };
+            builder.addPoint(position);
+
+        }
+
+    }
+
+    return Mesh{builder};
 }
