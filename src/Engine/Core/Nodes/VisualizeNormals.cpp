@@ -36,5 +36,7 @@ Mesh VisualizeNormals::processOutput(uint32_t index, bool *updateDirty)
 	if (updateDirty != nullptr) *updateDirty = true;
 	dirty = false;
 
+    cachedMesh.updateRenderVertices();
+
     return cachedMesh;
 }

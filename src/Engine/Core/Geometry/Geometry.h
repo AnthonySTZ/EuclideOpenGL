@@ -166,14 +166,26 @@ public:
 	Mesh(const Mesh::Builder& builder) { updateMesh(builder); };
 	Mesh() = default;
 
-	Mesh& operator=(const Mesh& other) { // I don't know if this was useful but the update() slowed everything.
-		points = other.points;
-		vertices = other.vertices;
-		edges = other.edges;
-		primitives = other.primitives;
-		update();
-		return *this;
+	Mesh(const Mesh& other) {
+    	*this = other;
 	}
+
+	Mesh& operator=(const Mesh& other) {
+    if (this != &other) {
+        points = other.points;
+        vertices = other.vertices;
+        edges = other.edges;
+        primitives = other.primitives;
+
+        pointSize = other.pointSize;
+        primSize = other.primSize;
+
+        renderPoints = other.renderPoints;
+        renderVertices = other.renderVertices;
+        wireframeIndices = other.wireframeIndices;
+    }
+    return *this;
+}
 
 	void updateMesh(const Mesh::Builder& builder);
 	void updateRenderVertices();
