@@ -19,6 +19,7 @@ Current working nodes: (I will add more over time)<br/>
     - **UvSphere**<br/>
     - **QuadSphere**<br/>
     - **Cylinder**<br/>
+    - **Torus**<br/>
     - **Line**<br/>
     - **Circle**<br/>
 

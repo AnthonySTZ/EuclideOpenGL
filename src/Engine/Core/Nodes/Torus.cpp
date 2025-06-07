@@ -44,8 +44,8 @@ Mesh Torus::createTorus(int nRings, int ringSubd, float ringRadius, float torusR
             phi = dp * slice;
             glm::vec3 position {
                 glm::cos(theta) * (torusRadius + glm::cos(phi) * ringRadius),
-                glm::sin(theta) * (torusRadius + glm::cos(phi) * ringRadius),
-                glm::sin(phi) * ringRadius
+                glm::sin(phi) * ringRadius,
+                -glm::sin(theta) * (torusRadius + glm::cos(phi) * ringRadius)
             };
             builder.addPoint(position);
 
