@@ -53,5 +53,25 @@ Mesh Torus::createTorus(int nRings, int ringSubd, float ringRadius, float torusR
 
     }
 
+    for (int stack=0; stack<nRings-1; stack++){
+        for (int slice=0; slice < ringSubd; slice++){
+
+            uint32_t pt1 = stack * ringSubd + slice;
+            uint32_t pt2 = (stack + 1) * ringSubd + slice;
+            uint32_t pt3 = stack * ringSubd + (slice + 1) % ringSubd;
+            uint32_t pt4 = (stack + 1) * ringSubd + (slice + 1) % ringSubd;
+            builder.addFace({pt1, pt2, pt4, pt3});
+        }
+    } 
+
+    for (int slice = 0; slice < ringSubd; slice++) { // Connect the end rings
+        uint32_t pt1 = (nRings - 1) * ringSubd + slice;
+        uint32_t pt2 = slice;
+        uint32_t pt3 = (nRings - 1) * ringSubd + (slice + 1) % ringSubd;
+        uint32_t pt4 = (slice + 1) % ringSubd;
+
+        builder.addFace({pt1, pt2, pt4, pt3});
+    }
+
     return Mesh{builder};
 }
