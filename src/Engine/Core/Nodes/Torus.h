@@ -13,7 +13,7 @@ public:
 
 		parameters["nRings"] = std::make_unique<IntField>("Number of Rings", 16, 3);
 		parameters["ringSubd"] = std::make_unique<IntField>("Rings Subdivisions", 8, 3);
-		parameters["ringRadius"] = std::make_unique<FloatField>("Ring Radius", 1.0f, 0.0f);
+		parameters["ringRadius"] = std::make_unique<FloatField>("Ring Radius", 0.5f, 0.0f);
 		parameters["torusRadius"] = std::make_unique<FloatField>("Torus Radius", 1.0f, 0.0f);
 
 		paramOrder.push_back("nRings");
