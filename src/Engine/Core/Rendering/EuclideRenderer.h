@@ -74,6 +74,8 @@ private:
 	bool pointShown = true;
 	bool faceShown = true;
 
-	float wireframeLineWidth = 1.5f;
+	float wireframeLineWidth = 1.0f;
 	float gridLineWidth = 0.5f;
+
+	glm::vec3 gridColor {.6f, .6f, .6f};
 };
