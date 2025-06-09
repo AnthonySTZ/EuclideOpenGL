@@ -74,8 +74,6 @@ void EuclideInterface::createUI()
 	createViewport();
 
 	createNodeGraph();
-	
-	createGeometryTable();
 
 	ImGui::PopFont();
 	
@@ -254,14 +252,6 @@ void EuclideInterface::createNodeGraph()
 
 	ImGui::End();
 	
-}
-
-void EuclideInterface::createGeometryTable(){
-
-	beginTab("Geometry Table", ImVec2(0, 0), IM_COL32(40, 40, 40, 255));
-
-	ImGui::End();
-
 }
 
 void EuclideInterface::getSearchItems() {
