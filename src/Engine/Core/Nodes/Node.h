@@ -49,7 +49,23 @@ public:
 
 	bool hasParamsChanged();
 	bool isDirty() {return dirty; }
-	bool setDirty(bool nodeDirty) {return dirty = nodeDirty; }
+	void setDirty(bool nodeDirty) {
+		if (dirty == nodeDirty) return;
+		dirty = nodeDirty;
+
+		if (!nodeDirty) return;
+
+		// Propagate dirty to all connected output nodes
+		for (auto& [outputIndex, connections]: outputs){ 
+			for (auto& connection: connections) {
+				auto outputNode = connection->getOutputNode();
+                if (outputNode) {
+                    outputNode->setDirty(true);
+                }
+			}
+		}
+
+	}
 
 	template<typename T>
 	T* getParam(const std::string& name) {

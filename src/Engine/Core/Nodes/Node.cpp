@@ -87,7 +87,7 @@ bool Node::hasParamsChanged() {
 	for (auto& param : paramOrder) {
 		if (parameters.find(param) == parameters.end()) continue;
 		hasChanged |= parameters[param]->hasValueChanged();
-		if (hasChanged) dirty = true;
+		if (hasChanged) setDirty(true);
 	}
 	return hasChanged;
 
