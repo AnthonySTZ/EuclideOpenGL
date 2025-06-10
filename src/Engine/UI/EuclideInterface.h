@@ -22,6 +22,7 @@ public:
 	void beginTab(const char* name, ImVec2 padding = ImVec2(0.0, 0.0), ImU32 bgCol = IM_COL32(0, 0, 0, 255));
 	void createViewport();
 	void createNodeGraph();
+	void createGeometryTable();
     void getSearchItems();
     void drawSearchBar();
 	void drawNodesItems(ImGuiIO& io, std::vector<NodeMenuItem> items);

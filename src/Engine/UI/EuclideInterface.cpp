@@ -75,6 +75,8 @@ void EuclideInterface::createUI()
 
 	createNodeGraph();
 
+	createGeometryTable();
+
 	ImGui::PopFont();
 	
 	ImGui::Render();
@@ -252,6 +254,43 @@ void EuclideInterface::createNodeGraph()
 
 	ImGui::End();
 	
+}
+
+void EuclideInterface::createGeometryTable(){
+
+	beginTab("Geometry Table", ImVec2(0, 0), IM_COL32(40, 40, 40, 255));
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	if (ImGui::BeginChild("TableChild", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
+
+		if (ImGui::BeginTable("GeoTable", 1, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+			ImGui::TableSetupColumn("Id");
+			
+			int maxHeight = ImGui::GetContentRegionAvail().y;
+			int textHeight = ImGui::GetTextLineHeightWithSpacing();
+			int maxRows = (maxHeight / textHeight ) + 1;
+			
+			Mesh* mesh = renderer->getModel()->getMesh();
+			int numPoints = std::min(maxRows, (int)mesh->points.size());
+			
+			for (int i=0; i<numPoints; i++) {
+				
+				auto& point = mesh->points[i];
+				
+				ImGui::TableNextRow(ImGuiTableRowFlags_None);
+				ImGui::TableSetColumnIndex(0);
+				ImGui::Text(std::to_string(point.id).c_str());
+			}
+			
+			ImGui::EndTable();
+			
+		}
+	
+		ImGui::EndChild();
+	}
+	ImGui::PopStyleVar(1);
+	ImGui::End();
+
 }
 
 void EuclideInterface::getSearchItems() {
