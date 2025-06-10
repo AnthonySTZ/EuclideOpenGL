@@ -285,7 +285,6 @@ void EuclideInterface::createGeometryTable(){
 			}
 
 			int firstIndex = (int)geometryTableScroll;
-			std::cout << firstIndex << "\n";
 			int maxIndex = std::min(numPoints + firstIndex, nPoints);
 
 			for (int i=firstIndex; i<maxIndex; i++) {
