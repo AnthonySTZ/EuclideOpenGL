@@ -263,8 +263,12 @@ void EuclideInterface::createGeometryTable(){
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	if (ImGui::BeginChild("TableChild", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
 
-		if (ImGui::BeginTable("GeoTable", 1, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+		if (ImGui::BeginTable("GeoTable", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
 			ImGui::TableSetupColumn("Id");
+			ImGui::TableSetupColumn("Pos[0]");
+			ImGui::TableSetupColumn("Pos[1]");
+			ImGui::TableSetupColumn("Pos[2]");
+			ImGui::TableHeadersRow();
 
 			int maxHeight = ImGui::GetContentRegionAvail().y;
 			int textHeight = ImGui::GetTextLineHeightWithSpacing();
@@ -277,10 +281,11 @@ void EuclideInterface::createGeometryTable(){
 			if (ImGui::IsWindowHovered()) {
 				float scrollDelta = ImGui::GetIO().MouseWheel;
 				geometryTableScroll -= scrollDelta;
-				geometryTableScroll = std::clamp(geometryTableScroll, 0.0f, (float)nPoints - maxRows + 1);
+				geometryTableScroll = std::clamp(geometryTableScroll, 0.0f, std::max(0.0f, (float)nPoints - maxRows + 1));
 			}
 
 			int firstIndex = (int)geometryTableScroll;
+			std::cout << firstIndex << "\n";
 			int maxIndex = std::min(numPoints + firstIndex, nPoints);
 
 			for (int i=firstIndex; i<maxIndex; i++) {
@@ -290,6 +295,16 @@ void EuclideInterface::createGeometryTable(){
 				ImGui::TableNextRow(ImGuiTableRowFlags_None);
 				ImGui::TableSetColumnIndex(0);
 				ImGui::Text(std::to_string(point.id).c_str());
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::Text(std::to_string(point.position.x).c_str());
+
+				ImGui::TableSetColumnIndex(2);
+				ImGui::Text(std::to_string(point.position.y).c_str());
+
+				ImGui::TableSetColumnIndex(3);
+				ImGui::Text(std::to_string(point.position.z).c_str());
+
 			}
 			
 			ImGui::EndTable();
@@ -451,6 +466,8 @@ void EuclideInterface::updateRenderNode() {
 		Mesh emptyMesh = Mesh();
 		renderer->updateMesh(emptyMesh);
 	}
+
+	geometryTableScroll = 0.0f;
 
 }
 
