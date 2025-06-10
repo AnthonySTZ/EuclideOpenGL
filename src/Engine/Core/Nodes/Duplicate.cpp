@@ -35,7 +35,7 @@ Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
     cachedMesh = inputMesh;
     Mesh transformedMesh{};
 
-    for (int i=0; i<nCopies-1; i++){
+    for (int i=1; i<nCopies; i++){
         
         transformedMesh = Transform::scaleMesh(inputMesh, vec3Pow(scale, (float)i));
         transformedMesh = Transform::rotateMesh(transformedMesh, rotation * (float)i);
