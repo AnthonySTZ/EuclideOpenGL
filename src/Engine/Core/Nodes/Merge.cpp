@@ -43,28 +43,30 @@ Mesh Merge::mergeToMesh(Mesh& mesh_1, Mesh& mesh_2) {
 
     uint32_t pointOffset = (uint32_t)mesh_1.points.size();
 
-    std::vector<Point> points = mesh_1.points;
-    points.insert(points.end(), mesh_2.points.begin(), mesh_2.points.end());
-    std::vector<Face> faces;
+    /* add points */
+    for (auto& point: mesh_1.points) {
+        builder.addPoint(point.position);
+    }
+    for (auto& point: mesh_2.points) {
+        builder.addPoint(point.position);
+    }
 
+    std::vector<uint32_t> facePointIds;
     for (auto& prim : mesh_1.primitives) {
-        Face face;
+        facePointIds.clear();
         for (auto& vertIndex : prim.vertexIds) {
-            face.pointIds.push_back(mesh_1.vertices[vertIndex].pointId);
+            facePointIds.push_back(mesh_1.vertices[vertIndex].pointId);
         }
-        faces.push_back(face);
+        builder.addFace(facePointIds);
     }
 
     for (auto& prim : mesh_2.primitives) {
-        Face face;
+        facePointIds.clear();
         for (auto& vertIndex : prim.vertexIds) {
-            face.pointIds.push_back(mesh_2.vertices[vertIndex].pointId + pointOffset);
+            facePointIds.push_back(mesh_2.vertices[vertIndex].pointId + pointOffset);
         }
-        faces.push_back(face);
+        builder.addFace(facePointIds);
     }
-
-    builder.points.insert(builder.points.end(), points.begin(), points.end());
-    builder.faces.insert(builder.faces.end(), faces.begin(), faces.end());
 
     return Mesh{ builder };
 
