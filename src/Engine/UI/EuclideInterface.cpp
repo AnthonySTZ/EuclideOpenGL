@@ -265,15 +265,25 @@ void EuclideInterface::createGeometryTable(){
 
 		if (ImGui::BeginTable("GeoTable", 1, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
 			ImGui::TableSetupColumn("Id");
-			
+
 			int maxHeight = ImGui::GetContentRegionAvail().y;
 			int textHeight = ImGui::GetTextLineHeightWithSpacing();
 			int maxRows = (maxHeight / textHeight ) + 1;
 			
 			Mesh* mesh = renderer->getModel()->getMesh();
-			int numPoints = std::min(maxRows, (int)mesh->points.size());
+			int nPoints = (int)mesh->points.size();
+			int numPoints = std::min(maxRows, nPoints);
 			
-			for (int i=0; i<numPoints; i++) {
+			if (ImGui::IsWindowHovered()) {
+				float scrollDelta = ImGui::GetIO().MouseWheel;
+				geometryTableScroll -= scrollDelta;
+				geometryTableScroll = std::clamp(geometryTableScroll, 0.0f, (float)nPoints - maxRows + 1);
+			}
+
+			int firstIndex = (int)geometryTableScroll;
+			int maxIndex = std::min(numPoints + firstIndex, nPoints);
+
+			for (int i=firstIndex; i<maxIndex; i++) {
 				
 				auto& point = mesh->points[i];
 				

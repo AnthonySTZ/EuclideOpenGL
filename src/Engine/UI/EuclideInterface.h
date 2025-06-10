@@ -52,6 +52,8 @@ private:
 	int fpsShow = 0;
 	ImFont* myFont;
 
+	float geometryTableScroll = 0.0f;
+
 	void createDockSpace();
 	void calcFps();
 
