@@ -243,7 +243,7 @@ void EuclideInterface::createNodeGraph()
 
 	}
 
-	if (ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
+	if (!ImGui::IsPopupOpen("node_menu") && ImGui::IsKeyPressed(ImGuiKey_R)) { // Render the selected Node
 
 		sceneGraph.setSelectedNodeRender();
 		updateRenderNode();
