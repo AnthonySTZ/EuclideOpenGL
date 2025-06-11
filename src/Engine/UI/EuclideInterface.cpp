@@ -263,29 +263,55 @@ void EuclideInterface::createGeometryTable(){
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	if (ImGui::BeginChild("TableChild", ImVec2(0, 0), true, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse)) {
 
-		if (ImGui::BeginTable("GeoTable", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
+		int maxHeight = ImGui::GetContentRegionAvail().y;
+		int textHeight = ImGui::GetTextLineHeightWithSpacing();
+		int maxRows = (maxHeight / textHeight ) + 1;
+		
+		Mesh* mesh = renderer->getModel()->getMesh();
+		int nPoints = (int)mesh->points.size();
+		int numPoints = std::min(maxRows, nPoints);
+		
+		if (ImGui::IsWindowHovered()) {
+			float scrollDelta = ImGui::GetIO().MouseWheel;
+			geometryTableScroll -= scrollDelta;
+			geometryTableScroll = std::clamp(geometryTableScroll, 0.0f, std::max(0.0f, (float)nPoints - maxRows + 1));
+		}
+
+		int firstIndex = (int)geometryTableScroll;
+		int maxIndex = std::min(numPoints + firstIndex, nPoints);
+
+		/* GET ALL ATTRIBS NAME */
+		std::map<std::string, uint32_t> attribs;
+		for (int i=firstIndex; i<maxIndex; i++) {
+			for (auto& [attrName, attr]: mesh->points[i].attribs){
+				if (attribs.find(attrName) != attribs.end()) continue;
+
+				attribs[attrName] = attr->getSize();
+			}
+		}
+
+		uint32_t columns = 4;
+		for (const auto& [_, size] : attribs) {
+			columns += size;
+		}
+
+		if (ImGui::BeginTable("GeoTable", columns, ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg)){
 			ImGui::TableSetupColumn("Id");
 			ImGui::TableSetupColumn("Pos[0]");
 			ImGui::TableSetupColumn("Pos[1]");
 			ImGui::TableSetupColumn("Pos[2]");
-			ImGui::TableHeadersRow();
 
-			int maxHeight = ImGui::GetContentRegionAvail().y;
-			int textHeight = ImGui::GetTextLineHeightWithSpacing();
-			int maxRows = (maxHeight / textHeight ) + 1;
-			
-			Mesh* mesh = renderer->getModel()->getMesh();
-			int nPoints = (int)mesh->points.size();
-			int numPoints = std::min(maxRows, nPoints);
-			
-			if (ImGui::IsWindowHovered()) {
-				float scrollDelta = ImGui::GetIO().MouseWheel;
-				geometryTableScroll -= scrollDelta;
-				geometryTableScroll = std::clamp(geometryTableScroll, 0.0f, std::max(0.0f, (float)nPoints - maxRows + 1));
+			for (const auto& [attr, size] : attribs) {
+				if (size == 1) {
+					ImGui::TableSetupColumn(attr.c_str());
+					continue;
+				}
+				for (int i = 0; i < size; i++){
+					ImGui::TableSetupColumn((attr + "[" + std::to_string(i) + "]").c_str());
+				}
 			}
 
-			int firstIndex = (int)geometryTableScroll;
-			int maxIndex = std::min(numPoints + firstIndex, nPoints);
+			ImGui::TableHeadersRow();			
 
 			for (int i=firstIndex; i<maxIndex; i++) {
 				

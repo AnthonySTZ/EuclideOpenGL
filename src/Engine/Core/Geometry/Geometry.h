@@ -15,17 +15,19 @@
 struct Attrib {
 	virtual ~Attrib() = default;
 	virtual std::unique_ptr<Attrib> clone() const = 0;
-	uint32_t size = 1;
+	virtual uint32_t getSize() const { return 1; }
 };
 
 struct IntAttrib : public Attrib {
-	uint32_t size = 1;
 	int value = 0;
 
 	IntAttrib(const int& v) : value(v) {}
 	IntAttrib() = default;
 
 	int getValue() { return value; }
+	uint32_t getSize() const override {
+		return 1;
+	}
 
 	std::unique_ptr<Attrib> clone() const override {
         return std::make_unique<IntAttrib>(*this);
@@ -34,12 +36,14 @@ struct IntAttrib : public Attrib {
 
 struct FloatAttrib : public Attrib {
 	float value = 0.0f;
-	uint32_t size = 1;
 
 	FloatAttrib(const float& v) : value(v) {}
 	FloatAttrib() = default;
 
 	float getValue() { return value; }
+	uint32_t getSize() const override {
+		return 1;
+	}
 
 	std::unique_ptr<Attrib> clone() const override {
         return std::make_unique<FloatAttrib>(*this);
@@ -48,12 +52,14 @@ struct FloatAttrib : public Attrib {
 
 struct Float3Attrib : public Attrib {
 	glm::vec3 value{ 0.0f };
-	uint32_t size = 3;
 
 	Float3Attrib(const glm::vec3& v) : value(v) {}
 	Float3Attrib() = default;
 
 	glm::vec3 getValue() { return value; }
+	uint32_t getSize() const override {
+		return 3;
+	}
 
 	std::unique_ptr<Attrib> clone() const override {
         return std::make_unique<Float3Attrib>(*this);
