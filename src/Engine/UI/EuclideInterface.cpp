@@ -301,6 +301,7 @@ void EuclideInterface::createGeometryTable(){
 			ImGui::TableSetupColumn("Pos[1]");
 			ImGui::TableSetupColumn("Pos[2]");
 
+			/* ADD ATTRIBS COLUMNS */
 			for (const auto& [attr, size] : attribs) {
 				if (size == 1) {
 					ImGui::TableSetupColumn(attr.c_str());
@@ -316,19 +317,33 @@ void EuclideInterface::createGeometryTable(){
 			for (int i=firstIndex; i<maxIndex; i++) {
 				
 				auto& point = mesh->points[i];
+				int column = 0;
 				
 				ImGui::TableNextRow(ImGuiTableRowFlags_None);
-				ImGui::TableSetColumnIndex(0);
+				ImGui::TableSetColumnIndex(column);
 				ImGui::Text(std::to_string(point.id).c_str());
+				column++;
 
-				ImGui::TableSetColumnIndex(1);
+				ImGui::TableSetColumnIndex(column);
 				ImGui::Text(std::to_string(point.position.x).c_str());
+				column++;
 
-				ImGui::TableSetColumnIndex(2);
+				ImGui::TableSetColumnIndex(column);
 				ImGui::Text(std::to_string(point.position.y).c_str());
+				column++;
 
-				ImGui::TableSetColumnIndex(3);
+				ImGui::TableSetColumnIndex(column);
 				ImGui::Text(std::to_string(point.position.z).c_str());
+				column++;
+
+
+				for (const auto& [attr, size] : attribs) {
+					for (int i = 0; i < size; i++){
+						ImGui::TableSetColumnIndex(column);
+						ImGui::Text(std::to_string(point.attribs[attr]->getValue(i)).c_str());
+						column++;
+					}
+				}
 
 			}
 			

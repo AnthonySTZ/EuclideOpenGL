@@ -186,8 +186,8 @@ void Mesh::updateRenderVertices()
 RenderVertex Mesh::pointToRenderVertex(Point& point, Float3Attrib& defaultColor, Float3Attrib& defaultNormal){
     RenderVertex vertex;
     vertex.position = point.position;
-    vertex.color = point.getAttrib<Float3Attrib>("Color", &defaultColor)->getValue();
-    vertex.normal = point.getAttrib<Float3Attrib>("Normal", &defaultNormal)->getValue();
+    vertex.color = point.getAttrib<Float3Attrib>("Color", &defaultColor)->getVector();
+    vertex.normal = point.getAttrib<Float3Attrib>("Normal", &defaultNormal)->getVector();
 
     return vertex;
 }

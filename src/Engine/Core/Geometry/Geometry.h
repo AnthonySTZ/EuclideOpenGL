@@ -16,6 +16,7 @@ struct Attrib {
 	virtual ~Attrib() = default;
 	virtual std::unique_ptr<Attrib> clone() const = 0;
 	virtual uint32_t getSize() const { return 1; }
+	virtual float getValue(int index = 0) const { return 0; }
 };
 
 struct IntAttrib : public Attrib {
@@ -24,7 +25,7 @@ struct IntAttrib : public Attrib {
 	IntAttrib(const int& v) : value(v) {}
 	IntAttrib() = default;
 
-	int getValue() { return value; }
+	float getValue(int index = 0) const override { return value; }
 	uint32_t getSize() const override {
 		return 1;
 	}
@@ -40,7 +41,7 @@ struct FloatAttrib : public Attrib {
 	FloatAttrib(const float& v) : value(v) {}
 	FloatAttrib() = default;
 
-	float getValue() { return value; }
+	float getValue(int index = 0) const override { return value; }
 	uint32_t getSize() const override {
 		return 1;
 	}
@@ -56,7 +57,8 @@ struct Float3Attrib : public Attrib {
 	Float3Attrib(const glm::vec3& v) : value(v) {}
 	Float3Attrib() = default;
 
-	glm::vec3 getValue() { return value; }
+	float getValue(int index = 0) const override { return value[index]; }
+	glm::vec3 getVector() const { return value; }
 	uint32_t getSize() const override {
 		return 3;
 	}
