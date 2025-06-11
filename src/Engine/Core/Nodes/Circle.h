@@ -12,7 +12,7 @@ public:
 		inputsNb = 0;
 		outputsNb = 1;
 
-		parameters["Divisions"] = std::make_unique<IntField>("Divisions", 3, 3);
+		parameters["Divisions"] = std::make_unique<IntField>("Divisions", 16, 3);
 		parameters["Radius"] = std::make_unique<FloatField>("Radius", 1.0f, 0.0f);
 
 		paramOrder.push_back("Divisions");
