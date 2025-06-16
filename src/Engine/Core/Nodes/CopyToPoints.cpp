@@ -48,18 +48,17 @@ Mesh CopyToPoints::copyToPoints(Mesh& mesh_1, Mesh& mesh_2) {
 
         for (auto& point : points) {
             point.position += mesh_2.points[i].position;
+            builder.addPoint(point.position);
         }
 
+        std::vector<uint32_t> facePointIds;
         for (auto& prim : mesh_1.primitives) {
-            Face face;
+            facePointIds.clear();
             for (auto& vertIndex : prim.vertexIds) {
-                face.pointIds.push_back(mesh_1.vertices[vertIndex].pointId + pointOffset * (uint32_t)i);
+                facePointIds.push_back(mesh_1.vertices[vertIndex].pointId + pointOffset * (uint32_t)i);
             }
-            faces.push_back(face);
+            builder.addFace(facePointIds);
         }
-
-        builder.points.insert(builder.points.end(), points.begin(), points.end());
-        builder.faces.insert(builder.faces.end(), faces.begin(), faces.end());
 
     }
     
