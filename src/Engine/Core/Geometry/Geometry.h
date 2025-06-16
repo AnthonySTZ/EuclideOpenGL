@@ -180,20 +180,37 @@ public:
 
 	Mesh& operator=(const Mesh& other) {
     if (this != &other) {
-        points = other.points;
-        vertices = other.vertices;
-        edges = other.edges;
-        primitives = other.primitives;
+        points = std::move(other.points);
+        vertices = std::move(other.vertices);
+        edges = std::move(other.edges);
+        primitives = std::move(other.primitives);
 
         pointSize = other.pointSize;
         primSize = other.primSize;
 
-        renderPoints = other.renderPoints;
-        renderVertices = other.renderVertices;
-        wireframeIndices = other.wireframeIndices;
+        renderPoints = std::move(other.renderPoints);
+        renderVertices = std::move(other.renderVertices);
+        wireframeIndices = std::move(other.wireframeIndices);
     }
     return *this;
-}
+	}
+
+	Mesh& operator=(Mesh&& other) noexcept {
+        if (this != &other) {
+            points = std::move(other.points);
+            vertices = std::move(other.vertices);
+            edges = std::move(other.edges);
+            primitives = std::move(other.primitives);
+
+            pointSize = other.pointSize;
+            primSize = other.primSize;
+
+            renderPoints = std::move(other.renderPoints);
+            renderVertices = std::move(other.renderVertices);
+            wireframeIndices = std::move(other.wireframeIndices);
+        }
+        return *this;
+    }
 
 	void updateMesh(const Mesh::Builder& builder);
 	void updateRenderVertices();
