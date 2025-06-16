@@ -2,18 +2,21 @@
 
 #include "../Utils.h"
 
-Mesh Merge::processOutput(uint32_t index, bool *updateDirty) {
+Mesh& Merge::processOutput(uint32_t index, bool *updateDirty) {
 
     auto it_0 = inputs.find(0);
     auto it_1 = inputs.find(1);
     if (it_0 == inputs.end() && it_1 == inputs.end()) {
-        return Mesh();
+        cachedMesh = Mesh();
+        return cachedMesh;
     }
     if (it_0 == inputs.end()) {
-        return it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex());
+        cachedMesh =  it_1->second->getInputNode()->processOutput(it_1->second->getInputIndex());
+        return cachedMesh;
     }
     if (it_1 == inputs.end()) {
-        return it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
+        cachedMesh =  it_0->second->getInputNode()->processOutput(it_0->second->getInputIndex());
+        return cachedMesh;
     }
 
     bool isInput0Dirty = false;

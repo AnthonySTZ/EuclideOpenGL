@@ -2,14 +2,15 @@
 
 #include "../Utils.h"
 
-Mesh CopyToPoints::processOutput(uint32_t index, bool *updateDirty) {
+Mesh& CopyToPoints::processOutput(uint32_t index, bool *updateDirty) {
 
     Timer timer{ nodeName.c_str() };
 
     auto it_0 = inputs.find(0);
     auto it_1 = inputs.find(1);
     if (it_0 == inputs.end() || it_1 == inputs.end()) {
-        return Mesh();
+        cachedMesh = Mesh();
+        return cachedMesh;
     }
 
     bool isInput0Dirty = false;

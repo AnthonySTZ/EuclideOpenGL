@@ -498,8 +498,13 @@ void EuclideInterface::updateRenderNode() {
 
 		std::cout << "\n"; // Add empty line to separate timer 
 		
-		Mesh mesh = renderNode->getNode()->processOutput(0);
+		Timer timer{"Process Node"};
+		Mesh& mesh = renderNode->getNode()->processOutput(0);
+		timer.Stop();
+		
+		Timer timerUpdate{"Update Node"};
 		renderer->updateMesh(mesh);	
+		timerUpdate.Stop();
 
 	}
 	else {

@@ -4,7 +4,7 @@
 
 #include <glm/gtc/constants.hpp>
 
-Mesh Circle::processOutput(uint32_t index, bool *updateDirty)
+Mesh& Circle::processOutput(uint32_t index, bool *updateDirty)
 {
 	Timer timer{ nodeName.c_str() };
 

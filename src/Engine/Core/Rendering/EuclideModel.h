@@ -8,8 +8,10 @@
 class EuclideModel {
 
 public:
-	EuclideModel(Mesh& defaultMesh);
-	EuclideModel() = default;
+	EuclideModel(Mesh defaultMesh);
+	EuclideModel() {
+		mesh = &defaultMesh;
+	};
 
 	void drawFaces() const;
 	void drawWireframe() const;
@@ -18,14 +20,14 @@ public:
 	void initBuffers();
 
 	void update();
-	void updateMesh(Mesh &newMesh) { 
-		mesh = std::move(newMesh); 
+	void updateMesh(Mesh& newMesh) { 
+		mesh = &newMesh;
 		update();
 	}
-	Mesh* getMesh() { return &mesh; };
+	Mesh* getMesh() { return mesh; };
 
-	size_t pointCount() const { return mesh.pointSize; };
-	size_t primitiveCount() const { return mesh.primSize; };
+	size_t pointCount() const { return mesh->pointSize; };
+	size_t primitiveCount() const { return mesh->primSize; };
 
 
 private:
@@ -39,5 +41,6 @@ private:
 	GLuint faceIndicesBuffer = 0;
 	GLuint wireframeIndicesBuffer = 0;
 
-	Mesh mesh;
+	Mesh defaultMesh;
+	Mesh* mesh;
 };

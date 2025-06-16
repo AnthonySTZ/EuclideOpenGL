@@ -22,7 +22,7 @@ public:
 		paramOrder.push_back("torusRadius");
 	}
 
-	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
+	Mesh& processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createTorus(int nRings, int ringSubd, float innerRadius, float outerRadius);
 private: 
 	Mesh cachedMesh;

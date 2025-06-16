@@ -6,9 +6,9 @@
 #include "Subdivide.h"
 
 
-Mesh QuadSphere::processOutput(uint32_t index, bool *updateDirty)
+Mesh& QuadSphere::processOutput(uint32_t index, bool *updateDirty)
 {
-	
+	std::cout << cachedMesh.points.size() << "\n";
 	if (!isDirty()){
 		if (updateDirty != nullptr) *updateDirty = false;
 		return cachedMesh;

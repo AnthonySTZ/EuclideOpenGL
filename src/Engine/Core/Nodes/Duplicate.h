@@ -23,7 +23,7 @@ public:
 		paramOrder.push_back("Rotate");
 	};
 
-	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
+	Mesh& processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 private: 
 	Mesh cachedMesh;
 };

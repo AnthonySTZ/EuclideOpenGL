@@ -2,7 +2,7 @@
 
 #include "../Utils.h"
 
-Mesh Cube::processOutput(uint32_t index, bool *updateDirty)
+Mesh& Cube::processOutput(uint32_t index, bool *updateDirty)
 {
 	
 	if (!isDirty()){

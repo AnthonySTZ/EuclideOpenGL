@@ -4,7 +4,7 @@
 
 #include <glm/gtc/constants.hpp>
 
-Mesh Torus::processOutput(uint32_t index, bool *updateDirty)
+Mesh& Torus::processOutput(uint32_t index, bool *updateDirty)
 {
 
     if (!isDirty()){

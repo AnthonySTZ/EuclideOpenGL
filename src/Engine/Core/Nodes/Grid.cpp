@@ -2,7 +2,7 @@
 
 #include "../Utils.h"
 
-Mesh Grid::processOutput(uint32_t index, bool *updateDirty)
+Mesh& Grid::processOutput(uint32_t index, bool *updateDirty)
 {	
 	
 	if (!isDirty()){

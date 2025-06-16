@@ -10,10 +10,13 @@ glm::vec3 vec3Pow(glm::vec3 vec, float power){
     return glm::vec3(glm::pow(vec.x, power), glm::pow(vec.y, power), glm::pow(vec.z, power));    
 }
 
-Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
+Mesh& Duplicate::processOutput(uint32_t index, bool *updateDirty)
 {
     auto it = inputs.find(0);
-    if (it == inputs.end()) return Mesh();
+    if (it == inputs.end()){
+        cachedMesh = Mesh();
+        return cachedMesh;
+    }
 
     bool isInputDirty = false;
     Mesh inputMesh = it->second->getInputNode()->processOutput(it->second->getInputIndex(), &isInputDirty);
@@ -28,7 +31,10 @@ Mesh Duplicate::processOutput(uint32_t index, bool *updateDirty)
     glm::vec3 scale = getParam<Float3Field>("Scale")->toVec3();
     glm::vec3 translation = getParam<Float3Field>("Translate")->toVec3();
 
-    if (nCopies < 1) return Mesh();
+    if (nCopies < 1){
+        cachedMesh = Mesh();
+        return cachedMesh;
+    }
 
     Timer timer{ nodeName.c_str() };
 

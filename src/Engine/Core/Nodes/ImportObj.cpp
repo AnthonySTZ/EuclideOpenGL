@@ -6,7 +6,7 @@
 
 
 
-Mesh ImportObj::processOutput(uint32_t index, bool *updateDirty)
+Mesh& ImportObj::processOutput(uint32_t index, bool *updateDirty)
 {
 
     if (!isDirty()){

@@ -62,6 +62,7 @@ private:
 	int viewportWidth, viewportHeight;
 
 	EuclideModel model;
+	Mesh gridMesh;
 	EuclideModel grid;
 	EuclideCamera camera;
 

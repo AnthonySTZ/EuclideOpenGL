@@ -26,7 +26,7 @@ public:
 		paramOrder.push_back("Translate");
 	};
 
-	Mesh processOutput(uint32_t index, bool *updateDirty = nullptr) override;
+	Mesh& processOutput(uint32_t index, bool *updateDirty = nullptr) override;
 	static Mesh createGrid(int rows, int cols, float sizeX, float sizeY, glm::vec3 translate = glm::vec3{0.0});
 private: 
 	Mesh cachedMesh;

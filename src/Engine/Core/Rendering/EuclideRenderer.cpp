@@ -48,7 +48,7 @@ void EuclideRenderer::createGrid() {
 	float sizeX = 10.0f;
 	float sizeZ = 10.0f;
 
-	Mesh gridMesh = Grid::createGrid(rows, cols, sizeX, sizeZ);
+	gridMesh = Grid::createGrid(rows, cols, sizeX, sizeZ);
 	for (auto& point : gridMesh.points) {
 		point.attribs["Color"] = std::make_unique<Float3Attrib>(gridColor);
 	}
@@ -230,7 +230,7 @@ void EuclideRenderer::bindUniforms(unsigned int shaderProgram) {
 }
 
 void EuclideRenderer::drawModel() {
-	
+
 	if (faceShown) {
 		glUseProgram(facesShaderProgram);
 		bindUniforms(facesShaderProgram);

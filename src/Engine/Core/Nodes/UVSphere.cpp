@@ -4,7 +4,7 @@
 
 #include <glm/gtc/constants.hpp>
 
-Mesh UVSphere::processOutput(uint32_t index, bool *updateDirty)
+Mesh& UVSphere::processOutput(uint32_t index, bool *updateDirty)
 {
 
     if (!isDirty()){
