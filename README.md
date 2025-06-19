@@ -33,6 +33,7 @@ Current working nodes: (I will add more over time)<br/>
     - **SmoothNormals**<br/>
     - **HardenNormals**<br/>
     - **BoundingBox**<br/>
+    - **FanTriangulate**<br/>
 
 - **Copying:**<br/>
     - **CopyToPoints**<br/>
