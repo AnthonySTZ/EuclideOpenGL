@@ -30,6 +30,32 @@ Mesh& FanTriangulate::processOutput(uint32_t index, bool *updateDirty)
 Mesh FanTriangulate::fanTriangulate(Mesh& mesh)
 {
 
-    return Mesh();
+    Mesh::Builder builder;
+
+    builder.points.reserve(mesh.points.size());
+    for (auto& point: mesh.points){
+        builder.addPoint(point.position);
+    }
+
+    uint32_t u, v, w;
+    for (auto& prim : mesh.primitives) {
+
+        size_t numVertex = prim.vertexIds.size();
+
+        if (numVertex < 3)
+            continue;
+
+        for (size_t vertexIndex = 1; vertexIndex + 1 < numVertex; vertexIndex++) {
+
+            u = mesh.vertices[prim.vertexIds[0]].pointId;
+            v = mesh.vertices[prim.vertexIds[vertexIndex]].pointId;
+            w = mesh.vertices[prim.vertexIds[vertexIndex + 1]].pointId;
+
+            builder.addFace({u, v, w});
+
+        }
+    }
+
+    return Mesh{builder};
 
 }

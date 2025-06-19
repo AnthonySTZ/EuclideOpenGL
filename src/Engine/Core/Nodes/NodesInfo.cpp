@@ -18,6 +18,7 @@
 #include "CopyToPoints.h"
 #include "BoundingBox.h"
 #include "VisualizeNormals.h"
+#include "FanTriangulate.h"
 #include "Null.h"
 
 
@@ -46,7 +47,8 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
             {"Merge", []() { return std::make_shared<Merge>(); }},
             {"SmoothNormals", []() { return std::make_shared<SmoothNormals>(); }},
             {"HardenNormals", []() { return std::make_shared<HardenNormals>(); }},
-            {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }}
+            {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }},
+            {"FanTriangulate", []() { return std::make_shared<FanTriangulate>(); }}
         }
     },
     {"Copying",
