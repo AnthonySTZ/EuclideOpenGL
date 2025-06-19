@@ -19,6 +19,7 @@
 #include "BoundingBox.h"
 #include "VisualizeNormals.h"
 #include "FanTriangulate.h"
+#include "PointGenerate.h"
 #include "Null.h"
 
 
@@ -49,6 +50,11 @@ static const std::map<const char*, std::vector<NodeMenuItem>> nodeMenuItems = {
             {"HardenNormals", []() { return std::make_shared<HardenNormals>(); }},
             {"BoundingBox", []() { return std::make_shared<BoundingBox>(); }},
             {"FanTriangulate", []() { return std::make_shared<FanTriangulate>(); }}
+        }
+    },
+    {"Point",
+        {
+            {"PointGenerate", []() { return std::make_shared<PointGenerate>(); }},
         }
     },
     {"Copying",
